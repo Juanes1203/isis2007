@@ -3,437 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recursos y Materiales - Diseño de Productos e Innovación en TI</title>
+    <title>Recursos y materiales · ISIS2007 — Universidad de los Andes</title>
+    <meta name="description" content="Presentaciones, guías y lecturas del curso ISIS2007 Diseño de Productos e Innovación en TI, con búsqueda y descarga directa.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/theme.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* ------------------------------------------------ buscador y filtros */
+        .toolbar {
+            display: grid;
+            grid-template-columns: minmax(240px, 360px) 1fr;
+            gap: 20px;
+            align-items: center;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
-        }
+        .search-container { position: relative; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: white;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        .search-container {
-            margin-bottom: 30px;
-            text-align: center;
+        .search-container svg {
+            position: absolute;
+            left: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-2);
+            pointer-events: none;
         }
 
         .search-box {
             width: 100%;
-            max-width: 400px;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 25px;
-            font-size: 1rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            padding: 11px 14px 11px 38px;
+            font-family: inherit;
+            font-size: 14.5px;
+            color: var(--ink);
+            background: var(--surface);
+            border: 1px solid var(--line-strong);
+            border-radius: var(--radius-sm);
+            transition: border-color .18s ease, box-shadow .18s ease;
         }
-
         .search-box:focus {
             outline: none;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-            transform: translateY(-2px);
+            border-color: var(--uni-black);
+            box-shadow: 0 0 0 3px rgba(255, 221, 0, .35);
         }
+        .search-box::placeholder { color: var(--muted-2); }
 
-        .categories {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
+        .categories { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
 
         .category-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 20px;
-            background: rgba(255,255,255,0.2);
-            color: white;
+            padding: 8px 15px;
+            font-size: 13px;
+            font-weight: 540;
+            color: var(--ink-2);
+            background: var(--surface);
+            border: 1px solid var(--line-strong);
+            border-radius: 999px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            transition: all .18s ease;
+        }
+        .category-btn:hover { border-color: var(--ink); background: var(--surface-2); }
+        .category-btn.active {
+            background: var(--uni-black);
+            border-color: var(--uni-black);
+            color: #fff;
         }
 
-        .category-btn:hover, .category-btn.active {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
+        .resultline {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin: 28px 0 18px;
+            font-size: 13px;
+            color: var(--muted);
         }
+        .stat-number { font-size: 15px; font-weight: 700; color: var(--ink); }
 
+        /* -------------------------------------------------- tarjetas recurso */
         .resources-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 18px;
         }
 
         .resource-card {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 22px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
         }
-
-        .resource-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-        }
-
         .resource-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-color: var(--ink);
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
+        }
+
+        .resource-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
         }
 
         .resource-number {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.7rem;
+            width: 28px; height: 28px;
+            display: grid; place-items: center;
+            border-radius: 5px;
+            background: var(--surface-3);
+            border: 1px solid var(--line);
+            font-size: 12px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            color: var(--ink);
+        }
+        .resource-card:hover .resource-number {
+            background: var(--uni-yellow);
+            border-color: var(--uni-yellow);
         }
 
         .resource-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #333;
-            line-height: 1.4;
+            font-size: 1rem;
+            font-weight: 620;
+            letter-spacing: -.015em;
+            margin-bottom: 8px;
+            line-height: 1.35;
         }
 
         .resource-description {
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1.6;
+            font-size: 13.5px;
+            color: var(--muted);
+            margin-bottom: 18px;
+            flex: 1;
         }
 
         .resource-meta {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .resource-type {
-            background: #f0f0f0;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            color: #666;
-        }
-
-        .resource-size {
-            color: #999;
-            font-size: 0.9rem;
-        }
-
-        .download-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             gap: 8px;
+            padding-top: 14px;
+            border-top: 1px solid var(--line);
+            margin-bottom: 14px;
         }
-
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        .resource-type {
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: var(--uni-black);
+            color: #fff;
         }
+        .resource-size { font-size: 12.5px; color: var(--muted); }
+        .resource-tags { margin-left: auto; font-size: 11.5px; color: var(--muted-2); }
 
-        .download-btn svg {
-            width: 16px;
-            height: 16px;
-        }
+        .resource-actions { display: flex; gap: 9px; }
+        .resource-actions .btn { flex: 1; padding: 9px 12px; font-size: 13px; }
+        .resource-actions svg { width: 15px; height: 15px; flex: 0 0 auto; }
 
-        .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: #f0f0f0;
-            border-radius: 2px;
-            margin-top: 15px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        .stats {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            padding: 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            color: white;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-item {
+        .empty {
+            grid-column: 1 / -1;
             text-align: center;
+            padding: 56px 20px;
+            border: 1px dashed var(--line-strong);
+            border-radius: var(--radius);
+            color: var(--muted);
         }
+        .empty h3 { font-size: 1.05rem; margin-bottom: 6px; }
 
-        .stat-number {
-            font-size: 1.5rem;
-            font-weight: bold;
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
+        /* ------------------------------------------------------ scroll arriba */
         .floating-action {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            right: 24px;
+            bottom: 24px;
+            width: 44px; height: 44px;
+            display: grid; place-items: center;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: var(--uni-black);
+            color: #fff;
+            font-size: 17px;
             cursor: pointer;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            color: white;
-            font-size: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .25s ease, transform .2s ease;
+            box-shadow: var(--shadow-lg);
+            z-index: 900;
         }
+        .floating-action.is-visible { opacity: 1; pointer-events: auto; }
+        .floating-action:hover { transform: translateY(-2px); }
 
-        .floating-action:hover {
-            transform: scale(1.1);
-        }
-
-        @media (max-width: 768px) {
-            .resources-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .categories {
-                gap: 10px;
-            }
-            
-            .category-btn {
-                padding: 8px 16px;
-                font-size: 0.9rem;
-            }
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: white;
-        }
-
-        .spinner {
-            border: 3px solid rgba(255,255,255,0.3);
-            border-top: 3px solid white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @media (max-width: 820px) {
+            .toolbar { grid-template-columns: 1fr; }
+            .categories { justify-content: flex-start; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Barra de navegación -->
-        <nav style="
-            background: rgba(255,255,255,0.95);
-            padding: 15px 25px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-        ">
-            <div style="
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                flex-wrap: wrap;
-                gap: 15px;
-            ">
-                <div style="font-weight: 600; color: #2c3e50; font-size: 1.1rem;">
-                    🚀 ISIS2007
+    <div class="page">
+
+        <section class="pagehead">
+            <div class="wrap">
+                <span class="eyebrow">ISIS2007 · Semestre 2026-II</span>
+                <h1>Recursos y materiales</h1>
+                <p>
+                    Presentaciones de clase, guías y lecturas de apoyo. Usa <strong>Ver</strong> para
+                    abrir el PDF en el navegador o <strong>Descargar</strong> para guardarlo.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="wrap">
+
+                <div class="toolbar">
+                    <div class="search-container">
+                        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                            <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.6"/>
+                            <path d="M11 11l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                        </svg>
+                        <input type="text" class="search-box" id="searchInput"
+                               placeholder="Buscar por título, tema o etiqueta…" autocomplete="off">
+                    </div>
+
+                    <div class="categories">
+                        <button class="category-btn active" data-category="all">Todos</button>
+                        <button class="category-btn" data-category="business">Modelo de negocio</button>
+                        <button class="category-btn" data-category="pitch">Pitch</button>
+                        <button class="category-btn" data-category="design">UI/UX y landing</button>
+                        <button class="category-btn" data-category="monetization">Monetización</button>
+                        <button class="category-btn" data-category="funding">Financiamiento</button>
+                    </div>
                 </div>
-                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                    <a href="index.html" style="
-                        color: #667eea;
-                        text-decoration: none;
-                        padding: 8px 15px;
-                        border-radius: 8px;
-                        transition: all 0.3s ease;
-                        font-weight: 500;
-                    " onmouseover="this.style.background='rgba(102,126,234,0.1)'" onmouseout="this.style.background='transparent'">
-                        🏠 Inicio
-                    </a>
-                    <a href="asistencia-simple.html" style="
-                        color: #667eea;
-                        text-decoration: none;
-                        padding: 8px 15px;
-                        border-radius: 8px;
-                        transition: all 0.3s ease;
-                        font-weight: 500;
-                    " onmouseover="this.style.background='rgba(102,126,234,0.1)'" onmouseout="this.style.background='transparent'">
-                        📊 Asistencia
-                    </a>
-                    <a href="team.html" style="
-                        color: #667eea;
-                        text-decoration: none;
-                        padding: 8px 15px;
-                        border-radius: 8px;
-                        transition: all 0.3s ease;
-                        font-weight: 500;
-                    " onmouseover="this.style.background='rgba(102,126,234,0.1)'" onmouseout="this.style.background='transparent'">
-                        👥 Equipo
-                    </a>
-                    <a href="schedule.html" style="
-                        color: #667eea;
-                        text-decoration: none;
-                        padding: 8px 15px;
-                        border-radius: 8px;
-                        transition: all 0.3s ease;
-                        font-weight: 500;
-                    " onmouseover="this.style.background='rgba(102,126,234,0.1)'" onmouseout="this.style.background='transparent'">
-                        📅 Cronograma
-                    </a>
-                    <a href="ruleta-estudiantes.html" style="
-                        color: #667eea;
-                        text-decoration: none;
-                        padding: 8px 15px;
-                        border-radius: 8px;
-                        transition: all 0.3s ease;
-                        font-weight: 500;
-                    " onmouseover="this.style.background='rgba(102,126,234,0.1)'" onmouseout="this.style.background='transparent'">
-                        🎯 Ruleta
-                    </a>
-                    <span style="
-                        color: #667eea;
-                        padding: 8px 15px;
-                        border-radius: 8px;
-                        background: rgba(102,126,234,0.1);
-                        font-weight: 600;
-                    ">
-                        📚 Recursos
-                    </span>
+
+                <div class="resultline">
+                    <span class="stat-number" id="totalResources">0</span>
+                    <span id="resultLabel">recursos disponibles</span>
+                </div>
+
+                <div class="resources-grid" id="resourcesGrid"></div>
+
+                <div class="note note--info mt-32">
+                    <strong>¿Problemas para abrir un archivo?</strong> GitHub Pages tiene limitaciones al
+                    servir PDFs. Revisa la
+                    <a href="acceso-archivos.html" style="text-decoration: underline;">guía de acceso a archivos</a>
+                    o descarga el documento en lugar de visualizarlo.
                 </div>
             </div>
-        </nav>
+        </section>
 
-        <div class="header">
-            <h1>📚 Recursos y Materiales</h1>
-            <p>Diseño de Productos e Innovación en TI</p>
-        </div>
-
-        <div class="search-container">
-            <input type="text" class="search-box" placeholder="🔍 Buscar recursos..." id="searchInput">
-        </div>
-
-        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px; color: white; text-align: center; backdrop-filter: blur(10px);">
-            <p style="margin: 0; font-size: 0.9rem;">
-                💡 <strong>Nota:</strong> Usa el botón "Ver" para abrir PDFs directamente en el navegador, o "Descargar" para guardar el archivo.
-            </p>
-        </div>
-
-        <div class="categories">
-            <button class="category-btn active" data-category="all">Todos</button>
-            <button class="category-btn" data-category="pitch">Pitch Decks</button>
-            <button class="category-btn" data-category="business">Modelo de Negocio</button>
-            <button class="category-btn" data-category="design">UI/UX Design</button>
-            <button class="category-btn" data-category="funding">Financiamiento</button>
-            <button class="category-btn" data-category="monetization">Monetización</button>
-        </div>
-
-        <div class="stats">
-            <div class="stat-item">
-                <span class="stat-number" id="totalResources">0</span>
-                <span class="stat-label">Recursos</span>
-            </div>
-        </div>
-
-        <div class="resources-grid" id="resourcesGrid">
-            <!-- Los recursos se cargarán dinámicamente aquí -->
-        </div>
     </div>
 
-    <div class="floating-action" onclick="scrollToTop()">
-        ↑
-    </div>
+    <div class="floating-action" id="scrollTop" onclick="scrollToTop()" role="button"
+         tabindex="0" aria-label="Volver arriba">↑</div>
 
+    <script src="assets/site.js"></script>
     <script>
-        // Datos de los recursos
+        /* --------------------------------------------------------- datos --- */
         const resources = [
             {
                 id: 1,
                 title: "Canvas + Modelo de Negocio",
                 description: "Guía completa sobre cómo crear y desarrollar un modelo de negocio utilizando el Business Model Canvas. Incluye ejemplos prácticos y metodologías de validación.",
                 filename: "1.Canvas + business model.pdf",
-                size: "942KB",
+                size: "942 KB",
                 category: "business",
                 type: "PDF",
                 tags: ["canvas", "modelo-negocio", "estrategia"]
@@ -443,27 +276,27 @@
                 title: "Tips para Ideas",
                 description: "Consejos y técnicas para generar, evaluar y desarrollar ideas de negocio innovadoras. Metodologías de ideación y validación temprana.",
                 filename: "2.Tips for Ideas.pdf",
-                size: "110KB",
+                size: "110 KB",
                 category: "pitch",
                 type: "PDF",
                 tags: ["ideacion", "creatividad", "validacion"]
             },
             {
                 id: 3,
-                title: "Cómo Hacer Pitch de tu Empresa - Y Combinator",
+                title: "Cómo Hacer Pitch de tu Empresa — Y Combinator",
                 description: "Guía oficial de Y Combinator sobre cómo crear presentaciones efectivas para inversores. Incluye estructura, storytelling y mejores prácticas.",
                 filename: "3.How to pitch your company - Y Combinator.pdf",
-                size: "236KB",
+                size: "236 KB",
                 category: "pitch",
                 type: "PDF",
                 tags: ["pitch", "presentacion", "inversores"]
             },
             {
                 id: 4,
-                title: "Cómo Diseñar un Mejor Pitch Deck - Y Combinator",
+                title: "Cómo Diseñar un Mejor Pitch Deck — Y Combinator",
                 description: "Técnicas avanzadas para diseñar pitch decks que capten la atención de inversores. Diseño visual y narrativa persuasiva.",
                 filename: "4.How to design a better pitch deck - Y Combinator.pdf",
-                size: "3.4MB",
+                size: "3.4 MB",
                 category: "pitch",
                 type: "PDF",
                 tags: ["pitch-deck", "diseño", "presentacion"]
@@ -473,17 +306,17 @@
                 title: "Monetización",
                 description: "Estrategias y modelos de monetización para startups y productos digitales. Análisis de diferentes fuentes de ingresos y optimización.",
                 filename: "5.Monetization.pdf",
-                size: "242KB",
+                size: "242 KB",
                 category: "monetization",
                 type: "PDF",
                 tags: ["monetizacion", "ingresos", "estrategia"]
             },
             {
                 id: 6,
-                title: "VC Funding vs Bootstrapping",
+                title: "VC Funding vs. Bootstrapping",
                 description: "Comparación detallada entre financiamiento de capital de riesgo y bootstrapping. Ventajas, desventajas y casos de estudio.",
                 filename: "6.VC funding vs Bootstrapping.pdf",
-                size: "422KB",
+                size: "422 KB",
                 category: "funding",
                 type: "PDF",
                 tags: ["financiamiento", "vc", "bootstrapping"]
@@ -493,7 +326,7 @@
                 title: "Charla UI/UX v2.0",
                 description: "Presentación completa sobre principios de diseño de experiencia de usuario. Metodologías, herramientas y mejores prácticas.",
                 filename: "7.Charla UIUX v2.0.pdf",
-                size: "6.6MB",
+                size: "6.6 MB",
                 category: "design",
                 type: "PDF",
                 tags: ["ui-ux", "diseño", "experiencia-usuario"]
@@ -503,7 +336,7 @@
                 title: "Propiedad Intelectual en PMC",
                 description: "Guía sobre protección de propiedad intelectual en proyectos de mínimo producto viable. Patentes, marcas y secretos comerciales.",
                 filename: "8.Propiedad intelectual en PMC.pdf",
-                size: "1.3MB",
+                size: "1.3 MB",
                 category: "business",
                 type: "PDF",
                 tags: ["propiedad-intelectual", "patentes", "proteccion"]
@@ -511,9 +344,9 @@
             {
                 id: 9,
                 title: "Running Lean",
-                description: "Metodología Lean Startup aplicada al desarrollo de productos. Validación de hipótesis y iteración rápida.",
+                description: "Metodología Lean Startup aplicada al desarrollo de productos. Validación de hipótesis e iteración rápida.",
                 filename: "9.RunningLean.pdf",
-                size: "1.6MB",
+                size: "1.6 MB",
                 category: "business",
                 type: "PDF",
                 tags: ["lean-startup", "validacion", "iteracion"]
@@ -523,7 +356,7 @@
                 title: "Consejos para Landing Pages",
                 description: "Mejores prácticas para diseñar landing pages efectivas. Optimización de conversión y experiencia de usuario.",
                 filename: "10.Landing page advices.pdf",
-                size: "7.7MB",
+                size: "7.7 MB",
                 category: "design",
                 type: "PDF",
                 tags: ["landing-page", "conversion", "diseño"]
@@ -533,159 +366,137 @@
                 title: "Ejemplos de Landing Pages",
                 description: "Colección de ejemplos reales de landing pages exitosas. Análisis de casos de estudio y patrones de diseño.",
                 filename: "11.Landing page examples.pdf",
-                size: "10.0MB",
+                size: "10.0 MB",
                 category: "design",
                 type: "PDF",
                 tags: ["ejemplos", "landing-page", "casos-estudio"]
             }
         ];
 
-        let filteredResources = [...resources];
         let currentCategory = 'all';
 
-        // Función para renderizar recursos
-        function renderResources(resourcesToRender) {
+        const ICON_DOWNLOAD = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' +
+            '<path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>';
+        const ICON_VIEW = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' +
+            '<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>';
+
+        /* ------------------------------------------------------- render ---- */
+        function renderResources(list) {
             const grid = document.getElementById('resourcesGrid');
             grid.innerHTML = '';
 
-            if (resourcesToRender.length === 0) {
-                grid.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align: center; color: white; padding: 40px;">
-                        <h3>No se encontraron recursos</h3>
-                        <p>Intenta con otros términos de búsqueda o categorías</p>
-                    </div>
-                `;
+            if (list.length === 0) {
+                grid.innerHTML =
+                    '<div class="empty">' +
+                        '<h3>No se encontraron recursos</h3>' +
+                        '<p class="mb-0">Prueba con otros términos de búsqueda o cambia de categoría.</p>' +
+                    '</div>';
+                updateStats(list);
                 return;
             }
 
-            resourcesToRender.forEach(resource => {
-                const card = document.createElement('div');
+            list.forEach(function (r) {
+                const card = document.createElement('article');
                 card.className = 'resource-card';
-                card.innerHTML = `
-                    <div class="resource-number">${resource.id}</div>
-                    <h3 class="resource-title">${resource.title}</h3>
-                    <p class="resource-description">${resource.description}</p>
-                    <div class="resource-meta">
-                        <span class="resource-type">${resource.type}</span>
-                        <span class="resource-size">${resource.size}</span>
-                    </div>
-                    <div style="display: flex; gap: 10px;">
-                        <button class="download-btn" onclick="downloadResource('${resource.filename}')" style="flex: 1;">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-                            </svg>
-                            Descargar
-                        </button>
-                        <button class="download-btn" onclick="viewResource('${resource.filename}')" style="flex: 1; background: linear-gradient(135deg, #28a745, #20c997);">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                            </svg>
-                            Ver
-                        </button>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill"></div>
-                    </div>
-                `;
+                card.innerHTML =
+                    '<div class="resource-top">' +
+                        '<span class="resource-number">' + r.id + '</span>' +
+                    '</div>' +
+                    '<h3 class="resource-title">' + r.title + '</h3>' +
+                    '<p class="resource-description">' + r.description + '</p>' +
+                    '<div class="resource-meta">' +
+                        '<span class="resource-type">' + r.type + '</span>' +
+                        '<span class="resource-size">' + r.size + '</span>' +
+                        '<span class="resource-tags">' + r.tags.slice(0, 2).join(' · ') + '</span>' +
+                    '</div>' +
+                    '<div class="resource-actions">' +
+                        '<button class="btn btn--ghost" type="button" data-view="' + r.filename + '">' +
+                            ICON_VIEW + 'Ver' +
+                        '</button>' +
+                        '<button class="btn" type="button" data-download="' + r.filename + '">' +
+                            ICON_DOWNLOAD + 'Descargar' +
+                        '</button>' +
+                    '</div>';
                 grid.appendChild(card);
             });
 
-            updateStats(resourcesToRender);
+            updateStats(list);
         }
 
-        // Función para actualizar estadísticas
-        function updateStats(resourcesToRender) {
-            const totalResources = resourcesToRender.length;
-            document.getElementById('totalResources').textContent = totalResources;
+        function updateStats(list) {
+            document.getElementById('totalResources').textContent = list.length;
+            document.getElementById('resultLabel').textContent =
+                list.length === 1 ? 'recurso encontrado'
+                    : (currentCategory === 'all' && !document.getElementById('searchInput').value
+                        ? 'recursos disponibles' : 'recursos encontrados');
         }
 
-        // Función de búsqueda
+        /* ------------------------------------------------------ filtros ---- */
         function filterResources() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            
-            filteredResources = resources.filter(resource => {
-                const matchesSearch = resource.title.toLowerCase().includes(searchTerm) ||
-                                    resource.description.toLowerCase().includes(searchTerm) ||
-                                    resource.tags.some(tag => tag.toLowerCase().includes(searchTerm));
-                
-                const matchesCategory = currentCategory === 'all' || resource.category === currentCategory;
-                
+            const term = document.getElementById('searchInput').value.toLowerCase().trim();
+
+            const filtered = resources.filter(function (r) {
+                const matchesSearch = !term ||
+                    r.title.toLowerCase().includes(term) ||
+                    r.description.toLowerCase().includes(term) ||
+                    r.tags.some(function (t) { return t.toLowerCase().includes(term); });
+                const matchesCategory = currentCategory === 'all' || r.category === currentCategory;
                 return matchesSearch && matchesCategory;
             });
 
-            renderResources(filteredResources);
+            renderResources(filtered);
         }
 
-        // Función para filtrar por categoría
-        function filterByCategory(category) {
-            currentCategory = category;
-            
-            // Actualizar botones activos
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            filterResources();
-        }
-
-        // Función para descargar recursos
+        /* ------------------------------------------------------ acciones --- */
         function downloadResource(filename) {
             const link = document.createElement('a');
-            link.href = `Archivos_de_Curso/${filename}`;
+            link.href = 'Archivos_de_Curso/' + filename;
             link.download = filename;
+            document.body.appendChild(link);
             link.click();
+            document.body.removeChild(link);
         }
 
-        // Función para ver recursos en la página
         function viewResource(filename) {
-            // Ruta relativa sin "/" inicial (solución de GitHub Pages)
-            const pdfUrl = `Archivos_de_Curso/${filename}`;
-            
-            // Abrir PDF directamente en nueva pestaña
-            window.open(pdfUrl, '_blank');
+            window.open('Archivos_de_Curso/' + filename, '_blank', 'noopener');
         }
 
-        // Función para scroll to top
         function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Event listeners
-        document.getElementById('searchInput').addEventListener('input', filterResources);
-        
-        document.querySelectorAll('.category-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => filterByCategory(e.target.dataset.category));
-        });
-
-        // Animación de carga de progreso
-        function animateProgressBars() {
-            const progressBars = document.querySelectorAll('.progress-fill');
-            progressBars.forEach((bar, index) => {
-                setTimeout(() => {
-                    bar.style.width = Math.random() * 100 + '%';
-                }, index * 100);
-            });
-        }
-
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', () => {
+        /* --------------------------------------------------------- init ---- */
+        document.addEventListener('DOMContentLoaded', function () {
             renderResources(resources);
-            setTimeout(animateProgressBars, 500);
-        });
 
-        // Mostrar/ocultar botón flotante
-        window.addEventListener('scroll', () => {
-            const floatingAction = document.querySelector('.floating-action');
-            if (window.scrollY > 300) {
-                floatingAction.style.opacity = '1';
-            } else {
-                floatingAction.style.opacity = '0';
-            }
+            document.getElementById('searchInput').addEventListener('input', filterResources);
+
+            document.querySelectorAll('.category-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    currentCategory = btn.dataset.category;
+                    document.querySelectorAll('.category-btn').forEach(function (b) {
+                        b.classList.remove('active');
+                    });
+                    btn.classList.add('active');
+                    filterResources();
+                });
+            });
+
+            document.getElementById('resourcesGrid').addEventListener('click', function (e) {
+                const btn = e.target.closest('[data-view], [data-download]');
+                if (!btn) return;
+                if (btn.dataset.view) viewResource(btn.dataset.view);
+                else downloadResource(btn.dataset.download);
+            });
+
+            const floating = document.getElementById('scrollTop');
+            floating.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); scrollToTop(); }
+            });
+            window.addEventListener('scroll', function () {
+                floating.classList.toggle('is-visible', window.scrollY > 320);
+            }, { passive: true });
         });
     </script>
 </body>
-</html> 
+</html>

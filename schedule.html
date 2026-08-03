@@ -3,576 +3,417 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cronograma ISIS2007 - Diseño de Productos e Innovación en TI</title>
+    <title>Cronograma 2026-II · ISIS2007 — Universidad de los Andes</title>
+    <meta name="description" content="Cronograma semana a semana del curso ISIS2007 Diseño de Productos e Innovación en TI, semestre 2026-II. Fechas, temas, entregas y porcentajes.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/theme.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* Píldoras de fechas institucionales */
+        .keydates { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding-top: 80px;
-        }
-
-        /* Barra de Navegación */
-        .nav-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 15px 20px;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
+        .keydate {
+            display: inline-flex;
             align-items: center;
+            gap: 9px;
+            padding: 8px 15px 8px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 560;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .16);
+            color: #fff;
         }
-
-        .nav-brand {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #2c3e50;
-            text-decoration: none;
+        .keydate i {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: var(--uni-yellow);
+            flex: 0 0 auto;
         }
+        .keydate--recess i { background: #b9b9b9; }
+        .keydate--end i { background: #fff; }
 
-        .nav-brand:hover {
-            color: #667eea;
+        /* Tabla del cronograma */
+        table.data { min-width: 900px; }
+        table.data td.wk { white-space: nowrap; font-weight: 620; color: var(--ink); }
+        table.data td.dt {
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+            color: var(--ink-2);
+            font-weight: 540;
         }
+        table.data td.tp { font-weight: 560; color: var(--ink); }
+        table.data td.ds { color: var(--muted); font-size: 13.5px; }
+        table.data td.gr { text-align: center; white-space: nowrap; }
 
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: #7f8c8d;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            padding: 8px 12px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
-        }
-
-        .nav-link.active {
-            color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
-        }
-
-        .home-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-        }
-
-        .home-button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .header h1 {
-            color: #2c3e50;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .header h2 {
-            color: #7f8c8d;
-            font-size: 1.3rem;
-            font-weight: 400;
-        }
-
-        .semester-info {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .semester-info h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 1.4rem;
-        }
-
-        .semester-info p {
-            color: #555;
-            margin-bottom: 8px;
-        }
-
-        .evaluation-section {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .evaluation-section h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 1.4rem;
-        }
-
-        .evaluation-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .evaluation-item {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-        }
-
-        .evaluation-item h4 {
-            color: #2c3e50;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-        }
-
-        .evaluation-item .percentage {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .evaluation-item .description {
-            color: #555;
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        .schedule-table {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
-
-        .table-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .table-header h3 {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-        }
-
-        .table-container {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-        }
-
-        th, td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-
-        th {
-            background: #f8f9fa;
-            font-weight: 600;
-            color: #2c3e50;
-            position: sticky;
-            top: 0;
-        }
-
-        tr:hover {
-            background: #f8f9fa;
-            transition: background 0.3s ease;
-        }
-
-        .week-number {
-            background: #667eea;
-            color: white;
-            font-weight: bold;
-            text-align: center;
+        .wkno {
+            display: inline-grid;
+            place-items: center;
+            width: 26px; height: 26px;
+            margin-right: 9px;
             border-radius: 5px;
-            padding: 5px 10px;
-            display: inline-block;
+            background: var(--surface-3);
+            border: 1px solid var(--line);
+            font-size: 12px;
+            font-weight: 680;
+            font-variant-numeric: tabular-nums;
+            vertical-align: middle;
         }
 
-        .topic {
-            font-weight: 500;
-            color: #2c3e50;
+        /* Fila de receso */
+        tr.recess td {
+            background: var(--surface-3) !important;
+            color: var(--muted);
+            font-style: italic;
+        }
+        tr.recess td.wk { color: var(--muted); font-style: normal; }
+        tr.recess .wkno { background: var(--uni-black); border-color: var(--uni-black); color: var(--uni-yellow); font-style: normal; }
+
+        /* Estados calculados por JS */
+        tr.is-past td:not(.gr) { color: var(--muted-2); }
+        tr.is-past td.wk, tr.is-past td.tp { color: var(--muted); font-weight: 540; }
+        tr.is-past .wkno { opacity: .55; }
+
+        tr.is-next td { background: var(--uni-yellow-soft) !important; }
+        tr.is-next td.wk { position: relative; }
+        tr.is-next .wkno { background: var(--uni-yellow); border-color: var(--uni-yellow-dark); }
+        .nextflag {
+            display: block;
+            margin-top: 7px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--warn);
         }
 
-        .date {
-            color: #7f8c8d;
-            font-size: 0.9rem;
-        }
+        /* Resumen de evaluación */
+        .evalgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
 
-        .activities {
-            color: #555;
-            font-size: 0.9rem;
-        }
-
-        .percentage {
-            font-weight: bold;
-            color: #667eea;
-            text-align: center;
-        }
-
-        .evaluation-badge {
-            background: #e8f5e8;
-            color: #2d5a2d;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .footer {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.9);
+        .evalcard {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--surface);
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .footer p {
-            color: #7f8c8d;
-            margin-bottom: 10px;
-        }
-
-        .important-note {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 20px 0;
-            color: #856404;
-        }
-
-        .important-note strong {
-            color: #d63031;
-        }
-
-        .navigation {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .nav-buttons {
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            flex-direction: column;
+            gap: 8px;
         }
-
-        .nav-button {
-            background: #667eea;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.3s ease;
+        .evalcard .pct {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -.035em;
+            line-height: 1;
         }
+        .evalcard .ttl { font-size: 14px; font-weight: 580; color: var(--ink); }
+        .evalcard .wk { font-size: 12px; color: var(--muted); }
+        .evalcard--major { background: var(--uni-black); border-color: var(--uni-black); }
+        .evalcard--major .pct { color: var(--uni-yellow); }
+        .evalcard--major .ttl { color: #fff; }
+        .evalcard--major .wk { color: rgba(255, 255, 255, .55); }
 
-        .nav-button:hover {
-            background: #764ba2;
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 20px;
+            margin-top: 16px;
+            font-size: 12.5px;
+            color: var(--muted);
         }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .header h2 {
-                font-size: 1.1rem;
-            }
-
-            th, td {
-                padding: 10px 8px;
-                font-size: 0.9rem;
-            }
-
-            .table-container {
-                font-size: 0.8rem;
-            }
-
-            .evaluation-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        .legend span { display: inline-flex; align-items: center; gap: 7px; }
+        .legend i { width: 12px; height: 12px; border-radius: 3px; border: 1px solid var(--line-strong); }
+        .legend i.l-next { background: var(--uni-yellow-soft); border-color: #f0e089; }
+        .legend i.l-recess { background: var(--surface-3); }
+        .legend i.l-past { background: #fff; opacity: .6; }
     </style>
 </head>
 <body>
-    <!-- Barra de Navegación -->
-    <div class="nav-bar">
-        <a href="index.html" class="nav-brand">🚀 ISIS2007</a>
-        <div class="nav-links">
-            <a href="team.html" class="nav-link">👥 Equipo</a>
-            <a href="schedule.html" class="nav-link active">📅 Cronograma</a>
-            <a href="ruleta-estudiantes.html" class="nav-link">🎯 Ruleta</a>
-            <a href="asistencia.html" class="nav-link">📊 Asistencia</a>
-            <a href="index.html" class="home-button">🏠 Inicio</a>
-        </div>
+    <div class="page">
+
+        <!-- ======================================================== cabecera -->
+        <section class="pagehead">
+            <div class="wrap">
+                <span class="eyebrow">ISIS2007 · Sección 2 · Semestre 2026-II</span>
+                <h1>Cronograma del semestre</h1>
+                <p>
+                    Una sesión por semana, los miércoles. Las fechas están ajustadas al
+                    calendario institucional vigente para 2026-II.
+                </p>
+                <div class="keydates">
+                    <span class="keydate"><i></i>Inicio de clases · 3 de agosto</span>
+                    <span class="keydate keydate--recess"><i></i>Receso · 28 sep – 3 oct</span>
+                    <span class="keydate keydate--end"><i></i>Último día de clases · 28 de noviembre</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================== evaluación -->
+        <section class="section section--tight">
+            <div class="wrap">
+                <div class="section__head">
+                    <span class="eyebrow">Evaluación</span>
+                    <h2>Entregas calificadas</h2>
+                    <p>Cinco cortes de nota a lo largo del semestre. Las dos entregas mayores se sustentan frente a jurados.</p>
+                </div>
+                <div class="evalgrid">
+                    <div class="evalcard">
+                        <span class="pct">20%</span>
+                        <span class="ttl">Lean Canvas + Problema y Solución</span>
+                        <span class="wk">Semana 5 · 2 de septiembre</span>
+                    </div>
+                    <div class="evalcard evalcard--major">
+                        <span class="pct">30%</span>
+                        <span class="ttl">Primera entrega del proyecto + jurados</span>
+                        <span class="wk">Semana 8 · 23 de septiembre</span>
+                    </div>
+                    <div class="evalcard">
+                        <span class="pct">10%</span>
+                        <span class="ttl">Entrega de landing page</span>
+                        <span class="wk">Semana 13 · 4 de noviembre</span>
+                    </div>
+                    <div class="evalcard">
+                        <span class="pct">10%</span>
+                        <span class="ttl">Semana de innovación</span>
+                        <span class="wk">Semana 15 · 18 de noviembre</span>
+                    </div>
+                    <div class="evalcard evalcard--major">
+                        <span class="pct">30%</span>
+                        <span class="ttl">Segunda entrega del proyecto + jurados</span>
+                        <span class="wk">Semana 16 · 25 de noviembre</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================================== semana a semana -->
+        <section class="section">
+            <div class="wrap">
+                <div class="section__head">
+                    <span class="eyebrow">Semana a semana</span>
+                    <h2>Sesiones y contenidos</h2>
+                    <p>La sesión resaltada corresponde a la próxima clase según la fecha de hoy.</p>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data" id="scheduleTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 11%">Semana</th>
+                                <th style="width: 13%">Fecha</th>
+                                <th style="width: 25%">Tema</th>
+                                <th style="width: 39%">Descripción</th>
+                                <th style="width: 12%">Entregable</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-date="2026-08-05">
+                                <td class="wk"><span class="wkno">1</span>Semana 1</td>
+                                <td class="dt">Mié. 05 ago.</td>
+                                <td class="tp">Presentación del curso, canvas y modelo de negocio</td>
+                                <td class="ds">Introducción al curso, metodologías de innovación, tips para ideas de producto y conformación de grupos.</td>
+                                <td class="gr"><span class="dash">—</span></td>
+                            </tr>
+                            <tr data-date="2026-08-12">
+                                <td class="wk"><span class="wkno">2</span>Semana 2</td>
+                                <td class="dt">Mié. 12 ago.</td>
+                                <td class="tp">Lean Canvas y conformación de grupos</td>
+                                <td class="ds">Fundamentos del Lean Canvas y cierre de la formación de equipos de trabajo.</td>
+                                <td class="gr"><span class="dash">—</span></td>
+                            </tr>
+                            <tr data-date="2026-08-19">
+                                <td class="wk"><span class="wkno">3</span>Semana 3</td>
+                                <td class="dt">Mié. 19 ago.</td>
+                                <td class="tp">Modelos de monetización y mesa redonda</td>
+                                <td class="ds">Estrategias de monetización, análisis de casos de empresas de tecnología y discusión abierta de las ideas de proyecto.</td>
+                                <td class="gr"><span class="dash">—</span></td>
+                            </tr>
+                            <tr data-date="2026-08-26">
+                                <td class="wk"><span class="wkno">4</span>Semana 4</td>
+                                <td class="dt">Mié. 26 ago.</td>
+                                <td class="tp">Running Lean Parte 1 + trabajo guiado</td>
+                                <td class="ds">Aterrizaje del problema, segmentos de cliente y propuesta de valor. Trabajo en clase para avanzar el Lean Canvas.</td>
+                                <td class="gr"><span class="dash">—</span></td>
+                            </tr>
+                            <tr data-date="2026-09-02">
+                                <td class="wk"><span class="wkno">5</span>Semana 5</td>
+                                <td class="dt">Mié. 02 sep.</td>
+                                <td class="tp">Entrega Lean Canvas + presentación de Problema y Solución</td>
+                                <td class="ds">Entrega del Lean Canvas y pitch del problema y la solución propuesta, alineado con lo validado en clase.</td>
+                                <td class="gr"><span class="badge badge--accent">20%</span></td>
+                            </tr>
+                            <tr data-date="2026-09-09">
+                                <td class="wk"><span class="wkno">6</span>Semana 6</td>
+                                <td class="dt">Mié. 09 sep.</td>
+                                <td class="tp">MVP, UI/UX y diseño agéntico</td>
+                                <td class="ds">Construcción de MVP, diseño de interfaz y diseño agéntico: LLM, RAG, function calling y fine tuning.</td>
+                                <td class="gr"><span class="dash">—</span></td>
+                            </tr>
+                            <tr data-date="2026-09-16">
+                                <td class="wk"><span class="wkno">7</span>Semana 7</td>
+                                <td class="dt">Mié. 16 sep.</td>
+                                <td class="tp">Presentaciones de prueba</td>
+                                <td class="ds">Ensayo de la sustentación ante el equipo docente y retroalimentación previa a la entrega con jurados.</td>
+                                <td class="gr"><span class="dash">—</span></td>
+                            </tr>
+                            <tr data-date="2026-09-23">
+                                <td class="wk"><span class="wkno">8</span>Semana 8</td>
+                                <td class="dt">Mié. 23 sep.</td>
+                                <td class="tp">Primera entrega del proyecto + calificación de jurados</td>
+                                <td class="ds">Lean Canvas iterado, primera validación con expertos, entrevistas del problema y MVP semifuncional.</td>
+                                <td class="gr"><span class="badge badge--accent">30%</span></td>
+                            </tr>
+                            <tr class="recess" data-date="2026-09-30">
+                                <td class="wk"><span class="wkno">R</span>Receso</td>
+                                <td class="dt">Mié. 30 sep.</td>
+                                <td class="tp">Semana de receso</td>
+                                <td class="ds">Receso institucional del 28 de septiembre al 3 de octubre. No hay clase este día.</td>
+                                <td class="gr"><span class="dash">—</span></td>
+                            </tr>
+                            <tr data-date="2026-10-07">
+                                <td class="wk"><span class="wkno">9</span>Semana 9</td>
+                                <td class="dt">Mié. 07 oct.</td>
+                                <td class="tp">Buenas prácticas de pitch · VC funding vs. bootstrapping</td>
+                                <td class="ds">Técnicas de presentación ante inversionistas, alternativas de financiamiento y estrategias de crecimiento.</td>
+                                <td class="gr"><span class="dash">—</span></td>
+                            </tr>
+                            <tr data-date="2026-10-14">
+                                <td class="wk"><span class="wkno">10</span>Semana 10</td>
+                                <td class="dt">Mié. 14 oct.</td>
+                                <td class="tp">Propiedad intelectual y registro de software</td>
+                                <td class="ds">Protección de la propiedad intelectual, licenciamiento y proceso de registro de software en Colombia.</td>
+                                <td class="gr"><span class="dash">—</span></td>
+                            </tr>
+                            <tr data-date="2026-10-21">
+                                <td class="wk"><span class="wkno">11</span>Semana 11</td>
+                                <td class="dt">Mié. 21 oct.</td>
+                                <td class="tp">Landing pages y tracción</td>
+                                <td class="ds">Anatomía de una landing page que convierte, estrategias de tracción y trabajo en clase sobre la landing del proyecto.</td>
+                                <td class="gr"><span class="dash">—</span></td>
+                            </tr>
+                            <tr data-date="2026-10-28">
+                                <td class="wk"><span class="wkno">12</span>Semana 12</td>
+                                <td class="dt">Mié. 28 oct.</td>
+                                <td class="tp">SEO, SEM y embudos de conversión</td>
+                                <td class="ds">Posicionamiento en buscadores, pauta digital y diseño de embudos de conversión medibles.</td>
+                                <td class="gr"><span class="dash">—</span></td>
+                            </tr>
+                            <tr data-date="2026-11-04">
+                                <td class="wk"><span class="wkno">13</span>Semana 13</td>
+                                <td class="dt">Mié. 04 nov.</td>
+                                <td class="tp">Trabajo grupal en proyectos + entrega de landing page</td>
+                                <td class="ds">Sesión de trabajo acompañado por el equipo docente y entrega de la landing page publicada.</td>
+                                <td class="gr"><span class="badge badge--accent">10%</span></td>
+                            </tr>
+                            <tr data-date="2026-11-11">
+                                <td class="wk"><span class="wkno">14</span>Semana 14</td>
+                                <td class="dt">Mié. 11 nov.</td>
+                                <td class="tp">Analítica e indicadores</td>
+                                <td class="ds">Herramientas de análisis, definición de métricas clave y lectura del feedback recogido hasta la fecha.</td>
+                                <td class="gr"><span class="dash">—</span></td>
+                            </tr>
+                            <tr data-date="2026-11-18">
+                                <td class="wk"><span class="wkno">15</span>Semana 15</td>
+                                <td class="dt">Mié. 18 nov.</td>
+                                <td class="tp">Semana de innovación</td>
+                                <td class="ds">Presentación en la semana de innovación: landing page, datos de interés recolectados, MVP funcional y video del MVP.</td>
+                                <td class="gr"><span class="badge badge--accent">10%</span></td>
+                            </tr>
+                            <tr data-date="2026-11-25">
+                                <td class="wk"><span class="wkno">16</span>Semana 16</td>
+                                <td class="dt">Mié. 25 nov.</td>
+                                <td class="tp">Segunda entrega del proyecto + calificación de jurados</td>
+                                <td class="ds">Pitch final, MVP funcional, resultados de la recolección de datos y feedback de usuarios.</td>
+                                <td class="gr"><span class="badge badge--accent">30%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="legend">
+                    <span><i class="l-next"></i>Próxima sesión</span>
+                    <span><i class="l-recess"></i>Receso institucional</span>
+                    <span><i class="l-past"></i>Sesión ya realizada</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================== fechas + nota -->
+        <section class="section section--alt">
+            <div class="wrap">
+                <div class="grid grid--2">
+                    <div class="card">
+                        <span class="eyebrow">Calendario institucional</span>
+                        <h2 style="font-size: 1.2rem; margin-bottom: 14px;">Fechas clave 2026-II</h2>
+                        <div class="factlist">
+                            <div class="fact">
+                                <div class="fact__k">Inicio de clases</div>
+                                <div class="fact__v">3 de agosto de 2026</div>
+                            </div>
+                            <div class="fact">
+                                <div class="fact__k">Primera sesión del curso</div>
+                                <div class="fact__v">Miércoles 5 de agosto</div>
+                            </div>
+                            <div class="fact">
+                                <div class="fact__k">Semana de receso</div>
+                                <div class="fact__v">28 de septiembre – 3 de octubre</div>
+                            </div>
+                            <div class="fact">
+                                <div class="fact__k">Último día de clases</div>
+                                <div class="fact__v">28 de noviembre de 2026</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="note note--accent mb-24">
+                            <strong>Sesión semanal.</strong> El curso se dicta una vez por semana, los miércoles.
+                            La semana de receso institucional cubre el miércoles 30 de septiembre, por lo que
+                            no hay clase ese día y el conteo de semanas continúa el 7 de octubre.
+                        </div>
+                        <div class="note">
+                            <strong>Guardar en PDF.</strong> Usa el botón de abajo o imprime esta página
+                            (Ctrl + P / Cmd + P) y elige «Guardar como PDF». El diseño está optimizado
+                            para impresión.
+                        </div>
+                        <div class="btnrow mt-24 noprint">
+                            <button class="btn" type="button" onclick="window.print()">Imprimir / Guardar PDF</button>
+                            <a href="actividades.html" class="btn btn--ghost">Ver detalle de entregas</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
-    <div class="container">
-        <div class="header">
-            <h1>📚 Cronograma de Clases</h1>
-            <h2>ISIS2007 - Diseño de Productos e Innovación en TI</h2>
-        </div>
+    <script src="assets/site.js"></script>
+    <script>
+        /* Resalta la próxima sesión y atenúa las ya realizadas. */
+        (function () {
+            var rows = document.querySelectorAll('#scheduleTable tbody tr[data-date]');
+            var today = new Date();
+            today.setHours(0, 0, 0, 0);
+            var nextFound = false;
 
-        <div class="semester-info">
-            <h3>📅 Información del Semestre</h3>
-            <p><strong>Materia:</strong> ISIS2007 - Diseño de Productos e Innovación en TI</p>
-            <p><strong>Sección:</strong> 2</p>
-            <p><strong>Horario:</strong> Miércoles</p>
-            <p><strong>Inicio:</strong> 6 de agosto de 2025</p>
-        </div>
+            rows.forEach(function (row) {
+                var parts = row.getAttribute('data-date').split('-');
+                var date = new Date(+parts[0], parts[1] - 1, +parts[2]);
 
-        <div class="evaluation-section">
-            <h3>📊 Sistema de Evaluación</h3>
-            <div class="evaluation-grid">
-                <div class="evaluation-item">
-                    <h4>Primera Entrega del Proyecto + Calificación Jurados</h4>
-                    <div class="percentage">30%</div>
-                    <div class="description">Primera entrega completa del proyecto con evaluación de jurados</div>
-                </div>
-                <div class="evaluation-item">
-                    <h4>Segunda Entrega del Proyecto + Calificación Jurados</h4>
-                    <div class="percentage">30%</div>
-                    <div class="description">Entrega final del proyecto con evaluación de jurados</div>
-                </div>
-                <div class="evaluation-item">
-                    <h4>Presentación de Pitch de Problema a Solucionar</h4>
-                    <div class="percentage">10%</div>
-                    <div class="description">Presentación del pitch del problema a solucionar</div>
-                </div>
-                <div class="evaluation-item">
-                    <h4>Lean Canvas - Análisis de Ejemplos</h4>
-                    <div class="percentage">10%</div>
-                    <div class="description">Análisis de ejemplos en empresas de tecnología, Running Lean Part 1</div>
-                </div>
-                <div class="evaluation-item">
-                    <h4>Trabajo Grupal en Proyectos</h4>
-                    <div class="percentage">10%</div>
-                    <div class="description">Trabajo grupal en proyectos y entrega landing page</div>
-                </div>
-                <div class="evaluation-item">
-                    <h4>Semana de Innovación</h4>
-                    <div class="percentage">10%</div>
-                    <div class="description">Actividades especiales durante la semana de innovación</div>
-                </div>
-            </div>
-        </div>
+                if (date < today) {
+                    row.classList.add('is-past');
+                    return;
+                }
 
-        <div class="important-note">
-            <strong>⚠️ Nota Importante:</strong> Todas las clases se realizan los miércoles a partir del 6 de agosto de 2025. 
-            Este cronograma está organizado semanalmente para facilitar el seguimiento del curso.
-        </div>
-
-        <div class="navigation">
-            <div class="nav-buttons">
-                <a href="index.html" class="nav-button">🏠 Página Principal</a>
-                <a href="team.html" class="nav-button">👥 Equipo Docente</a>
-            </div>
-        </div>
-
-        <div class="schedule-table">
-            <div class="table-header">
-                <h3>📋 Cronograma Detallado</h3>
-            </div>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Semana</th>
-                            <th>Fecha</th>
-                            <th>Tema/Actividad</th>
-                            <th>Descripción</th>
-                            <th>Evaluación</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><span class="week-number">1</span></td>
-                            <td class="date">6 de agosto, 2025</td>
-                            <td class="topic">Presentación del curso, canvas, modelo de negocio y tips para ideas de producto</td>
-                            <td class="activities">Introducción al curso, metodologías de innovación y conformación de grupos</td>
-                            <td class="percentage">-</td>
-                        </tr>
-                        <tr>
-                            <td><span class="week-number">2</span></td>
-                            <td class="date">13 de agosto, 2025</td>
-                            <td class="topic">Lean canvas, Generative AI 101, conformación de grupos</td>
-                            <td class="activities">Fundamentos de lean canvas, introducción a IA generativa y formación de equipos</td>
-                            <td class="percentage">-</td>
-                        </tr>
-                        <tr>
-                            <td><span class="week-number">3</span></td>
-                            <td class="date">20 de agosto, 2025</td>
-                            <td class="topic">Modelos de monetización, análisis de ejemplos de empresas de tecnología y mesa redonda discusión de ideas de proyecto</td>
-                            <td class="activities">Estrategias de monetización, casos de estudio y discusión de proyectos</td>
-                            <td class="percentage">-</td>
-                        </tr>
-                        <tr>
-                            <td><span class="week-number">4</span></td>
-                            <td class="date">27 de agosto, 2025</td>
-                            <td class="topic">Presentación de pitch de problema a solucionar</td>
-                            <td class="activities">Presentación del pitch del problema a solucionar</td>
-                            <td class="percentage">10%</td>
-                        </tr>
-                        <tr>
-                            <td><span class="week-number">5</span></td>
-                            <td class="date">3 de septiembre, 2025</td>
-                            <td class="topic">Lean canvas - análisis de ejemplos en empresas de tecnología, Running Lean Part 1</td>
-                            <td class="activities">Análisis de ejemplos en empresas de tecnología, Running Lean Part 1</td>
-                            <td class="percentage">10%</td>
-                        </tr>
-                        <tr>
-                            <td><span class="week-number">6</span></td>
-                            <td class="date">10 de septiembre, 2025</td>
-                            <td class="topic">MVP and UI/UX, Agentic design</td>
-                            <td class="activities">Desarrollo de MVP, diseño de interfaz de usuario y diseño agéntico</td>
-                            <td class="percentage">-</td>
-                        </tr>
-                        <tr>
-                            <td><span class="week-number">7</span></td>
-                            <td class="date">17 de septiembre, 2025</td>
-                            <td class="topic">Presentaciones de prueba</td>
-                            <td class="activities">Pruebas de presentación y feedback</td>
-                            <td class="percentage">-</td>
-                        </tr>
-                        <tr>
-                            <td><span class="week-number">8</span></td>
-                            <td class="date">24 de septiembre, 2025</td>
-                            <td class="topic">Primera entrega del proyecto + Calificación jurados</td>
-                            <td class="activities">Presentación lean canvas, primera validación con expertos, entrevistas del problema, MVP semi funcional</td>
-                            <td class="percentage">30%</td>
-                        </tr>
-                        <tr style="background: #fff3cd;">
-                            <td><span class="week-number" style="background: #ffc107; color: #333;">R</span></td>
-                            <td class="date">29 de septiembre - 4 de octubre, 2025</td>
-                            <td class="topic">Semana de Receso</td>
-                            <td class="activities">Semana Santa - No hay clases</td>
-                            <td class="percentage">-</td>
-                        </tr>
-                        <tr>
-                            <td><span class="week-number">9</span></td>
-                            <td class="date">8 de octubre, 2025</td>
-                            <td class="topic">Buenas prácticas para un gran pitch y VC funding vs bootstrapping</td>
-                            <td class="activities">Técnicas de presentación, financiamiento y estrategias de crecimiento</td>
-                            <td class="percentage">-</td>
-                        </tr>
-                        <tr>
-                            <td><span class="week-number">10</span></td>
-                            <td class="date">15 de octubre, 2025</td>
-                            <td class="topic">Propiedad intelectual, registro de software</td>
-                            <td class="activities">Protección de propiedad intelectual y registro de software</td>
-                            <td class="percentage">-</td>
-                        </tr>
-                        <tr>
-                            <td><span class="week-number">11</span></td>
-                            <td class="date">22 de octubre, 2025</td>
-                            <td class="topic">Landing pages y tracción + trabajo en landing pages</td>
-                            <td class="activities">Desarrollo de landing pages y estrategias de tracción</td>
-                            <td class="percentage">-</td>
-                        </tr>
-                        <tr>
-                            <td><span class="week-number">12</span></td>
-                            <td class="date">29 de octubre, 2025</td>
-                            <td class="topic">SEO, SEM y funeles de conversión</td>
-                            <td class="activities">Optimización para motores de búsqueda, marketing digital y conversión</td>
-                            <td class="percentage">-</td>
-                        </tr>
-                        <tr>
-                            <td><span class="week-number">13</span></td>
-                            <td class="date">5 de noviembre, 2025</td>
-                            <td class="topic">Trabajo grupal en proyectos y entrega landing page</td>
-                            <td class="activities">Trabajo grupal en proyectos y entrega landing page</td>
-                            <td class="percentage">10%</td>
-                        </tr>
-                        <tr>
-                            <td><span class="week-number">14</span></td>
-                            <td class="date">12 de noviembre, 2025</td>
-                            <td class="topic">Herramientas de análisis e indicadores + análisis feedback a la fecha</td>
-                            <td class="activities">Análisis de datos, métricas y feedback de usuarios</td>
-                            <td class="percentage">-</td>
-                        </tr>
-                        <tr>
-                            <td><span class="week-number">15</span></td>
-                            <td class="date">19 de noviembre, 2025</td>
-                            <td class="topic">Semana de innovación</td>
-                            <td class="activities">Presentación en la semana de innovación: Landing page, recolección de datos de interés, MVP funcional, video del MVP</td>
-                            <td class="percentage">10%</td>
-                        </tr>
-                        <tr>
-                            <td><span class="week-number">16</span></td>
-                            <td class="date">26 de noviembre, 2025</td>
-                            <td class="topic">Segunda Entrega Proyecto + Calificación jurados</td>
-                            <td class="activities">Pitch final, MVP funcional, resultados recolección de datos y feedback de usuarios</td>
-                            <td class="percentage">30%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="footer">
-            <p><strong>Universidad de los Andes</strong></p>
-            <p>Departamento de Ingeniería de Sistemas y Computación</p>
-            <p>Semestre 2025-2</p>
-        </div>
-    </div>
+                if (!nextFound && !row.classList.contains('recess')) {
+                    nextFound = true;
+                    row.classList.add('is-next');
+                    var flag = document.createElement('span');
+                    flag.className = 'nextflag';
+                    flag.textContent = 'Próxima sesión';
+                    row.querySelector('td.wk').appendChild(flag);
+                }
+            });
+        })();
+    </script>
 </body>
-</html> 
+</html>

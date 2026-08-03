@@ -1,122 +1,16 @@
-<!-- Componente de Navegación Reutilizable -->
-<style>
-    .nav-bar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        padding: 15px 20px;
-        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+<!--
+  ⚠️ Componente obsoleto.
 
-    .nav-brand {
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: #2c3e50;
-        text-decoration: none;
-    }
+  La navegación y el pie de página ahora se generan desde `assets/site.js`,
+  que se inyecta en cada página con:
 
-    .nav-brand:hover {
-        color: #667eea;
-    }
+      <link rel="stylesheet" href="assets/theme.css">
+      ...
+      <script src="assets/site.js"></script>
 
-    .nav-links {
-        display: flex;
-        gap: 20px;
-        align-items: center;
-    }
+  Para agregar, quitar o renombrar enlaces del menú, edita el arreglo `NAV`
+  en `assets/site.js` — se refleja en todas las páginas a la vez.
 
-    .nav-link {
-        color: #7f8c8d;
-        text-decoration: none;
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition: color 0.3s ease;
-        padding: 8px 12px;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-    }
-
-    .nav-link:hover {
-        color: #667eea;
-        background: rgba(102, 126, 234, 0.1);
-    }
-
-    .nav-link.active {
-        color: #667eea;
-        background: rgba(102, 126, 234, 0.1);
-    }
-
-    .home-button {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 8px 16px;
-        border-radius: 20px;
-        text-decoration: none;
-        font-size: 0.9rem;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-    }
-
-    .home-button:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-    }
-
-    @media (max-width: 768px) {
-        .nav-bar {
-            padding: 10px 15px;
-        }
-        
-        .nav-brand {
-            font-size: 1rem;
-        }
-        
-        .nav-links {
-            gap: 10px;
-        }
-        
-        .nav-link {
-            font-size: 0.8rem;
-            padding: 6px 8px;
-        }
-        
-        .home-button {
-            padding: 6px 12px;
-            font-size: 0.8rem;
-        }
-    }
-</style>
-
-<div class="nav-bar">
-    <a href="index.html" class="nav-brand">🚀 ISIS2007</a>
-    <div class="nav-links">
-        <a href="documento-completo.html" class="nav-link">📚 Curso</a>
-        <a href="team.html" class="nav-link">👥 Equipo</a>
-        <a href="schedule.html" class="nav-link">📅 Cronograma</a>
-        <a href="ruleta-estudiantes.html" class="nav-link">🎯 Ruleta</a>
-        <a href="index.html" class="home-button">🏠 Inicio</a>
-    </div>
-</div>
-
-<script>
-    // Marcar la página activa en la navegación
-    document.addEventListener('DOMContentLoaded', function() {
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-        const navLinks = document.querySelectorAll('.nav-link');
-        
-        navLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            if (href === currentPage) {
-                link.classList.add('active');
-            }
-        });
-    });
-</script> 
+  Este archivo se conserva solo para no romper enlaces antiguos.
+-->
+<script>window.location.replace('index.html');</script>

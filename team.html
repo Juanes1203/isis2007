@@ -3,386 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Equipo Docente - ISIS2007</title>
+    <title>Equipo docente · ISIS2007 — Universidad de los Andes</title>
+    <meta name="description" content="Equipo docente del curso ISIS2007 Diseño de Productos e Innovación en TI, semestre 2026-II.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/theme.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding-top: 80px;
-        }
-
-        /* Barra de Navegación */
-        .nav-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 15px 20px;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-brand {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #2c3e50;
-            text-decoration: none;
-        }
-
-        .nav-brand:hover {
-            color: #667eea;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: #7f8c8d;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            padding: 8px 12px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
-        }
-
-        .nav-link.active {
-            color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
-        }
-
-        .home-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-        }
-
-        .home-button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .header h1 {
-            color: #2c3e50;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .header h2 {
-            color: #7f8c8d;
-            font-size: 1.3rem;
-            font-weight: 400;
-        }
-
-        .team-section {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .team-section h3 {
-            color: #2c3e50;
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
         }
 
-        .team-member {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+        .person {
+            display: grid;
+            grid-template-columns: 116px 1fr;
+            gap: 22px;
+            align-items: start;
+            padding: 26px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            transition: border-color .2s ease, box-shadow .2s ease;
         }
 
-        .team-member:hover {
-            transform: translateY(-5px);
+        .person:hover { border-color: var(--line-strong); box-shadow: var(--shadow); }
+
+        .person__photo {
+            position: relative;
+            width: 116px;
+            height: 116px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--surface-3);
         }
 
-        .member-photo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin: 0 auto 20px;
+        .person__photo img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border: 4px solid #667eea;
-            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+            filter: grayscale(100%) contrast(1.04);
+            transition: filter .35s ease;
         }
 
-        .member-name {
-            color: #2c3e50;
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 10px;
+        .person:hover .person__photo img { filter: grayscale(0%); }
+
+        .person__photo::after {
+            content: '';
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 4px;
+            background: var(--uni-yellow);
         }
 
-        .member-role {
-            color: #667eea;
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin-bottom: 15px;
+        .person__name {
+            font-size: 1.14rem;
+            font-weight: 660;
+            letter-spacing: -.02em;
+            margin-bottom: 8px;
         }
 
-        .member-email {
-            color: #7f8c8d;
-            font-size: 1rem;
-            margin-bottom: 15px;
+        .person__role { margin-bottom: 14px; }
+
+        .person__bio { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+
+        .person__contact {
+            display: grid;
+            gap: 7px;
+            font-size: 13.5px;
+            padding-top: 14px;
+            border-top: 1px solid var(--line);
         }
 
-        .member-bio {
-            color: #555;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .navigation {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .nav-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .nav-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
+        .person__contact a { color: var(--ink-2); }
+        .person__contact a:hover { color: var(--ink); text-decoration: underline; }
+        .person__contact span.lbl {
             display: inline-block;
+            width: 78px;
+            font-size: 11px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted-2);
         }
 
-        .nav-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        .contact-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            padding: 30px;
+            background: var(--surface-2);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
         }
 
-        .footer {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        }
+        .contact-box h3 { font-size: 1.05rem; margin-bottom: 8px; }
+        .contact-box p { font-size: 14px; color: var(--muted); margin: 0; }
 
-        .footer p {
-            color: #7f8c8d;
-            margin-bottom: 10px;
-        }
-
-        .role-badge {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-
-        .social-links {
-            margin-top: 15px;
-        }
-
-        .linkedin-link {
-            display: inline-flex;
-            align-items: center;
-            background: #0077b5;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .linkedin-link:hover {
-            background: #005885;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 119, 181, 0.3);
-        }
-
-        .linkedin-icon {
-            margin-right: 8px;
-            font-size: 1.1rem;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .header h2 {
-                font-size: 1.1rem;
-            }
-
-            .team-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .nav-button {
-                width: 100%;
-                max-width: 250px;
-            }
+        @media (max-width: 520px) {
+            .person { grid-template-columns: 1fr; }
+            .person__photo { width: 100%; height: 210px; }
         }
     </style>
 </head>
 <body>
-    <!-- Barra de Navegación -->
-    <div class="nav-bar">
-        <a href="index.html" class="nav-brand">🚀 ISIS2007</a>
-        <div class="nav-links">
-            <a href="team.html" class="nav-link active">👥 Equipo</a>
-            <a href="schedule.html" class="nav-link">📅 Cronograma</a>
-            <a href="ruleta-estudiantes.html" class="nav-link">🎯 Ruleta</a>
-            <a href="asistencia.html" class="nav-link">📊 Asistencia</a>
-            <a href="index.html" class="home-button">🏠 Inicio</a>
-        </div>
-    </div>
+    <div class="page">
 
-    <div class="container">
-        <div class="header">
-            <h1>👥 Equipo Docente</h1>
-            <h2>ISIS2007 - Diseño de Productos e Innovación en TI</h2>
-        </div>
+        <section class="pagehead">
+            <div class="wrap">
+                <span class="eyebrow">ISIS2007 · Semestre 2026-II</span>
+                <h1>Equipo docente</h1>
+                <p>
+                    Quién dicta el curso y quién acompaña la monitoría. Escríbenos al correo
+                    institucional para dudas de entregas, asesorías o casos particulares.
+                </p>
+            </div>
+        </section>
 
-        <div class="team-section">
-            <h3>🎓 Nuestro Equipo</h3>
-            <div class="team-grid">
-                <div class="team-member">
-                    <img src="FotoArturo.jpeg" alt="Arturo Henao Chaparro" class="member-photo">
-                    <div class="member-name">Arturo Henao Chaparro</div>
-                    <div class="role-badge">Profesor Principal</div>
-                    <div class="member-email">📧 a.henao59@uniandes.edu.co</div>
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/arturohenaochaparro/" target="_blank" class="linkedin-link">
-                            <span class="linkedin-icon">🔗</span>
-                            LinkedIn
-                        </a>
-                    </div>
-                </div>
+        <section class="section">
+            <div class="wrap">
+                <div class="team-grid">
 
-                <div class="team-member">
-                    <img src="FotoJuanes.jpeg" alt="Juan Esteban Jiménez Benavides" class="member-photo">
-                    <div class="member-name">Juan Esteban Jiménez Benavides</div>
-                    <div class="role-badge">Monitor</div>
-                    <div class="member-email">📧 j.jimenezb@uniandes.edu.co</div>
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/juan-esteban-jimenez-benavides-526b29191" target="_blank" class="linkedin-link">
-                            <span class="linkedin-icon">🔗</span>
-                            LinkedIn
-                        </a>
-                    </div>
-                </div>
+                    <article class="person">
+                        <div class="person__photo">
+                            <img src="FotoArturo.jpeg" alt="Retrato de Arturo Henao Chaparro">
+                        </div>
+                        <div>
+                            <div class="person__name">Arturo Henao Chaparro</div>
+                            <div class="person__role"><span class="badge badge--dark">Profesor del curso</span></div>
+                            <p class="person__bio">
+                                Lidera el curso: sesiones magistrales, mesas de discusión de ideas y
+                                la evaluación de las entregas del proyecto junto al panel de jurados.
+                            </p>
+                            <div class="person__contact">
+                                <div>
+                                    <span class="lbl">Correo</span>
+                                    <a href="mailto:a.henao59@uniandes.edu.co">a.henao59@uniandes.edu.co</a>
+                                </div>
+                                <div>
+                                    <span class="lbl">LinkedIn</span>
+                                    <a href="https://www.linkedin.com/in/arturohenaochaparro/" target="_blank" rel="noopener">arturohenaochaparro</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
 
-                <div class="team-member">
-                    <img src="FotoCatalina.jpeg" alt="Catalina Álvarez Latorre" class="member-photo">
-                    <div class="member-name">Catalina Álvarez Latorre</div>
-                    <div class="role-badge">Monitor</div>
-                    <div class="member-email">📧 c.alvarezl2@uniandes.edu.co</div>
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/catalina-alvarez-bb06a0350/" target="_blank" class="linkedin-link">
-                            <span class="linkedin-icon">🔗</span>
-                            LinkedIn
-                        </a>
-                    </div>
+                    <article class="person">
+                        <div class="person__photo">
+                            <img src="FotoJuanes.jpeg" alt="Retrato de Juan Esteban Jiménez Benavides">
+                        </div>
+                        <div>
+                            <div class="person__name">Juan Esteban Jiménez Benavides</div>
+                            <div class="person__role"><span class="badge badge--accent">Monitor</span></div>
+                            <p class="person__bio">
+                                Acompaña a los equipos en el avance del MVP y las validaciones,
+                                resuelve dudas técnicas y coordina la logística de las entregas.
+                            </p>
+                            <div class="person__contact">
+                                <div>
+                                    <span class="lbl">Correo</span>
+                                    <a href="mailto:j.jimenezb@uniandes.edu.co">j.jimenezb@uniandes.edu.co</a>
+                                </div>
+                                <div>
+                                    <span class="lbl">LinkedIn</span>
+                                    <a href="https://www.linkedin.com/in/juan-esteban-jimenez-benavides-526b29191" target="_blank" rel="noopener">juan-esteban-jimenez-benavides</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="navigation">
-            <div class="nav-buttons">
-                <a href="index.html" class="nav-button">🏠 Página Principal</a>
-                <a href="schedule.html" class="nav-button">📅 Cronograma</a>
+        <section class="section section--alt">
+            <div class="wrap">
+                <div class="contact-box">
+                    <div>
+                        <h3>Dudas de entregas</h3>
+                        <p>Escribe al monitor con copia al profesor. Incluye el número de grupo y la semana de la entrega.</p>
+                    </div>
+                    <div>
+                        <h3>Asesorías de proyecto</h3>
+                        <p>Se agendan por correo. Lleva tu Lean Canvas y el estado actual del MVP para aprovechar la sesión.</p>
+                    </div>
+                    <div>
+                        <h3>Casos particulares</h3>
+                        <p>Excusas médicas, incapacidades o solapamientos se tramitan directamente con el profesor del curso.</p>
+                    </div>
+                </div>
+                <div class="btnrow mt-32">
+                    <a href="schedule.html" class="btn">Ver cronograma</a>
+                    <a href="actividades.html" class="btn btn--ghost">Actividades y entregas</a>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <div class="footer">
-            <p><strong>Universidad de los Andes</strong></p>
-            <p>Departamento de Ingeniería de Sistemas y Computación</p>
-            <p>Semestre 2025-2</p>
-        </div>
     </div>
+
+    <script src="assets/site.js"></script>
 </body>
-</html> 
+</html>

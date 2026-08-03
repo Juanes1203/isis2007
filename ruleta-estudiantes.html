@@ -3,807 +3,558 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎯 Ruleta de Estudiantes - ISIS2007</title>
-    
-    <!-- Servicio de STRAICO AI -->
+    <title>Ruleta de estudiantes · ISIS2007 — Universidad de los Andes</title>
+
+    <!-- Servicio de IA -->
     <script src="straico-service.js"></script>
     <!-- 🔐 Configuración segura de credenciales -->
     <script src="config.js"></script>
-    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/theme.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* ---------------------------------------------------------- layout -- */
+        .roulette-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
+            gap: 32px;
+            align-items: start;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 80px 20px 20px;
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 26px;
         }
 
-        /* Barra de Navegación */
-        .nav-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 15px 20px;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .panel--sticky { position: sticky; top: calc(var(--topbar-h) + 24px); }
 
-        .nav-brand {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #2c3e50;
-            text-decoration: none;
-        }
-
-        .nav-brand:hover {
-            color: #667eea;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: #7f8c8d;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            padding: 8px 12px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
-        }
-
-        .nav-link.active {
-            color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
-        }
-
-        .home-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-        }
-
-        .home-button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-
-        .container {
-            max-width: 1400px;
-            width: 100%;
-            display: flex;
-            gap: 30px;
-            align-items: flex-start;
-        }
-
-        .roulette-section {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            text-align: center;
-        }
-
-        .questions-section {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            min-height: 600px;
-            text-align: left;
-        }
-
-        .header {
-            margin-bottom: 30px;
-        }
-
-        .header h1 {
-            color: #2c3e50;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .header h2 {
-            color: #7f8c8d;
-            font-size: 1.3rem;
-            font-weight: 400;
-        }
-
+        /* ----------------------------------------------------------- ruleta -- */
         .roulette-container {
             position: relative;
-            width: 400px;
-            height: 400px;
-            margin: 0 auto 30px;
+            width: 100%;
+            max-width: 380px;
+            margin: 0 auto;
+            aspect-ratio: 1;
         }
 
         .wheel {
-            width: 100%;
-            height: 100%;
+            position: absolute;
+            inset: 0;
             border-radius: 50%;
-            position: relative;
-            overflow: hidden;
-            border: 8px solid #667eea;
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
-            transition: transform 4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 8px solid var(--uni-black);
+            box-shadow: var(--shadow-lg);
+            transition: transform 4s cubic-bezier(.25, .46, .45, .94);
+            background: var(--surface-3);
         }
 
-        .wheel.spinning {
-            animation: spin 4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        }
+        .wheel.spinning { animation: spin 4s cubic-bezier(.25, .46, .45, .94) forwards; }
 
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(var(--final-rotation)); }
         }
 
-        .wheel-segment {
+        .wheel__hub {
             position: absolute;
-            width: 50%;
-            height: 50%;
-            transform-origin: 100% 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.6rem;
-            font-weight: 600;
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            opacity: 0.8;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 34%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: var(--uni-black);
+            border: 4px solid var(--surface);
+            display: grid;
+            place-items: center;
+            text-align: center;
+            color: #fff;
+            z-index: 5;
         }
-
-        .wheel-segment:hover {
-            filter: brightness(1.1);
-            transform: scale(1.02);
+        .wheel__hub b {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -.04em;
+            line-height: 1;
+            color: var(--uni-yellow);
+        }
+        .wheel__hub span {
+            display: block;
+            margin-top: 3px;
+            font-size: 9px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, .6);
         }
 
         .pointer {
             position: absolute;
-            top: -20px;
+            top: -14px;
             left: 50%;
             transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-top: 40px solid #e74c3c;
+            width: 0; height: 0;
+            border-left: 13px solid transparent;
+            border-right: 13px solid transparent;
+            border-top: 26px solid var(--uni-black);
             z-index: 10;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .25));
         }
 
         .controls {
-            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 28px;
         }
 
         .spin-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1.2rem;
+            padding: 12px 24px;
+            font-family: inherit;
+            font-size: 14.5px;
             font-weight: 600;
+            color: #fff;
+            background: var(--uni-black);
+            border: 1px solid var(--uni-black);
+            border-radius: var(--radius-sm);
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
-            margin: 0 10px;
+            transition: background .18s ease, transform .15s ease;
+        }
+        .spin-button:hover:not(:disabled) { background: #26272b; transform: translateY(-1px); }
+        .spin-button:disabled { opacity: .5; cursor: not-allowed; }
+
+        .spin-button--ghost {
+            background: transparent;
+            color: var(--ink);
+            border-color: var(--line-strong);
+        }
+        .spin-button--ghost:hover:not(:disabled) {
+            background: var(--surface-2);
+            color: var(--ink);
+            border-color: var(--ink);
         }
 
-        .spin-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .spin-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
+        /* --------------------------------------------------------- resultado */
         .result {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            border: 2px solid #667eea;
+            margin-top: 26px;
+            padding: 22px;
+            border: 1px solid var(--line);
+            border-left: 3px solid var(--uni-yellow);
+            border-radius: var(--radius-sm);
+            background: var(--uni-yellow-soft);
+            text-align: center;
             display: none;
-            opacity: 0;
-            transform: translateY(20px);
         }
+        .result.show { display: block; animation: rise .35s ease both; }
 
-        .result.show {
-            display: block;
-            animation: fadeIn 0.8s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(20px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: none; }
         }
 
         .selected-student {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 680;
+            letter-spacing: -.02em;
+            color: var(--ink);
         }
-
         .student-count {
-            color: #7f8c8d;
-            font-size: 1rem;
+            margin-top: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--warn);
         }
 
-        .student-list {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 20px;
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid #e9ecef;
-        }
-
+        /* ----------------------------------------------------- lista alumnos */
+        .student-list { margin-top: 40px; }
         .student-list h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
+            font-size: 12px;
+            font-weight: 680;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 16px;
         }
 
         .student-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 8px;
         }
 
         .student-item {
-            background: #f8f9fa;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: #555;
-            border-left: 3px solid #667eea;
+            padding: 10px 13px;
+            font-size: 13px;
+            color: var(--ink-2);
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-left: 3px solid var(--line-strong);
+            border-radius: var(--radius-sm);
+            transition: all .15s ease;
+        }
+        .student-item.is-picked {
+            background: var(--ok-soft);
+            border-left-color: var(--ok);
+            color: var(--ok);
+            font-weight: 560;
         }
 
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            color: #7f8c8d;
-            font-size: 0.9rem;
-        }
+        /* --------------------------------------------------------- login box */
+        .login-section .questions-header { margin-bottom: 22px; }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-                flex-direction: column;
-            }
-            
-            .roulette-container {
-                width: 300px;
-                height: 300px;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .student-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            }
-        }
+        .questions-header h3 { font-size: 1.1rem; margin-bottom: 6px; }
+        .questions-header p { font-size: 13.5px; color: var(--muted); margin: 0; }
 
-        /* Estilos para el panel de preguntas */
-        .questions-header {
-            margin-bottom: 30px;
-            text-align: center;
+        .input-group { margin-bottom: 15px; }
+        .input-group label {
+            display: block;
+            font-size: 11.5px;
+            font-weight: 620;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 6px;
         }
-
-        .questions-header h3 {
-            color: #2c3e50;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-
-        .questions-header p {
-            color: #7f8c8d;
-            font-size: 1rem;
-        }
-
-        .category-selector {
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .category-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .category-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-        }
-
-        .category-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
-        }
-
-        .category-btn.active {
-            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-        }
-
-        .specific-topic-input {
-            display: none;
-            margin-top: 20px;
-        }
-
+        .input-group input,
         .specific-topic-input input {
             width: 100%;
-            max-width: 300px;
-            padding: 12px 20px;
-            border: 2px solid #e9ecef;
-            border-radius: 25px;
-            font-size: 1rem;
+            padding: 10px 13px;
+            font-family: inherit;
+            font-size: 14px;
+            color: var(--ink);
+            background: var(--surface);
+            border: 1px solid var(--line-strong);
+            border-radius: var(--radius-sm);
+            transition: border-color .18s ease, box-shadow .18s ease;
+        }
+        .input-group input:focus,
+        .specific-topic-input input:focus {
             outline: none;
-            transition: border-color 0.3s ease;
+            border-color: var(--uni-black);
+            box-shadow: 0 0 0 3px rgba(255, 221, 0, .35);
         }
 
-        .specific-topic-input input:focus {
-            border-color: #667eea;
+        .login-btn,
+        .generate-btn {
+            width: 100%;
+            padding: 12px 18px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background .18s ease;
         }
+
+        .login-btn {
+            color: #fff;
+            background: var(--uni-black);
+            border: 1px solid var(--uni-black);
+        }
+        .login-btn:hover { background: #26272b; }
+
+        .login-info {
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid var(--line);
+        }
+        .login-info h4 {
+            font-size: 11.5px;
+            font-weight: 680;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 7px;
+        }
+        .login-info p { font-size: 12.5px; color: var(--muted); margin: 0; }
+
+        /* --------------------------------------------------- panel preguntas */
+        .questions-section .questions-header { position: relative; margin-bottom: 22px; }
+
+        .logout-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 6px 12px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 560;
+            color: var(--muted);
+            background: transparent;
+            border: 1px solid var(--line-strong);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all .18s ease;
+        }
+        .logout-btn:hover { color: var(--danger); border-color: var(--danger); }
+
+        .category-buttons { display: grid; gap: 8px; margin-bottom: 14px; }
+
+        .category-btn {
+            padding: 11px 14px;
+            font-family: inherit;
+            font-size: 13.5px;
+            font-weight: 540;
+            text-align: left;
+            color: var(--ink-2);
+            background: var(--surface);
+            border: 1px solid var(--line-strong);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all .16s ease;
+        }
+        .category-btn:hover { background: var(--surface-2); border-color: var(--ink); }
+        .category-btn.active {
+            background: var(--uni-black);
+            border-color: var(--uni-black);
+            color: #fff;
+        }
+
+        .specific-topic-input { display: none; margin-bottom: 14px; }
 
         .generate-btn {
-            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
-            margin-top: 15px;
+            color: var(--uni-black);
+            background: var(--uni-yellow);
+            border: 1px solid var(--uni-yellow);
         }
+        .generate-btn:hover:not(:disabled) { background: var(--uni-yellow-dark); }
+        .generate-btn:disabled { opacity: .45; cursor: not-allowed; }
 
-        .generate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(243, 156, 18, 0.4);
+        /* ------------------------------------------------------------ spinner */
+        .loading-spinner { display: none; text-align: center; padding: 26px 0; }
+        .loading-spinner p { font-size: 13px; color: var(--muted); margin: 14px 0 0; }
+        .spinner {
+            width: 30px; height: 30px;
+            margin: 0 auto;
+            border: 3px solid var(--line);
+            border-top-color: var(--uni-yellow);
+            border-radius: 50%;
+            animation: rot 1s linear infinite;
         }
+        @keyframes rot { to { transform: rotate(360deg); } }
 
-        .generate-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .questions-container {
-            margin-top: 30px;
-        }
+        /* ----------------------------------------------------------- preguntas */
+        .questions-container { margin-top: 20px; }
 
         .question-card {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-left: 4px solid #667eea;
-            transition: all 0.3s ease;
-        }
-
-        .question-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 18px;
+            margin-bottom: 12px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-sm);
         }
 
         .question-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
         }
 
         .question-number {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
+            width: 24px; height: 24px;
+            display: grid; place-items: center;
+            border-radius: 5px;
+            background: var(--uni-black);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
         }
 
         .difficulty-badge {
-            background: #28a745;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: bold;
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            padding: 3px 9px;
+            border-radius: 999px;
+            background: var(--surface-3);
+            color: var(--muted);
         }
+        .difficulty-badge.alta { background: var(--warn-soft); color: var(--warn); }
 
-        .difficulty-badge.alta {
-            background: #dc3545;
-        }
-
-        .question-text {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-
-        .answer-text {
-            font-size: 0.95rem;
-            color: #27ae60;
-            font-weight: 500;
-            background: rgba(39, 174, 96, 0.1);
-            padding: 10px 15px;
-            border-radius: 8px;
-            border-left: 3px solid #27ae60;
-            margin-bottom: 10px;
-        }
-
-        .explanation-text {
-            font-size: 0.9rem;
-            color: #8e44ad;
-            font-weight: 500;
-            background: rgba(142, 68, 173, 0.1);
-            padding: 10px 15px;
-            border-radius: 8px;
-            border-left: 3px solid #8e44ad;
-        }
+        .question-text { font-size: 14.5px; color: var(--ink); margin-bottom: 14px; }
 
         .show-answer-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
+            width: 100%;
+            padding: 9px 14px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 560;
+            color: var(--ink-2);
+            background: var(--surface-2);
+            border: 1px solid var(--line-strong);
+            border-radius: var(--radius-sm);
             cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin: 10px 0;
+            transition: all .16s ease;
         }
-
-        .show-answer-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-
-        .show-answer-btn.active {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-        }
+        .show-answer-btn:hover { border-color: var(--ink); }
+        .show-answer-btn.active { background: var(--uni-black); border-color: var(--uni-black); color: #fff; }
 
         .answer-container {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #e9ecef;
-        }
-
-        .loading-spinner {
-            display: none;
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-
-        .error-message {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
+            margin-top: 14px;
             padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            text-align: center;
+            border-radius: var(--radius-sm);
+            background: var(--ok-soft);
+            border: 1px solid #bfe0cf;
         }
-
-        .success-message {
-            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        /* Estilos para el sistema de login */
-        .login-section {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            text-align: center;
-        }
-
-        .login-form {
-            margin: 30px 0;
-            text-align: left;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #2c3e50;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.3s ease;
-            background: white;
-        }
-
-        .input-group input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .login-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-            width: 100%;
+        .answer-text { font-size: 14px; color: var(--ink-2); }
+        .explanation-text {
             margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(23, 113, 74, .18);
+            font-size: 13.5px;
+            color: var(--muted);
         }
 
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+        .success-message,
+        .error-message {
+            padding: 12px 15px;
+            border-radius: var(--radius-sm);
+            font-size: 13.5px;
+            margin-bottom: 14px;
         }
+        .success-message { background: var(--ok-soft); border: 1px solid #bfe0cf; color: var(--ok); }
+        .error-message { background: var(--danger-soft); border: 1px solid #efc6c6; color: var(--danger); }
 
-        .logout-btn {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
-            margin-left: 15px;
-        }
-
-        .logout-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
-        }
-
-        .login-info {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 30px;
-            text-align: left;
-        }
-
-        .login-info h4 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        .login-info ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .login-info li {
-            padding: 8px 0;
-            border-bottom: 1px solid #e9ecef;
-            font-size: 0.9rem;
-            color: #555;
-        }
-
-        .login-info li:last-child {
-            border-bottom: none;
+        @media (max-width: 980px) {
+            .roulette-layout { grid-template-columns: 1fr; }
+            .panel--sticky { position: static; }
         }
     </style>
 </head>
 <body>
+    <div class="page">
 
-    <!-- Barra de Navegación -->
-    <div class="nav-bar">
-        <a href="index.html" class="nav-brand">🚀 ISIS2007</a>
-        <div class="nav-links">
-            <a href="team.html" class="nav-link">👥 Equipo</a>
-            <a href="schedule.html" class="nav-link">📅 Cronograma</a>
-            <a href="ruleta-estudiantes.html" class="nav-link active">🎯 Ruleta</a>
-            <a href="asistencia.html" class="nav-link">📊 Asistencia</a>
-            <a href="index.html" class="home-button">🏠 Inicio</a>
-        </div>
+        <section class="pagehead">
+            <div class="wrap">
+                <span class="eyebrow">Herramienta de clase · ISIS2007</span>
+                <h1>Ruleta de estudiantes</h1>
+                <p>
+                    Selección aleatoria para participación en clase. Con sesión iniciada,
+                    el equipo docente puede generar preguntas con IA para el estudiante elegido.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="wrap">
+                <div class="roulette-layout">
+
+                    <!-- ------------------------------------------------ ruleta -->
+                    <div class="panel roulette-section">
+                        <div class="roulette-container">
+                            <div class="pointer"></div>
+                            <div class="wheel" id="wheel"></div>
+                            <div class="wheel__hub">
+                                <div>
+                                    <b id="hubCount">44</b>
+                                    <span>estudiantes</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="controls">
+                            <button class="spin-button" id="spinButton" onclick="spinWheel()">Girar ruleta</button>
+                            <button class="spin-button spin-button--ghost" onclick="resetWheel()">Reiniciar</button>
+                        </div>
+
+                        <div class="result" id="result">
+                            <div class="selected-student" id="selectedStudent"></div>
+                            <div class="student-count" id="studentCount"></div>
+                        </div>
+
+                        <div class="student-list">
+                            <h3>Lista completa del curso</h3>
+                            <div class="student-grid" id="studentGrid"></div>
+                        </div>
+                    </div>
+
+                    <!-- ------------------------------------------ panel lateral -->
+                    <div class="panel panel--sticky">
+
+                        <!-- Login -->
+                        <div class="login-section" id="loginSection">
+                            <div class="questions-header">
+                                <h3>Acceso docente</h3>
+                                <p>Inicia sesión para generar preguntas con IA.</p>
+                            </div>
+
+                            <div class="login-form">
+                                <div class="input-group">
+                                    <label for="username">Usuario</label>
+                                    <input type="text" id="username" placeholder="usuario institucional">
+                                </div>
+                                <div class="input-group">
+                                    <label for="password">Contraseña</label>
+                                    <input type="password" id="password" placeholder="••••••••">
+                                </div>
+                                <button class="login-btn" onclick="login()">Iniciar sesión</button>
+                            </div>
+
+                            <div class="login-info">
+                                <h4>Sin credenciales</h4>
+                                <p>
+                                    La ruleta funciona sin iniciar sesión. Solo la generación de
+                                    preguntas con IA requiere acceso del equipo docente.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Preguntas con IA -->
+                        <div class="questions-section" id="questionsSection" style="display: none;">
+                            <div class="questions-header">
+                                <h3>Preguntas con IA</h3>
+                                <p>Genera preguntas para el estudiante seleccionado.</p>
+                                <button class="logout-btn" onclick="logout()">Salir</button>
+                            </div>
+
+                            <div class="category-selector">
+                                <div class="category-buttons">
+                                    <button class="category-btn" onclick="selectCategory('general')" id="btnGeneral">
+                                        Conocimiento general
+                                    </button>
+                                    <button class="category-btn" onclick="selectCategory('class')" id="btnClass">
+                                        Temas de la clase
+                                    </button>
+                                    <button class="category-btn" onclick="selectCategory('specific')" id="btnSpecific">
+                                        Tema específico
+                                    </button>
+                                </div>
+
+                                <div class="specific-topic-input" id="specificTopicInput">
+                                    <input type="text" id="topicInput" placeholder="Ej.: UX design, monetización, RAG…">
+                                </div>
+
+                                <button class="generate-btn" id="generateBtn" onclick="generateQuestions()" disabled>
+                                    Generar preguntas
+                                </button>
+                            </div>
+
+                            <div class="loading-spinner" id="loadingSpinner">
+                                <div class="spinner"></div>
+                                <p>Generando preguntas con IA…</p>
+                            </div>
+
+                            <div class="questions-container" id="questionsContainer"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
-    <div class="container">
-        <!-- Sección de la Ruleta -->
-        <div class="roulette-section">
-            <div class="header">
-                <h1>🎯 Ruleta de Estudiantes</h1>
-                <h2>ISIS2007 - Diseño de Productos e Innovación en TI</h2>
-            </div>
-
-            <div class="roulette-container">
-                <div class="pointer"></div>
-                <div class="wheel" id="wheel"></div>
-            </div>
-
-            <div class="controls">
-                <button class="spin-button" id="spinButton" onclick="spinWheel()">
-                    🎲 Girar Ruleta
-                </button>
-                <button class="spin-button" onclick="resetWheel()">
-                    🔄 Reiniciar
-                </button>
-            </div>
-
-            <div class="result" id="result">
-                <div class="selected-student" id="selectedStudent"></div>
-                <div class="student-count" id="studentCount"></div>
-            </div>
-
-            <div class="student-list">
-                <h3>📋 Lista Completa de Estudiantes</h3>
-                <div class="student-grid" id="studentGrid"></div>
-            </div>
-
-            <div class="footer">
-                <p><strong>Universidad de los Andes</strong></p>
-                <p>Departamento de Ingeniería de Sistemas y Computación</p>
-                <p>Semestre 2025-2</p>
-            </div>
-        </div>
-
-        <!-- Sección de Login -->
-        <div class="login-section" id="loginSection">
-            <div class="questions-header">
-                <h3>🔐 Acceso a la Ruleta</h3>
-                <p>Ingresa tus credenciales para acceder al sistema</p>
-            </div>
-
-            <div class="login-form">
-                <div class="input-group">
-                    <label for="username">Usuario:</label>
-                    <input type="text" id="username" placeholder="Ingresa tu usuario">
-                </div>
-                <div class="input-group">
-                    <label for="password">Contraseña:</label>
-                    <input type="password" id="password" placeholder="Ingresa tu contraseña">
-                </div>
-                <button class="login-btn" onclick="login()">🔐 Iniciar Sesión</button>
-            </div>
-
-            <div class="login-info">
-                <h4>🔐 Información de Acceso</h4>
-                <p>Contacta al administrador del sistema para obtener tus credenciales de acceso.</p>
-            </div>
-        </div>
-
-        <!-- Sección de Preguntas con IA (solo visible después del login) -->
-        <div class="questions-section" id="questionsSection" style="display: none;">
-            <div class="questions-header">
-                <h3>🤖 Preguntas con IA</h3>
-                <p>Genera preguntas inteligentes para el estudiante seleccionado</p>
-                <button class="logout-btn" onclick="logout()">🚪 Cerrar Sesión</button>
-            </div>
-
-            <div class="category-selector">
-                <div class="category-buttons">
-                    <button class="category-btn" onclick="selectCategory('general')" id="btnGeneral">
-                        🌍 Conocimiento General
-                    </button>
-                    <button class="category-btn" onclick="selectCategory('class')" id="btnClass">
-                        📚 Temas de la Clase
-                    </button>
-                    <button class="category-btn" onclick="selectCategory('specific')" id="btnSpecific">
-                        🎯 Tema Específico
-                    </button>
-                </div>
-
-                <div class="specific-topic-input" id="specificTopicInput">
-                    <input type="text" id="topicInput" placeholder="Escribe el tema específico (ej: UX Design, Innovación, etc.)">
-                </div>
-
-                <button class="generate-btn" id="generateBtn" onclick="generateQuestions()" disabled>
-                    🚀 Generar Preguntas con IA
-                </button>
-            </div>
-
-            <div class="loading-spinner" id="loadingSpinner">
-                <div class="spinner"></div>
-                <p>Generando preguntas con IA...</p>
-            </div>
-
-            <div class="questions-container" id="questionsContainer">
-                <!-- Las preguntas se mostrarán aquí -->
-            </div>
-        </div>
-    </div>
-
+    <script src="assets/site.js"></script>
     <script>
         // Lista de estudiantes reales del curso ISIS2007
         const students = [
@@ -853,108 +604,94 @@
             'Zambrano Burbano, Mateo'
         ];
 
-        const colors = [
-            '#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe', '#00f2fe',
-            '#43e97b', '#38f9d7', '#fa709a', '#fee140', '#a8edea', '#fed6e3',
-            '#ffecd2', '#fcb69f', '#ff9a9e', '#fecfef', '#fecfef', '#fad0c4',
-            '#ff9a9e', '#a8edea', '#d299c2', '#fef9d7', '#667eea', '#764ba2'
-        ];
+        /* Paleta institucional para los sectores de la ruleta */
+        const WHEEL_TONES = ['#111113', '#ffdd00', '#2c2d31', '#efeee8'];
 
         let isSpinning = false;
         let selectedStudents = new Set();
 
-        // Crear la ruleta
+        // Crear la ruleta con sectores en degradado cónico
         function createWheel() {
             const wheel = document.getElementById('wheel');
-            const segmentAngle = 360 / students.length;
-            
-            students.forEach((student, index) => {
-                const segment = document.createElement('div');
-                segment.className = 'wheel-segment';
-                // Solo mostrar iniciales o un símbolo en lugar del nombre completo
-                segment.textContent = '🎓';
-                segment.style.backgroundColor = colors[index % colors.length];
-                segment.style.transform = `rotate(${index * segmentAngle}deg)`;
-                segment.style.clipPath = `polygon(0 0, 100% 0, 100% 100%, 0 100%)`;
-                wheel.appendChild(segment);
+            const step = 360 / students.length;
+
+            const stops = students.map(function (_, i) {
+                const tone = WHEEL_TONES[i % WHEEL_TONES.length];
+                return tone + ' ' + (i * step).toFixed(3) + 'deg ' + ((i + 1) * step).toFixed(3) + 'deg';
             });
+
+            wheel.style.background = 'conic-gradient(' + stops.join(', ') + ')';
+            document.getElementById('hubCount').textContent = students.length;
         }
 
         // Girar la ruleta
         function spinWheel() {
             if (isSpinning) return;
-            
-            isSpinning = true;
+
             const spinButton = document.getElementById('spinButton');
-            spinButton.disabled = true;
-            spinButton.textContent = '🎲 Girando...';
-            
             const wheel = document.getElementById('wheel');
             const result = document.getElementById('result');
-            result.classList.remove('show');
-            
-            // Seleccionar estudiante aleatorio
-            const availableStudents = students.filter(student => !selectedStudents.has(student));
-            
+
+            const availableStudents = students.filter(function (s) {
+                return !selectedStudents.has(s);
+            });
+
             if (availableStudents.length === 0) {
-                alert('¡Todos los estudiantes han sido seleccionados! Reinicia para empezar de nuevo.');
+                alert('Todos los estudiantes han sido seleccionados. Reinicia para empezar de nuevo.');
                 resetWheel();
                 return;
             }
-            
+
+            isSpinning = true;
+            spinButton.disabled = true;
+            spinButton.textContent = 'Girando…';
+            result.classList.remove('show');
+
             const randomStudent = availableStudents[Math.floor(Math.random() * availableStudents.length)];
             const studentIndex = students.indexOf(randomStudent);
-            
-            // Calcular rotación final
+
+            // Calcular rotación final: el sector del elegido queda centrado bajo el puntero
             const segmentAngle = 360 / students.length;
-            const targetAngle = studentIndex * segmentAngle;
+            const targetAngle = studentIndex * segmentAngle + segmentAngle / 2;
             const finalRotation = 360 * 5 + (360 - targetAngle); // 5 vueltas + posición final
-            
-            wheel.style.setProperty('--final-rotation', `${finalRotation}deg`);
+
+            wheel.style.setProperty('--final-rotation', finalRotation + 'deg');
             wheel.classList.add('spinning');
-            
-            // Solo mostrar el resultado después de que termine de girar
-            setTimeout(() => {
+
+            setTimeout(function () {
                 selectedStudents.add(randomStudent);
                 showResult(randomStudent);
                 wheel.classList.remove('spinning');
                 isSpinning = false;
                 spinButton.disabled = false;
-                spinButton.textContent = '🎲 Girar Ruleta';
+                spinButton.textContent = 'Girar ruleta';
             }, 4000);
         }
 
         // Mostrar resultado
         function showResult(student) {
             const result = document.getElementById('result');
-            const selectedStudent = document.getElementById('selectedStudent');
-            const studentCount = document.getElementById('studentCount');
-            
-            selectedStudent.textContent = `🎉 ¡${student}!`;
-            studentCount.textContent = `Estudiante seleccionado (${selectedStudents.size}/44)`;
+
+            document.getElementById('selectedStudent').textContent = student;
+            document.getElementById('studentCount').textContent =
+                'Seleccionados ' + selectedStudents.size + ' de ' + students.length;
             result.classList.add('show');
-            
-            // Actualizar lista de estudiantes
+
             updateStudentList();
-            
-            // Actualizar estudiante actual para el sistema de preguntas
             updateCurrentStudent(student);
-            
-            // Mostrar mensaje de que se puede generar preguntas
+
             const questionsContainer = document.getElementById('questionsContainer');
-            questionsContainer.innerHTML = `
-                <div class="success-message">
-                    ✅ Estudiante seleccionado: <strong>${student}</strong><br>
-                    Selecciona una categoría y genera preguntas con IA
-                </div>
-            `;
+            if (currentUser) {
+                questionsContainer.innerHTML =
+                    '<div class="success-message">Estudiante seleccionado: <strong>' + student + '</strong>. ' +
+                    'Elige una categoría y genera las preguntas.</div>';
+            }
         }
 
         // Reiniciar ruleta
         function resetWheel() {
             selectedStudents.clear();
-            const result = document.getElementById('result');
-            result.classList.remove('show');
+            document.getElementById('result').classList.remove('show');
             updateStudentList();
         }
 
@@ -962,20 +699,17 @@
         function updateStudentList() {
             const studentGrid = document.getElementById('studentGrid');
             studentGrid.innerHTML = '';
-            
-            students.forEach(student => {
-                const studentItem = document.createElement('div');
-                studentItem.className = 'student-item';
-                studentItem.textContent = student;
-                
+
+            students.forEach(function (student) {
+                const item = document.createElement('div');
+                item.className = 'student-item';
+                item.textContent = student;
+
                 if (selectedStudents.has(student)) {
-                    studentItem.style.backgroundColor = '#e8f5e8';
-                    studentItem.style.color = '#2d5a2d';
-                    studentItem.style.borderLeftColor = '#28a745';
-                    studentItem.innerHTML = `✅ ${student}`;
+                    item.classList.add('is-picked');
                 }
-                
-                studentGrid.appendChild(studentItem);
+
+                studentGrid.appendChild(item);
             });
         }
 
@@ -984,34 +718,23 @@
         let currentStudent = null;
         let currentUser = null;
 
-                    // 🔐 CONFIGURACIÓN SEGURA - Cargar desde config.js
-        const users = window.CONFIG ? window.CONFIG.USERS : {
-            'prof.arturo.gomez': { password: 'Arturo2025#Uniandes$Profesor!', role: 'Profesor Principal' },
-            'monitor.juanes.rodriguez': { password: 'Juanes2025#Monitor$Uniandes!', role: 'Monitor' },
-            'monitor.catalina.martinez': { password: 'Catalina2025#Monitor$Uniandes!', role: 'Monitor' }
-        };
+        // 🔐 CONFIGURACIÓN SEGURA - Cargar desde config.js
+        const users = window.CONFIG ? window.CONFIG.USERS : {};
 
         // Seleccionar categoría de preguntas
         function selectCategory(category) {
             selectedCategory = category;
-            
-            // Remover clase active de todos los botones
-            document.querySelectorAll('.category-btn').forEach(btn => {
+
+            document.querySelectorAll('.category-btn').forEach(function (btn) {
                 btn.classList.remove('active');
             });
-            
-            // Agregar clase active al botón seleccionado
-            document.getElementById(`btn${category.charAt(0).toUpperCase() + category.slice(1)}`).classList.add('active');
-            
-            // Mostrar/ocultar input para tema específico
+
+            document.getElementById('btn' + category.charAt(0).toUpperCase() + category.slice(1))
+                .classList.add('active');
+
             const specificInput = document.getElementById('specificTopicInput');
-            if (category === 'specific') {
-                specificInput.style.display = 'block';
-            } else {
-                specificInput.style.display = 'none';
-            }
-            
-            // Habilitar botón de generar si hay estudiante seleccionado
+            specificInput.style.display = category === 'specific' ? 'block' : 'none';
+
             if (currentStudent) {
                 document.getElementById('generateBtn').disabled = false;
             }
@@ -1023,17 +746,17 @@
                 alert('Por favor inicia sesión primero');
                 return;
             }
-            
+
             if (!currentStudent) {
                 alert('Primero selecciona un estudiante girando la ruleta');
                 return;
             }
-            
+
             if (!selectedCategory) {
                 alert('Selecciona una categoría de preguntas');
                 return;
             }
-            
+
             if (selectedCategory === 'specific') {
                 const topic = document.getElementById('topicInput').value.trim();
                 if (!topic) {
@@ -1041,19 +764,18 @@
                     return;
                 }
             }
-            
-            // Mostrar loading
+
             const loadingSpinner = document.getElementById('loadingSpinner');
             const generateBtn = document.getElementById('generateBtn');
             const questionsContainer = document.getElementById('questionsContainer');
-            
+
             loadingSpinner.style.display = 'block';
             generateBtn.disabled = true;
             questionsContainer.innerHTML = '';
-            
+
             try {
                 let questions;
-                
+
                 if (selectedCategory === 'general') {
                     questions = await straicoService.generateGeneralKnowledgeQuestions(currentStudent);
                 } else if (selectedCategory === 'class') {
@@ -1062,111 +784,99 @@
                     const topic = document.getElementById('topicInput').value.trim();
                     questions = await straicoService.generateSpecificTopicQuestions(currentStudent, topic);
                 }
-                
-                // Ocultar loading
+
                 loadingSpinner.style.display = 'none';
                 generateBtn.disabled = false;
-                
-                if (questions.success) {
+
+                if (questions && questions.success) {
                     displayQuestions(questions.questions, questions.category);
                 } else {
-                    showErrorMessage('Error al generar preguntas');
+                    showErrorMessage('No fue posible generar las preguntas.');
                 }
-                
+
             } catch (error) {
                 console.error('Error al generar preguntas:', error);
                 loadingSpinner.style.display = 'none';
                 generateBtn.disabled = false;
-                showErrorMessage('Error de conexión con la IA');
+                showErrorMessage('Error de conexión con el servicio de IA.');
             }
         }
 
         // Mostrar preguntas generadas con respuestas ocultas
         function displayQuestions(questions, category) {
             const questionsContainer = document.getElementById('questionsContainer');
-            
+
             let categoryTitle = '';
-            let semanaInfo = '';
-            
-            switch(category) {
+            let extra = '';
+
+            switch (category) {
                 case 'general':
-                    categoryTitle = '🌍 Conocimiento General';
+                    categoryTitle = 'Conocimiento general';
                     break;
                 case 'class':
-                    const currentWeek = straicoService.getCurrentWeek();
-                    categoryTitle = `📚 Temas de la Clase - Semana ${currentWeek}`;
-                    semanaInfo = `<br><small>📅 Basado en el cronograma actual del curso</small>`;
+                    categoryTitle = 'Temas de la clase — semana ' + straicoService.getCurrentWeek();
+                    extra = '<br><small>Basado en el cronograma vigente del curso</small>';
                     break;
                 case 'specific':
-                    categoryTitle = `🎯 Tema Específico`;
+                    categoryTitle = 'Tema específico';
                     break;
                 default:
-                    categoryTitle = `🎯 ${category}`;
+                    categoryTitle = category;
             }
-            
-            let html = `
-                <div class="success-message">
-                    ✅ Preguntas generadas para <strong>${currentStudent}</strong><br>
-                    Categoría: <strong>${categoryTitle}</strong>${semanaInfo}
-                </div>
-            `;
-            
-            questions.forEach((question, index) => {
-                const difficultyBadge = question.dificultad === 'ALTA' ? 
-                    '<span class="difficulty-badge alta">🔥 ALTA</span>' : 
-                    '<span class="difficulty-badge">📚 MEDIA</span>';
-                
-                html += `
-                    <div class="question-card" id="question-${index}">
-                        <div class="question-header">
-                            <div class="question-number">${index + 1}</div>
-                            ${difficultyBadge}
-                        </div>
-                        <div class="question-text">${question.pregunta}</div>
-                        <button class="show-answer-btn" onclick="toggleAnswer(${index})" id="btn-${index}">
-                            👁️ Mostrar Respuesta
-                        </button>
-                        <div class="answer-container" id="answer-${index}" style="display: none;">
-                            <div class="answer-text">
-                                <strong>✅ Respuesta:</strong> ${question.respuesta_correcta}
-                            </div>
-                            ${question.explicacion ? `
-                                <div class="explanation-text">
-                                    <strong>💡 Explicación:</strong> ${question.explicacion}
-                                </div>
-                            ` : ''}
-                        </div>
-                    </div>
-                `;
+
+            let html =
+                '<div class="success-message">' +
+                    'Preguntas generadas para <strong>' + currentStudent + '</strong><br>' +
+                    'Categoría: <strong>' + categoryTitle + '</strong>' + extra +
+                '</div>';
+
+            questions.forEach(function (question, index) {
+                const difficultyBadge = question.dificultad === 'ALTA'
+                    ? '<span class="difficulty-badge alta">Alta</span>'
+                    : '<span class="difficulty-badge">Media</span>';
+
+                html +=
+                    '<div class="question-card" id="question-' + index + '">' +
+                        '<div class="question-header">' +
+                            '<div class="question-number">' + (index + 1) + '</div>' +
+                            difficultyBadge +
+                        '</div>' +
+                        '<div class="question-text">' + question.pregunta + '</div>' +
+                        '<button class="show-answer-btn" onclick="toggleAnswer(' + index + ')" id="btn-' + index + '">' +
+                            'Mostrar respuesta' +
+                        '</button>' +
+                        '<div class="answer-container" id="answer-' + index + '" style="display: none;">' +
+                            '<div class="answer-text"><strong>Respuesta:</strong> ' + question.respuesta_correcta + '</div>' +
+                            (question.explicacion
+                                ? '<div class="explanation-text"><strong>Explicación:</strong> ' + question.explicacion + '</div>'
+                                : '') +
+                        '</div>' +
+                    '</div>';
             });
-            
+
             questionsContainer.innerHTML = html;
         }
 
         // Función para mostrar/ocultar respuestas
         function toggleAnswer(index) {
-            const answerContainer = document.getElementById(`answer-${index}`);
-            const toggleBtn = document.getElementById(`btn-${index}`);
-            
+            const answerContainer = document.getElementById('answer-' + index);
+            const toggleBtn = document.getElementById('btn-' + index);
+
             if (answerContainer.style.display === 'none') {
                 answerContainer.style.display = 'block';
-                toggleBtn.innerHTML = '🙈 Ocultar Respuesta';
+                toggleBtn.textContent = 'Ocultar respuesta';
                 toggleBtn.classList.add('active');
             } else {
                 answerContainer.style.display = 'none';
-                toggleBtn.innerHTML = '👁️ Mostrar Respuesta';
+                toggleBtn.textContent = 'Mostrar respuesta';
                 toggleBtn.classList.remove('active');
             }
         }
 
         // Mostrar mensaje de error
         function showErrorMessage(message) {
-            const questionsContainer = document.getElementById('questionsContainer');
-            questionsContainer.innerHTML = `
-                <div class="error-message">
-                    ❌ ${message}
-                </div>
-            `;
+            document.getElementById('questionsContainer').innerHTML =
+                '<div class="error-message">' + message + '</div>';
         }
 
         // Función de login
@@ -1180,25 +890,18 @@
             }
 
             if (users[username] && users[username].password === password) {
-                currentUser = { username, role: users[username].role };
-                
-                // Ocultar sección de login y mostrar sección de preguntas
+                currentUser = { username: username, role: users[username].role };
+
                 document.getElementById('loginSection').style.display = 'none';
                 document.getElementById('questionsSection').style.display = 'block';
-                
-                // Mostrar mensaje de bienvenida
-                const questionsContainer = document.getElementById('questionsContainer');
-                questionsContainer.innerHTML = `
-                    <div class="success-message">
-                        ✅ Bienvenido, <strong>${username}</strong> (${users[username].role})<br>
-                        Gira la ruleta para seleccionar un estudiante
-                    </div>
-                `;
-                
-                // Limpiar campos de login
+
+                document.getElementById('questionsContainer').innerHTML =
+                    '<div class="success-message">Bienvenido, <strong>' + username + '</strong> (' +
+                    users[username].role + '). Gira la ruleta para seleccionar un estudiante.</div>';
+
                 document.getElementById('username').value = '';
                 document.getElementById('password').value = '';
-                
+
             } else {
                 alert('Usuario o contraseña incorrectos');
             }
@@ -1209,32 +912,35 @@
             currentUser = null;
             currentStudent = null;
             selectedCategory = null;
-            
-            // Mostrar sección de login y ocultar sección de preguntas
+
             document.getElementById('loginSection').style.display = 'block';
             document.getElementById('questionsSection').style.display = 'none';
-            
-            // Limpiar preguntas
             document.getElementById('questionsContainer').innerHTML = '';
-            
-            // Resetear ruleta
+            document.getElementById('generateBtn').disabled = true;
+
+            document.querySelectorAll('.category-btn').forEach(function (btn) {
+                btn.classList.remove('active');
+            });
+            document.getElementById('specificTopicInput').style.display = 'none';
+
             resetWheel();
         }
 
         // Actualizar estudiante actual cuando se selecciona
         function updateCurrentStudent(student) {
             currentStudent = student;
-            // Limpiar preguntas anteriores
-            document.getElementById('questionsContainer').innerHTML = '';
-            // Deshabilitar botón hasta seleccionar categoría
             document.getElementById('generateBtn').disabled = true;
+            selectedCategory = null;
+            document.querySelectorAll('.category-btn').forEach(function (btn) {
+                btn.classList.remove('active');
+            });
         }
 
         // Inicializar
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             createWheel();
             updateStudentList();
         });
     </script>
 </body>
-</html> 
+</html>

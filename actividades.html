@@ -3,919 +3,576 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actividades del Curso - ISIS2007</title>
+    <title>Actividades y entregas · ISIS2007 — Universidad de los Andes</title>
+    <meta name="description" content="Enunciados, formato, criterios de evaluación y fechas límite de las entregas del curso ISIS2007, semestre 2026-II.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/theme.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* --------------------------------------------------- barra resumen -- */
+        .weightbar {
+            display: flex;
+            height: 8px;
+            border-radius: 999px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            background: var(--surface-2);
         }
+        .weightbar span { display: block; height: 100%; }
+        .weightbar span:nth-child(odd) { background: var(--uni-black); }
+        .weightbar span:nth-child(even) { background: var(--uni-yellow); }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px 20px;
-            border-radius: 20px;
-            margin-bottom: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .header h1 {
-            color: #2c3e50;
-            font-size: clamp(2rem, 5vw, 3rem);
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .header h2 {
-            color: #7f8c8d;
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-            font-weight: 400;
-            margin-bottom: 20px;
-        }
-
-        .back-button {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 25px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .back-button:hover {
-            background: #5a6fd8;
-            transform: translateY(-2px);
-        }
-
-        .activities-grid {
-            display: grid;
-            gap: 25px;
-            margin-bottom: 40px;
-        }
+        /* ------------------------------------------------------- acordeón -- */
+        .activities-grid { display: grid; gap: 14px; }
 
         .activity-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            border: 3px solid transparent;
-            background-clip: padding-box;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--surface);
             overflow: hidden;
-            transition: all 0.3s ease;
-            position: relative;
-            margin-bottom: 25px;
+            transition: border-color .2s ease, box-shadow .2s ease;
         }
 
-        .activity-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 20px;
-            padding: 3px;
-            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .activity-card:hover::before {
-            opacity: 1;
-        }
-
-        .activity-card.expanded::before {
-            opacity: 1;
-        }
+        .activity-card:hover { border-color: var(--line-strong); }
+        .activity-card.expanded { border-color: var(--ink); box-shadow: var(--shadow); }
 
         .activity-header {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr auto auto;
             align-items: center;
-            padding: 25px 20px;
+            gap: 18px;
+            padding: 20px 24px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            flex-wrap: wrap;
-            gap: 15px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
-            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
-            position: relative;
+            user-select: none;
+            transition: background .18s ease, transform .12s ease;
         }
-
-        .activity-header:hover {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            transform: translateY(-2px);
-        }
-
-        .activity-header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 20px;
-            right: 20px;
-            height: 2px;
-            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .activity-header:hover::after {
-            transform: scaleX(1);
-        }
+        .activity-header:hover { background: var(--surface-2); }
+        .activity-card.expanded .activity-header { background: var(--surface-2); }
 
         .activity-title {
-            color: #2c3e50;
-            font-size: clamp(1.1rem, 3vw, 1.5rem);
-            font-weight: 600;
-            flex: 1;
-            min-width: 0;
+            font-size: 1.02rem;
+            font-weight: 620;
+            color: var(--ink);
+            letter-spacing: -.015em;
+            line-height: 1.35;
+        }
+        .activity-title small {
+            display: block;
+            margin-top: 5px;
+            font-size: 12px;
+            font-weight: 520;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            color: var(--muted);
         }
 
         .activity-percentage {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-            white-space: nowrap;
-            text-align: center;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -.02em;
+            font-variant-numeric: tabular-nums;
+            padding: 5px 12px;
+            border-radius: 999px;
+            background: var(--uni-yellow);
+            color: var(--uni-black);
         }
 
         .expand-icon {
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-            color: #667eea;
-            transition: transform 0.3s ease;
-            margin-left: 15px;
-            flex-shrink: 0;
+            width: 26px; height: 26px;
+            display: grid; place-items: center;
+            border-radius: 50%;
+            border: 1px solid var(--line-strong);
+            color: var(--muted);
+            font-size: 10px;
+            transition: transform .25s ease, background .2s ease, color .2s ease;
         }
-
         .activity-card.expanded .expand-icon {
             transform: rotate(180deg);
+            background: var(--uni-black);
+            border-color: var(--uni-black);
+            color: #fff;
         }
 
         .activity-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.5s ease;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            opacity: 0;
-            transform: translateY(-10px);
-            position: relative;
+            display: none;
+            padding: 4px 24px 26px;
+            border-top: 1px solid var(--line);
         }
-
-        .activity-card.expanded .activity-content {
-            max-height: none;
-            overflow: visible;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .activity-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
-        }
+        .activity-card.expanded .activity-content { display: block; }
 
         .activity-description {
-            color: #555;
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
-            line-height: 1.6;
-            margin-bottom: 20px;
-            padding: 0 20px 20px 20px;
+            font-size: 15px;
+            color: var(--ink-2);
+            padding: 20px 0 4px;
         }
 
-        .activity-details {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 25px;
-            margin: 0;
-            border-radius: 15px;
-            margin: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            border-left: 4px solid #667eea;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .activity-details::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(180deg, #667eea, #764ba2);
-        }
-
+        /* ------------------------------------------- bloques de contenido -- */
+        .activity-details { margin-top: 24px; }
         .activity-details h4 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            font-size: 12px;
+            font-weight: 680;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding-bottom: 10px;
+            margin-bottom: 14px;
+            border-bottom: 1px solid var(--line);
         }
+        .activity-details p,
+        .activity-details li { font-size: 14.5px; color: var(--ink-2); }
+        .activity-details a { text-decoration: underline; }
 
-        .activity-details ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .activity-details li {
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
-            font-size: clamp(0.85rem, 2.5vw, 0.9rem);
-        }
-
-        .activity-details li::before {
-            content: "•";
-            color: #667eea;
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-
-        .evaluation-criteria {
-            background: linear-gradient(135deg, #e8f4fd 0%, #d1ecf1 100%);
-            border-left: 4px solid #3498db;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .evaluation-criteria::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(180deg, #3498db, #2980b9);
-        }
-
-        .evaluation-criteria h5 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
-            font-weight: 600;
-        }
-
-        .tips-section {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-            border-left: 4px solid #ffc107;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tips-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(180deg, #ffc107, #f39c12);
-        }
-
-        .tips-section h5 {
-            color: #856404;
-            margin-bottom: 15px;
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
-            font-weight: 600;
-        }
-
+        .evaluation-criteria,
+        .tips-section,
         .deadline {
-            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
-            border-left: 4px solid #dc3545;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.1);
-            position: relative;
-            overflow: hidden;
+            margin-top: 24px;
+            padding: 18px 20px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--line);
+            background: var(--surface-2);
         }
 
-        .deadline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(180deg, #dc3545, #c82333);
-        }
+        .evaluation-criteria { border-left: 3px solid var(--uni-black); }
+        .tips-section { border-left: 3px solid var(--uni-yellow-dark); background: var(--uni-yellow-soft); border-color: #f0e089; }
+        .deadline { border-left: 3px solid var(--info); background: var(--info-soft); border-color: #cddff1; }
 
+        .evaluation-criteria h5,
+        .tips-section h5,
         .deadline h5 {
-            color: #721c24;
-            margin-bottom: 15px;
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 680;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .deadline h5 { color: var(--info); }
+        .tips-section h5 { color: var(--warn); }
+
+        .evaluation-criteria ul,
+        .tips-section ul { margin-bottom: 0; }
+        .evaluation-criteria li,
+        .tips-section li,
+        .deadline p { font-size: 14px; }
+        .deadline p:last-child { margin-bottom: 0; }
+
+        .subpart {
+            margin-top: 24px;
+            padding: 20px 22px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-sm);
+        }
+        .subpart > h4 {
+            border: 0;
+            padding: 0;
+            margin-bottom: 12px;
+            font-size: 14.5px;
+            font-weight: 640;
+            letter-spacing: -.01em;
+            text-transform: none;
+            color: var(--ink);
+        }
+        .subpart .tag {
+            display: inline-block;
+            margin-bottom: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted);
         }
 
-        .deadline strong {
-            color: #dc3545;
-        }
-
-        .footer {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .footer p {
-            color: #7f8c8d;
-            margin-bottom: 5px;
-            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .header {
-                padding: 30px 15px;
-                margin-bottom: 30px;
-            }
-            
-            .activity-header {
-                padding: 15px;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-                min-height: 60px;
-            }
-            
-            .activity-title {
-                width: 100%;
-                text-align: left;
-                font-size: 1rem;
-                line-height: 1.3;
-            }
-            
-            .activity-percentage {
-                align-self: flex-end;
-                font-size: 0.8rem;
-                padding: 6px 12px;
-            }
-            
-            .expand-icon {
-                align-self: flex-end;
-                margin-left: 0;
-                font-size: 1.2rem;
-            }
-            
-            .activity-details {
-                padding: 15px;
-            }
-            
-            .evaluation-criteria,
-            .tips-section,
-            .deadline {
-                margin: 15px;
-                padding: 12px;
-            }
-            
-            .activities-grid {
-                gap: 20px;
-            }
-            
-            .activity-description {
-                padding: 0 15px 15px 15px;
-                font-size: 0.9rem;
-            }
-            
-            /* Mejorar scroll en móviles */
-            .activity-content {
-                -webkit-overflow-scrolling: touch;
-                scroll-behavior: smooth;
-            }
-            
-            .activity-card.expanded .activity-content {
-                overflow-y: auto;
-                max-height: none;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 10px;
-            }
-            
-            .header {
-                padding: 25px 15px;
-                border-radius: 15px;
-            }
-            
-            .header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .header h2 {
-                font-size: 1rem;
-            }
-            
-            .activity-card {
-                border-radius: 15px;
-                margin-bottom: 15px;
-            }
-            
-            .activity-header {
-                padding: 12px;
-                min-height: 50px;
-            }
-            
-            .activity-title {
-                font-size: 0.9rem;
-                line-height: 1.2;
-            }
-            
-            .activity-percentage {
-                font-size: 0.75rem;
-                padding: 4px 8px;
-            }
-            
-            .expand-icon {
-                font-size: 1rem;
-            }
-            
-            .activity-description {
-                padding: 0 12px 12px 12px;
-                font-size: 0.85rem;
-            }
-            
-            .activity-details {
-                padding: 12px;
-            }
-            
-            .activity-details h4 {
-                font-size: 0.9rem;
-            }
-            
-            .activity-details li {
-                font-size: 0.8rem;
-            }
-            
-            .evaluation-criteria,
-            .tips-section,
-            .deadline {
-                margin: 12px;
-                padding: 12px;
-            }
-            
-            .evaluation-criteria h5,
-            .tips-section h5,
-            .deadline h5 {
-                font-size: 0.85rem;
-            }
-            
-            .back-button {
-                padding: 10px 20px;
-                font-size: 0.8rem;
-            }
-            
-            /* Scroll optimizado para móviles pequeños */
-            .activity-content {
-                -webkit-overflow-scrolling: touch;
-                scroll-behavior: smooth;
-            }
-            
-            .activity-card.expanded .activity-content {
-                overflow-y: auto;
-                max-height: none;
-            }
-            
-            /* Mejorar la experiencia de scroll */
-            .activity-details,
-            .evaluation-criteria,
-            .tips-section,
-            .deadline {
-                scroll-margin-top: 10px;
-            }
+        @media (max-width: 640px) {
+            .activity-header { grid-template-columns: 1fr auto; padding: 18px; row-gap: 12px; }
+            .expand-icon { grid-column: 2; }
+            .activity-percentage { grid-row: 2; grid-column: 1; justify-self: start; }
+            .activity-content { padding-inline: 18px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <a href="index.html" class="back-button">← Volver al Inicio</a>
-        
-        <div class="header">
-            <h1>📋 Actividades del Curso</h1>
-            <h2>ISIS2007 - Diseño de Productos e Innovación en TI</h2>
-            <p style="color: #7f8c8d; font-size: clamp(0.9rem, 2.5vw, 1.1rem);">Cronograma Detallado de Actividades y Evaluación</p>
-        </div>
+    <div class="page">
 
-        <div class="activities-grid">
-            <!-- Semana 4: 27 de agosto - Presentación de Pitch -->
-            <div class="activity-card">
-                <div class="activity-header" onclick="toggleActivity(this)">
-                    <div class="activity-title">💡 Semana 4: Presentación de Pitch de Problema a Solucionar</div>
-                    <div class="activity-percentage">10%</div>
-                    <div class="expand-icon">▼</div>
+        <section class="pagehead">
+            <div class="wrap">
+                <span class="eyebrow">ISIS2007 · Semestre 2026-II</span>
+                <h1>Actividades y entregas</h1>
+                <p>
+                    Enunciado, formato exigido, criterios de evaluación y fecha límite de cada
+                    entregable. Toca una actividad para ver el detalle completo.
+                </p>
+            </div>
+        </section>
+
+        <section class="section section--tight">
+            <div class="wrap">
+                <div class="weightbar mb-16" role="img" aria-label="Distribución de la nota: 20, 30, 10, 10 y 30 por ciento">
+                    <span style="width: 20%"></span>
+                    <span style="width: 30%"></span>
+                    <span style="width: 10%"></span>
+                    <span style="width: 10%"></span>
+                    <span style="width: 30%"></span>
                 </div>
-                <div class="activity-content">
-                    <div class="activity-description">
-                        Presentación del pitch del problema a solucionar
-                    </div>
-                    
-                    <div class="activity-details">
-                        <h4>🎯 Objetivo de la Tarea</h4>
-                        <p>El propósito de esta actividad es que los estudiantes desarrollen su capacidad para identificar oportunidades de negocio innovadoras y digitales, enfocadas en soluciones basadas en inteligencia artificial (AI). Se busca que aprendan a presentar sus ideas de forma clara, atractiva y convincente mediante una presentación breve.</p>
-                        
-                        <p>Al completar la tarea, cada grupo habrá practicado:</p>
-                        <ul>
-                            <li>La identificación y análisis en profundidad del problema a solucionar.</li>
-                            <li>La comprensión del mercado y de los potenciales beneficiados, evaluando a quién "le duele" la situación.</li>
-                            <li>La formulación de una solución digital innovadora en la que AI sea un componente fundamental.</li>
-                            <li>El estudio comparativo de soluciones disponibles en el mercado y la definición de ventajas competitivas.</li>
-                            <li>La capacidad para comunicar una idea de negocio utilizando herramientas digitales y un diseño coherente.</li>
-                        </ul>
+                <p class="small muted mb-0">
+                    Cinco entregas calificadas que suman el 100% de la nota del curso.
+                    Las fechas corresponden al calendario 2026-II —
+                    <a href="schedule.html" style="text-decoration: underline;">ver cronograma completo</a>.
+                </p>
+            </div>
+        </section>
+
+        <section class="section" style="padding-top: 24px;">
+            <div class="wrap">
+                <div class="activities-grid">
+
+                    <!-- ============================================== SEMANA 5 -->
+                    <div class="activity-card">
+                        <div class="activity-header" onclick="toggleActivity(this)">
+                            <div class="activity-title">
+                                Lean Canvas + Presentación de Problema y Solución
+                                <small>Semana 5 · Miércoles 2 de septiembre</small>
+                            </div>
+                            <div class="activity-percentage">20%</div>
+                            <div class="expand-icon">▼</div>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-description">
+                                Dos entregables complementarios en una sola calificación: el
+                                <strong>Lean Canvas</strong> del proyecto en una página (PDF) y la
+                                <strong>presentación del problema y la solución</strong> propuesta,
+                                alineada con lo validado en clase.
+                            </div>
+
+                            <div class="activity-details">
+                                <h4>Objetivo de la actividad</h4>
+                                <p>
+                                    Que cada equipo identifique una oportunidad de negocio innovadora y digital
+                                    —con la <strong>inteligencia artificial como componente central</strong>— y sea capaz
+                                    de modelarla y comunicarla de forma clara, atractiva y convincente.
+                                </p>
+                                <p>Al completar la actividad, el equipo habrá practicado:</p>
+                                <ul>
+                                    <li>La identificación y el análisis en profundidad del problema a solucionar.</li>
+                                    <li>La comprensión del mercado y de los potenciales beneficiados, evaluando a quién «le duele» la situación.</li>
+                                    <li>La formulación de una solución digital donde la IA sea fundamental, no decorativa.</li>
+                                    <li>El estudio comparativo de soluciones existentes y la definición de ventajas competitivas.</li>
+                                    <li>La articulación de los elementos clave del modelo de negocio y cómo interactúan entre sí.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Parte A -->
+                            <div class="subpart">
+                                <span class="tag">Entregable A</span>
+                                <h4>Lean Canvas — una página en PDF</h4>
+                                <p>Completen los <strong>9 bloques</strong> del Lean Canvas para su proyecto:</p>
+                                <ul>
+                                    <li><strong>Problem (Problema):</strong> qué problema resuelven y por qué importa.</li>
+                                    <li><strong>Solution (Solución):</strong> cómo lo resuelven de forma efectiva.</li>
+                                    <li><strong>Key Metrics (Indicadores clave):</strong> cómo medirán avance y éxito.</li>
+                                    <li><strong>Unique Value Proposition:</strong> qué los hace únicos.</li>
+                                    <li><strong>Unfair Advantage (Ventaja injusta):</strong> qué es difícil de copiar.</li>
+                                    <li><strong>Channels (Canales):</strong> cómo llegarán a los clientes o usuarios.</li>
+                                    <li><strong>Customer Segments:</strong> quiénes son y qué necesitan.</li>
+                                    <li><strong>Cost Structure:</strong> costos clave del modelo.</li>
+                                    <li><strong>Revenue Streams:</strong> de dónde viene el dinero.</li>
+                                </ul>
+                                <p style="margin-top: 14px;"><strong>Formato:</strong> una sola página A4 en PDF, dividida
+                                    visualmente en las 9 secciones (por ejemplo,
+                                    <a href="https://medium.com/@steve_mullen/an-introduction-to-lean-canvas-5c17c469d3e0" target="_blank" rel="noopener">este ejemplo</a>),
+                                    con viñetas o frases breves por bloque. Referencia adicional:
+                                    <a href="https://railsware.com/blog/5-lean-canvas-examples/" target="_blank" rel="noopener">5 Lean Canvas examples</a>.
+                                </p>
+                            </div>
+
+                            <!-- Parte B -->
+                            <div class="subpart">
+                                <span class="tag">Entregable B</span>
+                                <h4>Presentación de Problema y Solución</h4>
+                                <p>
+                                    Una presentación sencilla que articule de forma precisa y visual la idea de negocio.
+                                    La solución propuesta <strong>debe integrar la IA como uno de sus componentes
+                                    principales</strong>: no se aceptarán ideas donde la IA no tenga un rol central.
+                                    Puntos a abordar:
+                                </p>
+                                <ul>
+                                    <li><strong>Problema a solucionar:</strong> describir con claridad qué afecta al mercado.</li>
+                                    <li><strong>A quién le duele:</strong> definir el público objetivo o beneficiarios.</li>
+                                    <li><strong>Solución propuesta:</strong> el producto o servicio que responde al problema.</li>
+                                    <li><strong>Estado del arte:</strong> otras soluciones existentes y cómo funcionan.</li>
+                                    <li><strong>Propuesta de valor diferencial:</strong> qué harán mejor, más rápido o más simple.</li>
+                                </ul>
+                            </div>
+
+                            <div class="evaluation-criteria">
+                                <h5>Criterios de evaluación (sobre el 20%)</h5>
+                                <ul>
+                                    <li><strong>Presentación del problema y análisis de impacto (30%):</strong> claridad y profundidad en la identificación del problema.</li>
+                                    <li><strong>Propuesta de solución y valor diferencial (30%):</strong> descripción detallada de la solución y comparación con alternativas existentes.</li>
+                                    <li><strong>Coherencia y relevancia del Lean Canvas (20%):</strong> consistencia del modelo y pertinencia de los 9 bloques.</li>
+                                    <li><strong>Diseño y uso de herramientas digitales (10%):</strong> calidad estética, legibilidad y coherencia visual.</li>
+                                    <li><strong>Expresión oral y capacidad de sustentación (10%):</strong> claridad y fluidez en la exposición.</li>
+                                </ul>
+                            </div>
+
+                            <div class="tips-section">
+                                <h5>Recomendaciones</h5>
+                                <ul>
+                                    <li>Frases cortas y concretas: eviten párrafos largos en el canvas y en las diapositivas.</li>
+                                    <li>Cuiden la coherencia entre bloques (problema ↔ solución ↔ propuesta de valor ↔ segmentos).</li>
+                                    <li>Usen imágenes y gráficos para reforzar el mensaje, con una estética consistente.</li>
+                                    <li>Prioricen lo esencial y declaren de forma explícita los supuestos clave.</li>
+                                    <li>Busquen retroalimentación de compañeros o del equipo docente antes de la entrega final.</li>
+                                    <li>Revisen ortografía y formato antes de enviar.</li>
+                                </ul>
+                            </div>
+
+                            <div class="deadline">
+                                <h5>Fecha de entrega</h5>
+                                <p><strong>Miércoles 2 de septiembre, 11:59 p. m.</strong> por Bloque Neón (Lean Canvas en PDF).</p>
+                                <p>La presentación de problema y solución se sustenta en la sesión de esa misma semana.</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="activity-details">
-                        <h4>📋 Descripción General de la Actividad</h4>
-                        <p>Cada grupo debe desarrollar una presentación sencilla que articule de forma precisa y visual una idea de negocio innovadora y digital. La solución propuesta <strong>debe integrar la AI como uno de los componentes principales</strong>. No se aceptarán ideas donde la AI no tenga un rol central.</p>
-                        
-                        <p>Se deben abordar los siguientes puntos:</p>
-                        <ul>
-                            <li><strong>Problema a Solucionar:</strong> Identificar y describir de manera clara cuál es el problema que afecta al mercado.</li>
-                            <li><strong>A Quién le Duele:</strong> Definir el público objetivo o los potenciales beneficiados de la solución.</li>
-                            <li><strong>La Solución Propuesta:</strong> Describir el producto o servicio que se ofrece como respuesta al problema identificado.</li>
-                            <li><strong>Estado del Arte:</strong> Presentar otras soluciones existentes en el mercado y describir su funcionamiento.</li>
-                            <li><strong>Propuesta de Valor Diferencial:</strong> Explicar qué hará su propuesta mejor, más rápida o más sencilla.</li>
-                        </ul>
+                    <!-- ============================================== SEMANA 8 -->
+                    <div class="activity-card">
+                        <div class="activity-header" onclick="toggleActivity(this)">
+                            <div class="activity-title">
+                                Primera entrega del proyecto (MVP) + calificación de jurados
+                                <small>Semana 8 · Miércoles 23 de septiembre</small>
+                            </div>
+                            <div class="activity-percentage">30%</div>
+                            <div class="expand-icon">▼</div>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-description">
+                                Entrega de <strong>presentación</strong> y <strong>MVP (Minimum Viable Product)</strong>
+                                con evidencia de <strong>entrevistas y validaciones</strong>. Sustentación ante jurados.
+                            </div>
+
+                            <div class="activity-details">
+                                <h4>Objetivo</h4>
+                                <p>
+                                    Usar la retroalimentación del <em>Lean Canvas</em> para construir un pitch que motive
+                                    a posibles inversionistas y <strong>validar hipótesis clave</strong> mediante un
+                                    <strong>MVP</strong> y un conjunto de entrevistas a potenciales clientes. El MVP debe
+                                    enfocarse en las funcionalidades núcleo que demuestran valor y permiten aprender rápido.
+                                </p>
+                            </div>
+
+                            <div class="activity-details">
+                                <h4>Formato y requisitos</h4>
+                                <ol>
+                                    <li>La presentación debe entregarse en formato <strong>.pdf / .ppt / .pptx</strong>.</li>
+                                    <li>
+                                        <strong>MVP (obligatorio):</strong> entreguen un link público donde se pueda probar.
+                                        No se exige subir un ejecutable; el acceso debe ser posible sin instalaciones ni
+                                        permisos especiales. Incluyan instrucciones de uso y credenciales de prueba si aplica.
+                                        Como respaldo, adjunten un video demo de máximo 2 minutos.
+                                        <strong>Wireframes estáticos por sí solos no cuentan.</strong>
+                                    </li>
+                                    <li>
+                                        Adjunten <strong>evidencias</strong> de entrevistas y validaciones del MVP:
+                                        imágenes (<strong>.jpg/.png</strong>) y/o audio (<strong>.mp3/.wav</strong>) cuando sea posible.
+                                    </li>
+                                    <li>Incluyan en la presentación los <strong>resultados más significativos</strong> de entrevistas y pruebas del MVP.</li>
+                                </ol>
+                            </div>
+
+                            <div class="activity-details">
+                                <h4>Sobre la presentación</h4>
+                                <p>Se sugiere incluir:</p>
+                                <ul>
+                                    <li>Problema identificado y solución propuesta.</li>
+                                    <li>Tamaño del mercado.</li>
+                                    <li>Soluciones actuales y diferenciación.</li>
+                                    <li>Esquema de monetización.</li>
+                                    <li><strong>MVP:</strong> objetivo, funcionalidades clave, cómo se prueba y métricas de aprendizaje.</li>
+                                    <li>Validación realizada e iteraciones a partir de la retroalimentación.</li>
+                                </ul>
+                                <p>
+                                    <strong>Tiempo:</strong> 8 minutos de presentación + 5 minutos de preguntas.
+                                    <strong>Asistencia obligatoria</strong> de todo el equipo: quien no asista tendrá nota 0.
+                                </p>
+                            </div>
+
+                            <div class="evaluation-criteria">
+                                <h5>Criterios de evaluación</h5>
+                                <ul>
+                                    <li><strong>Calidad de la presentación (10%):</strong> claridad, poco texto y estética visual.</li>
+                                    <li><strong>Calidad de la sustentación oral (20%):</strong> claridad del pitch y dominio del problema–solución.</li>
+                                    <li><strong>Integración de feedback del Lean Canvas (20%):</strong> evidencia de los cambios realizados.</li>
+                                    <li><strong>Experimentos y aprendizaje (20%):</strong> foco en personas con el problema y aprendizajes accionables.</li>
+                                    <li><strong>MVP (30%):</strong> enfoque en funcionalidades núcleo, tracción o evidencia y claridad del «qué aprendimos y qué sigue».</li>
+                                </ul>
+                            </div>
+
+                            <div class="deadline">
+                                <h5>Fecha de entrega</h5>
+                                <p><strong>Miércoles 23 de septiembre, 11:59 a. m.</strong> por Bloque Neón.</p>
+                                <p>Presentación ante jurados durante la sesión de clase.</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="evaluation-criteria">
-                        <h5>📊 Criterios de Evaluación</h5>
-                        <ul>
-                            <li><strong>Presentación del Problema y Análisis de Impacto (35%):</strong> Claridad y profundidad en la identificación del problema.</li>
-                            <li><strong>Propuesta de Solución y Valor Diferencial (35%):</strong> Descripción detallada de la solución y comparación con alternativas existentes.</li>
-                            <li><strong>Diseño y Uso de Herramientas Digitales (15%):</strong> Calidad estética y coherencia visual.</li>
-                            <li><strong>Expresión Oral y Capacidad de Sustentación (15%):</strong> Claridad y fluidez en la exposición.</li>
-                        </ul>
+                    <!-- ============================================= SEMANA 13 -->
+                    <div class="activity-card">
+                        <div class="activity-header" onclick="toggleActivity(this)">
+                            <div class="activity-title">
+                                Trabajo grupal en proyectos + entrega de landing page
+                                <small>Semana 13 · Miércoles 4 de noviembre</small>
+                            </div>
+                            <div class="activity-percentage">10%</div>
+                            <div class="expand-icon">▼</div>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-description">
+                                Sesión de trabajo acompañado por el equipo docente y entrega de la
+                                <strong>landing page publicada</strong> del proyecto.
+                            </div>
+
+                            <div class="activity-details">
+                                <h4>Qué se entrega</h4>
+                                <ul>
+                                    <li><strong>URL pública</strong> de la landing page, accesible sin credenciales.</li>
+                                    <li>Propuesta de valor visible en la primera pantalla y un <strong>llamado a la acción</strong> claro.</li>
+                                    <li>Mecanismo de <strong>captura de interés</strong> (formulario, lista de espera o registro) conectado y funcionando.</li>
+                                    <li>Analítica instalada para poder medir visitas y conversión en las semanas siguientes.</li>
+                                </ul>
+                                <p>
+                                    Los contenidos vistos en las semanas 11 y 12 (landing pages y tracción, SEO,
+                                    SEM y embudos de conversión) son la base directa de esta entrega.
+                                </p>
+                            </div>
+
+                            <div class="deadline">
+                                <h5>Fecha de entrega</h5>
+                                <p><strong>Miércoles 4 de noviembre</strong>, durante la sesión de clase.</p>
+                                <p>El detalle de la rúbrica se publica en Bloque Neón antes de la entrega.</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="tips-section">
-                        <h5>💡 Consejos para la Realización</h5>
-                        <ul>
-                            <li>Utilizar imágenes, gráficos y otros recursos visuales para reforzar el mensaje.</li>
-                            <li>Mantener una estética visual coherente y profesional.</li>
-                            <li>Ser conciso y directo, reservando detalles adicionales para la exposición oral.</li>
-                            <li>Buscar retroalimentación de compañeros o asesores antes de la entrega final.</li>
-                        </ul>
+                    <!-- ============================================= SEMANA 15 -->
+                    <div class="activity-card">
+                        <div class="activity-header" onclick="toggleActivity(this)">
+                            <div class="activity-title">
+                                Semana de innovación
+                                <small>Semana 15 · Miércoles 18 de noviembre</small>
+                            </div>
+                            <div class="activity-percentage">10%</div>
+                            <div class="expand-icon">▼</div>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-description">
+                                Presentación del proyecto en la semana de innovación de la Facultad.
+                            </div>
+
+                            <div class="activity-details">
+                                <h4>Qué se presenta</h4>
+                                <ul>
+                                    <li><strong>Landing page</strong> publicada del proyecto.</li>
+                                    <li><strong>Datos de interés</strong> recolectados hasta la fecha (visitas, registros, entrevistas).</li>
+                                    <li><strong>MVP funcional</strong>, listo para ser probado por los asistentes.</li>
+                                    <li><strong>Video del MVP</strong>, corto y autoexplicativo.</li>
+                                </ul>
+                            </div>
+
+                            <div class="deadline">
+                                <h5>Fecha</h5>
+                                <p><strong>Miércoles 18 de noviembre</strong>, en el espacio de la semana de innovación.</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="deadline">
-                        <h5>⏰ Fecha de Entrega</h5>
-                        <p><strong>Entrega:</strong> Miércoles 23 de agosto a las 11:00 a.m. (por Bloque Neón)</p>
+                    <!-- ============================================= SEMANA 16 -->
+                    <div class="activity-card">
+                        <div class="activity-header" onclick="toggleActivity(this)">
+                            <div class="activity-title">
+                                Segunda entrega del proyecto + calificación de jurados
+                                <small>Semana 16 · Miércoles 25 de noviembre</small>
+                            </div>
+                            <div class="activity-percentage">30%</div>
+                            <div class="expand-icon">▼</div>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-description">
+                                Cierre del proyecto: <strong>pitch final</strong>, <strong>MVP funcional</strong>,
+                                resultados de la recolección de datos y feedback de usuarios, sustentado ante jurados.
+                            </div>
+
+                            <div class="activity-details">
+                                <h4>Qué se entrega</h4>
+                                <ul>
+                                    <li><strong>Pitch final</strong> del proyecto, orientado a inversión o adopción.</li>
+                                    <li><strong>MVP funcional</strong> con link público de prueba.</li>
+                                    <li><strong>Resultados de la recolección de datos</strong>: métricas de la landing page y del MVP.</li>
+                                    <li><strong>Feedback de usuarios</strong> e iteraciones derivadas de él.</li>
+                                    <li>Aprendizajes del semestre y siguiente paso del producto.</li>
+                                </ul>
+                                <p><strong>Asistencia obligatoria</strong> de todo el equipo en la sustentación.</p>
+                            </div>
+
+                            <div class="deadline">
+                                <h5>Fecha de entrega</h5>
+                                <p><strong>Miércoles 25 de noviembre</strong> por Bloque Neón, con sustentación ante jurados en clase.</p>
+                            </div>
+                        </div>
                     </div>
+
+                </div>
+
+                <div class="note note--info mt-32">
+                    <strong>Sobre las fechas.</strong> Todas las entregas se radican por Bloque Neón salvo indicación
+                    contraria. Cualquier ajuste se anuncia en clase y se refleja en el
+                    <a href="schedule.html" style="text-decoration: underline;">cronograma</a>.
                 </div>
             </div>
+        </section>
 
-            <!-- Semana 5: 3 de septiembre - Lean Canvas -->
-            <div class="activity-card">
-                <div class="activity-header" onclick="toggleActivity(this)">
-                    <div class="activity-title">🧩 Semana 5: Lean Canvas — Entrega Final</div>
-                    <div class="activity-percentage">10%</div>
-                    <div class="expand-icon">▼</div>
-                </div>
-                <div class="activity-content">
-                    <div class="activity-description">
-                        Entrega del Lean Canvas en <strong>una sola página (PDF)</strong>. 
-                        <strong>Ya está habilitada</strong> la actividad en <strong>Bloque Neón</strong>. 
-                        <strong>No hay presentación</strong>; solo entrega.
-                    </div>
-
-                    <div class="activity-details">
-                        <h4>🎯 Objetivo</h4>
-                        <p>
-                            Identificar los elementos clave de la idea y cómo interactúan para crear un modelo de negocio sólido y sostenible.
-                        </p>
-                         <ul>
-                            <li>Fomentar modelos de negocio claros y sólidos.</li>
-                            <li>Promover reflexión crítica y mejora continua.</li>
-                            <li>Mejorar la comunicación del modelo de negocio.</li>
-                        </ul>
-                    </div>
-
-                    <div class="activity-details">
-                        <h4>📘 Descripción General</h4>
-                        <p>Completen los <strong>9 bloques</strong> del Lean Canvas para su proyecto:</p>
-                        <ul>
-                            <li><strong>Problem (Problema):</strong> qué problema resuelven y por qué importa.</li>
-                            <li><strong>Solution (Solución):</strong> cómo lo resuelven de forma efectiva.</li>
-                            <li><strong>Key Metrics (Indicadores clave):</strong> cómo medirán avance y éxito.</li>
-                            <li><strong>Unique Value Proposition (Propuesta de valor única):</strong> qué los hace únicos.</li>
-                            <li><strong>Unfair Advantage (Ventaja injusta):</strong> qué es difícil de copiar.</li>
-                            <li><strong>Channels (Canales):</strong> cómo llegarán a los clientes/usuarios.</li>
-                            <li><strong>Customer Segments (Segmentos de clientes):</strong> quiénes son y qué necesitan.</li>
-                            <li><strong>Cost Structure (Estructura de costos):</strong> costos clave.</li>
-                            <li><strong>Revenue Streams (Fuentes de ingreso):</strong> de dónde viene el dinero.</li>
-                        </ul>
-                    </div>
-
-                    <div class="activity-details">
-                        <h4>✅ Checklist mínimo</h4>
-                        <ul>
-                            <li>Problema (Top 3)</li>
-                            <li>Segmentos de clientes</li>
-                            <li>Propuesta de valor <strong>única</strong></li>
-                            <li>Solución</li>
-                            <li>Canales</li>
-                            <li>Fuentes de ingresos</li>
-                            <li>Estructura de costos</li>
-                            <li>Métricas clave</li>
-                            <li><strong>Ventaja injusta</strong></li>
-                        </ul>
-                    </div>
-
-                    <div class="activity-details">
-                        <h4>📐 Formato y tamaño</h4>
-                        <ul>
-                            <li><strong>Una sola página A4</strong>, en <strong>PDF</strong>.</li>
-                            <li>Dividir visualmente en 9 secciones (por ejemplo, 
-                                <a href="https://medium.com/@steve_mullen/an-introduction-to-lean-canvas-5c17c469d3e0" target="_blank" rel="noopener">este ejemplo</a>).
-                            </li>
-                            <li>Usar viñetas o frases breves por bloque.</li>
-                        </ul>
-                    </div>
-
-                    <div class="evaluation-criteria">
-                        <h5>📊 Criterios de Evaluación</h5>
-                        <ul>
-                            <li><strong>Integración de retroalimentación (4%):</strong> incorporar el feedback recibido.</li>
-                            <li><strong>Coherencia y relevancia (4%):</strong> consistencia del modelo y pertinencia de los 9 bloques.</li>
-                            <li><strong>Presentación y diseño (2%):</strong> claridad visual y legibilidad del documento.</li>
-                        </ul>
-                    </div>
-
-                    <div class="tips-section">
-                        <h5>💡 Recomendaciones</h5>
-                        <ul>
-                            <li>Frases cortas y concretas; eviten párrafos largos.</li>
-                            <li>Coherencia entre bloques (problema ↔ solución ↔ propuesta de valor ↔ segmentos).</li>
-                            <li>Prioricen lo esencial y declaren supuestos clave.</li>
-                            <li>Revisen ortografía y formato antes de enviar.</li>
-                        </ul>
-                    </div>
-
-                    <div class="deadline">
-                        <h5>⏰ Fecha de Entrega</h5>
-                        <p><strong>Entrega:</strong> Miércoles 3 de septiembre, 11:59 p. m. (por Bloque Neón)</p>
-                        <p><em>Importante:</em> No hay presentación; solo entrega.</p>
-                    </div>
-
-                    <div class="activity-details">
-                        <h4>📎 Ejemplos de referencia</h4>
-                        <p>
-                            <a href="https://railsware.com/blog/5-lean-canvas-examples/" target="_blank" rel="noopener">5 Lean Canvas examples</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <!-- Semana 8: 24 de septiembre - Primera Entrega -->
-            <div class="activity-card">
-                <div class="activity-header" onclick="toggleActivity(this)">
-                    <div class="activity-title">🚀 Semana 8: Primera Entrega del Proyecto (MVP) + Calificación Jurados</div>
-                    <div class="activity-percentage">30%</div>
-                    <div class="expand-icon">▼</div>
-                </div>
-
-                <div class="activity-content">
-                    <div class="activity-description">
-                         Entrega de <strong>presentación</strong> y <strong>MVP (Minimum Viable Product)</strong> con evidencia de 
-                        <strong>>entrevistas y validaciones</strong>. Sustentación ante jurados.
-                    </div>
-                    <div class="activity-details">
-                        <h4>🎯 Objetivo</h4>
-                        <p>
-                            Usar la retroalimentación del <em>Lean Canvas</em> para construir un pitch que motive a posibles inversionistas
-                            y <strong>validar hipótesis clave</strong> mediante un <strong>MVP</strong> y un conjunto de entrevistas a potenciales clientes. 
-                            El MVP debe enfocarse en las funcionalidades núcleo que demuestran valor y permiten aprender rápido.
-                        </p>
-                    </div>
-                    <div class="activity-details">
-                        <h4>📐 Formato y tamaño</h4>
-                        <ol>
-                            <li>La presentación debe entregarse en formato <strong>.pdf / .ppt / .pptx</strong>.</li>
-                            <li>
-                                <strong>MVP (obligatorio)</strong>: entreguen un link público donde se pueda probar el MVP. 
-                                No se exige subir un ejecutable; el acceso debe ser posible sin instalaciones ni permisos especiales. 
-                                Incluya instrucciones de uso y credenciales de prueba si aplica. Como respaldo, adjunte un video demo ≤ 2 min.
-                                Wireframes estáticos por sí solos no cuentan.
-                            </li>
-                            <li>
-                                Adjunta <strong>evidencias</strong> de entrevistas y validaciones del MVP: imágenes (<strong>.jpg/.png</strong>)
-                                y/o audio (<strong>.mp3/.wav</strong>) cuando sea posible.
-                            </li>
-                            <li>Incluir en la presentación los <strong>resultados más significativos</strong> de entrevistas y pruebas del MVP.</li>
-                        </ol>
-                    </div>
-                    <div class="evaluation-criteria">
-                        <h5>📊 Criterios de Evaluación</h5>
-                        <ul>
-                            <li><strong>Calidad de la presentación (10%)</strong>: claridad, poco texto y estética visual.</li>
-                            <li><strong>Calidad de la sustentación oral (20%)</strong>: claridad del pitch y dominio del problema–solución.</li>
-                            <li><strong>Integración de feedback del Lean Canvas (20%)</strong>: evidencias de cambios realizados.</li>
-                            <li><strong>Experimentos y aprendizaje (20%)</strong>: foco en personas con el problema y aprendizajes accionables.</li>
-                            <li><strong>MVP (30%)</strong>: enfoque en funcionalidades núcleo del <em>MVP</em>, tracción/evidencia y claridad del
-                                “qué aprendimos y qué sigue”.</li>
-                        </ul>
-                    </div>
-                    <div class="activity-details">
-                    <h4>🖥️ Sobre la presentación</h4>
-                    <p>Sugerido incluir:</p>
-                    <ul>
-                        <li>Problema identificado y solución propuesta.</li>
-                        <li>Tamaño del mercado.</li>
-                        <li>Soluciones actuales y diferenciación.</li>
-                        <li>Esquema de monetización.</li>
-                        <li><strong>MVP</strong>: objetivo, funcionalidades clave, cómo se prueba y métricas de aprendizaje.</li>
-                        <li>Validación realizada e iteraciones a partir de la retroalimentación.</li>
-                    </ul>
-                    <p><strong>Tiempo:</strong> 8 minutos de presentación + 5 minutos de preguntas. 
-                        <strong>Asistencia obligatoria</strong> de todo el equipo (quien no asista tendrá nota 0).</p>
-                    </div>
-                    <div class="deadline">
-                        <h5>⏰ Fecha de Entrega</h5>
-                        <p><strong>Entrega:</strong> Miércoles 24 de septiembre, 11:59 a. m. (por Bloque Neón). Presentación ante jurados en clase.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Semana 13: 5 de noviembre - Trabajo Grupal -->
-            <div class="activity-card">
-                <div class="activity-header" onclick="toggleActivity(this)">
-                    <div class="activity-title">👥 Semana 13: Trabajo Grupal en Proyectos</div>
-                    <div class="activity-percentage">10%</div>
-                    <div class="expand-icon">▼</div>
-                </div>
-                <div class="activity-content">
-                    <div class="activity-description">
-                        Trabajo grupal en proyectos y entrega landing page
-                    </div>
-                </div>
-            </div>
-
-            <!-- Semana 15: 19 de noviembre - Semana de Innovación -->
-            <div class="activity-card">
-                <div class="activity-header" onclick="toggleActivity(this)">
-                    <div class="activity-title">🌟 Semana 15: Semana de Innovación</div>
-                    <div class="activity-percentage">10%</div>
-                    <div class="expand-icon">▼</div>
-                </div>
-                <div class="activity-content">
-                    <div class="activity-description">
-                        Actividades especiales durante la semana de innovación
-                    </div>
-                </div>
-            </div>
-
-            <!-- Semana 16: 26 de noviembre - Segunda Entrega -->
-            <div class="activity-card">
-                <div class="activity-header" onclick="toggleActivity(this)">
-                    <div class="activity-title">🎯 Semana 16: Segunda Entrega del Proyecto + Calificación Jurados</div>
-                    <div class="activity-percentage">30%</div>
-                    <div class="expand-icon">▼</div>
-                </div>
-                <div class="activity-content">
-                    <div class="activity-description">
-                        Entrega final del proyecto con evaluación de jurados
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer">
-            <p><strong>Universidad de los Andes</strong></p>
-            <p>Departamento de Ingeniería de Sistemas y Computación</p>
-            <p>Semestre 2025-2</p>
-        </div>
     </div>
 
+    <script src="assets/site.js"></script>
     <script>
         function toggleActivity(headerElement) {
-            const activityCard = headerElement.closest('.activity-card');
-            const isExpanded = activityCard.classList.contains('expanded');
-            
-            // Cerrar todas las actividades
-            document.querySelectorAll('.activity-card').forEach(card => {
-                card.classList.remove('expanded');
+            const card = headerElement.closest('.activity-card');
+            const wasExpanded = card.classList.contains('expanded');
+
+            document.querySelectorAll('.activity-card').forEach(function (c) {
+                c.classList.remove('expanded');
             });
-            
-            // Si la actividad clickeada no estaba expandida, expandirla
-            if (!isExpanded) {
-                activityCard.classList.add('expanded');
-                
-                // Scroll suave hacia la actividad expandida en móviles
+
+            if (!wasExpanded) {
+                card.classList.add('expanded');
                 if (window.innerWidth <= 768) {
-                    setTimeout(() => {
-                        activityCard.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }, 300);
+                    setTimeout(function () {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 250);
                 }
             }
         }
 
-        // Mejorar la experiencia táctil en móviles
-        document.addEventListener('DOMContentLoaded', function() {
-            // Agregar indicador visual de que las actividades son clickeables
-            const headers = document.querySelectorAll('.activity-header');
-            
-            headers.forEach(header => {
-                header.addEventListener('touchstart', function() {
-                    this.style.transform = 'scale(0.98)';
-                });
-                
-                header.addEventListener('touchend', function() {
-                    this.style.transform = 'scale(1)';
-                });
-            });
-            
-                    // Mejorar scroll en móviles
-        if ('ontouchstart' in window) {
-            const activityCards = document.querySelectorAll('.activity-card');
-            
-            activityCards.forEach(card => {
-                const content = card.querySelector('.activity-content');
-                if (content) {
-                    content.addEventListener('touchmove', function(e) {
-                        // Permitir scroll natural en el contenido
-                        e.stopPropagation();
-                    }, { passive: true });
-                }
-            });
-        }
+        /* Aparición progresiva de las tarjetas al hacer scroll */
+        document.addEventListener('DOMContentLoaded', function () {
+            const cards = document.querySelectorAll('.activity-card');
+            if (!('IntersectionObserver' in window)) return;
 
-        // Agregar efectos de scroll suaves
-        function addScrollEffects() {
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
                     if (entry.isIntersecting) {
                         entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.style.transform = 'none';
+                        observer.unobserve(entry.target);
                     }
                 });
-            }, observerOptions);
+            }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-            // Observar todas las tarjetas de actividad
-            document.querySelectorAll('.activity-card').forEach(card => {
+            cards.forEach(function (card) {
                 card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                card.style.transform = 'translateY(16px)';
+                card.style.transition = 'opacity .5s ease, transform .5s ease';
                 observer.observe(card);
             });
-        }
-
-        // Ejecutar efectos de scroll cuando se carga la página
-        document.addEventListener('DOMContentLoaded', function() {
-            addScrollEffects();
-        });
         });
     </script>
 </body>

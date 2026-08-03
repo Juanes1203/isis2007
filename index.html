@@ -3,327 +3,290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ISIS2007 - Diseño de Productos e Innovación en TI</title>
+    <title>ISIS2007 · Diseño de Productos e Innovación en TI — Universidad de los Andes</title>
+    <meta name="description" content="Portal del curso ISIS2007 Diseño de Productos e Innovación en Tecnologías de Información. Semestre 2026-II, Universidad de los Andes.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/theme.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Bloque de bienvenida a dos columnas */
+        .intro {
+            display: grid;
+            grid-template-columns: 1.35fr 1fr;
+            gap: 56px;
+            align-items: start;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
+        .intro h2 { font-size: clamp(1.35rem, 3vw, 1.8rem); margin-bottom: 16px; }
+        .intro p { color: var(--muted); }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+        .evalbar { display: grid; gap: 10px; margin-top: 4px; }
 
-        .header {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 20px;
-            margin-bottom: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
+        .evalrow {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 14px;
+            align-items: center;
+            padding: 13px 0;
+            border-top: 1px solid var(--line);
+            font-size: 14.5px;
         }
-
-        .header h1 {
-            color: #2c3e50;
-            font-size: 3rem;
-            margin-bottom: 15px;
+        .evalrow:last-child { border-bottom: 1px solid var(--line); }
+        .evalrow strong { font-weight: 560; }
+        .evalrow .pct {
             font-weight: 700;
+            font-size: 15px;
+            letter-spacing: -.02em;
+            font-variant-numeric: tabular-nums;
         }
 
-        .header h2 {
-            color: #7f8c8d;
-            font-size: 1.5rem;
-            font-weight: 400;
-            margin-bottom: 20px;
-        }
-
-        .navigation-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .nav-card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            border: 2px solid transparent;
-        }
-
-        .nav-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-            border-color: #667eea;
-        }
-
-        .nav-card.active {
-            border-color: #667eea;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-        }
-
-        .nav-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .nav-title {
-            color: #2c3e50;
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .nav-description {
-            color: #7f8c8d;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .welcome-message {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .welcome-message h3 {
-            color: #2c3e50;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
-
-        .welcome-message p {
-            color: #555;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .course-info {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .course-info h3 {
-            color: #2c3e50;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .info-item {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-        }
-
-        .info-item h4 {
-            color: #2c3e50;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-        }
-
-        .info-item p {
-            color: #555;
-            font-size: 0.9rem;
-        }
-
-        .footer {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .footer p {
-            color: #7f8c8d;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-        }
-
-        .coming-soon {
-            opacity: 0.6;
-            position: relative;
-        }
-
-        .coming-soon::after {
-            content: "Próximamente";
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ffc107;
-            color: #333;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .header h1 {
-                font-size: 2.2rem;
-            }
-            
-            .navigation-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .nav-card {
-                padding: 25px;
-            }
+        @media (max-width: 860px) {
+            .intro { grid-template-columns: 1fr; gap: 36px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🚀 ISIS2007</h1>
-            <h2>Diseño de Productos e Innovación en Tecnologías de Información</h2>
-            <p style="color: #7f8c8d; font-size: 1.1rem;">Semestre 2025-2 - Universidad de los Andes</p>
-        </div>
+    <div class="page">
 
-        <div class="welcome-message">
-            <h3>🎯 Bienvenidos al Portal del Curso</h3>
-            <p>
-                Este es el centro de navegación para todos los recursos y herramientas del curso ISIS2007. 
-                Aquí encontrarás información del curso, equipo docente, cronograma, herramientas interactivas 
-                y más contenido que se irá agregando durante el semestre.
-            </p>
-            <p>
-                <strong>Navega por las diferentes secciones</strong> usando los enlaces de abajo para acceder 
-                a toda la información del curso de manera organizada y fácil.
-            </p>
-        </div>
-
-        <div class="navigation-grid">
-            <!-- Sistema de Asistencia -->
-            <a href="asistencia-simple.html" class="nav-card">
-                <span class="nav-icon">📊</span>
-                <div class="nav-title">Sistema de Asistencia</div>
-                <div class="nav-description">
-                    Control de asistencia con autenticación para profesores y monitores. Registro de fechas y estadísticas.
+        <!-- ============================================================ hero -->
+        <section class="hero">
+            <div class="wrap">
+                <span class="eyebrow">Universidad de los Andes · Ingeniería de Sistemas</span>
+                <h1 class="hero__title">Diseño de Productos e Innovación en TI</h1>
+                <p class="hero__lead">
+                    Del problema al producto: modelos de negocio, validación con usuarios,
+                    MVP con IA y tracción real. Un semestre construyendo y probando ideas
+                    frente a jurados.
+                </p>
+                <div class="hero__meta">
+                    <div>
+                        <div class="k">Código</div>
+                        <div class="v">ISIS2007 · Sección 2</div>
+                    </div>
+                    <div>
+                        <div class="k">Semestre</div>
+                        <div class="v">2026-II</div>
+                    </div>
+                    <div>
+                        <div class="k">Sesiones</div>
+                        <div class="v">Miércoles · 16 semanas</div>
+                    </div>
+                    <div>
+                        <div class="k">Inicio</div>
+                        <div class="v">5 de agosto de 2026</div>
+                    </div>
                 </div>
-            </a>
-
-            <!-- Equipo Docente -->
-            <a href="team.html" class="nav-card">
-                <span class="nav-icon">👥</span>
-                <div class="nav-title">Equipo Docente</div>
-                <div class="nav-description">
-                    Conoce al profesor principal y monitores del curso con sus perfiles y contacto.
-                </div>
-            </a>
-
-            <!-- Cronograma -->
-            <a href="schedule.html" class="nav-card">
-                <span class="nav-icon">📅</span>
-                <div class="nav-title">Cronograma del Curso</div>
-                <div class="nav-description">
-                    Cronograma detallado de 16 semanas con fechas, actividades y sistema de evaluación.
-                </div>
-            </a>
-
-            <!-- Ruleta de Estudiantes -->
-            <a href="ruleta-estudiantes.html" class="nav-card">
-                <span class="nav-icon">🎯</span>
-                <div class="nav-title">Ruleta de Estudiantes</div>
-                <div class="nav-description">
-                    Herramienta interactiva para selección aleatoria de estudiantes durante las clases.
-                </div>
-            </a>
-
-            <!-- Recursos y Materiales -->
-            <a href="recursos-materiales.html" class="nav-card">
-                <span class="nav-icon">📖</span>
-                <div class="nav-title">Recursos y Materiales</div>
-                <div class="nav-description">
-                    Documentos, presentaciones, enlaces útiles y material de apoyo del curso.
-                </div>
-            </a>
-
-
-
-            <!-- Actividades del Curso -->
-            <a href="actividades.html" class="nav-card">
-                <span class="nav-icon">📋</span>
-                <div class="nav-title">Actividades del Curso</div>
-                <div class="nav-description">
-                    Cronograma detallado de actividades, entregas y criterios de evaluación del proyecto.
-                </div>
-            </a>
-        </div>
-
-        <div class="course-info">
-            <h3>📊 Información Rápida del Curso</h3>
-            <div class="info-grid">
-                <div class="info-item">
-                    <h4>📅 Horario</h4>
-                    <p>Miércoles - 15 semanas</p>
-                    <p>Inicio: 6 de agosto de 2025</p>
-                </div>
-                <div class="info-item">
-                    <h4>🎓 Créditos</h4>
-                    <p>3 créditos</p>
-                    <p>Modalidad: Presencial</p>
-                </div>
-                <div class="info-item">
-                    <h4>👥 Sección</h4>
-                    <p>Sección 2</p>
-                    <p>Departamento de Ingeniería de Sistemas</p>
-                </div>
-                <div class="info-item">
-                    <h4>📊 Evaluación</h4>
-                    <p>Proyectos: 60%</p>
-                    <p>Actividades: 40%</p>
+                <div class="btnrow mt-32">
+                    <a href="schedule.html" class="btn btn--accent">Ver cronograma 2026-II</a>
+                    <a href="actividades.html" class="btn btn--light">Entregas y criterios</a>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="footer">
-            <p><strong>Universidad de los Andes</strong></p>
-            <p>Departamento de Ingeniería de Sistemas y Computación</p>
-            <p>Semestre 2025-2</p>
-        </div>
+        <!-- ========================================================== accesos -->
+        <section class="section">
+            <div class="wrap">
+                <div class="section__head">
+                    <span class="eyebrow">Accesos del curso</span>
+                    <h2>Todo lo que necesitas, en un solo lugar</h2>
+                    <p>Cronograma, entregas, material de clase y las herramientas que usamos en sesión.</p>
+                </div>
+
+                <div class="grid grid--3">
+                    <a href="schedule.html" class="card card--link">
+                        <span class="card__icon">
+                            <svg viewBox="0 0 20 20" aria-hidden="true">
+                                <rect x="2.5" y="4" width="15" height="13.5" rx="2"/>
+                                <path d="M2.5 8.5h15M6.5 2.5v3M13.5 2.5v3"/>
+                            </svg>
+                        </span>
+                        <div class="card__title">Cronograma</div>
+                        <p class="card__text">
+                            Las 16 semanas del semestre 2026-II con fechas, temas, receso
+                            institucional y porcentaje de cada entrega.
+                        </p>
+                    </a>
+
+                    <a href="actividades.html" class="card card--link">
+                        <span class="card__icon">
+                            <svg viewBox="0 0 20 20" aria-hidden="true">
+                                <path d="M6.5 3.5H5a1.5 1.5 0 0 0-1.5 1.5v11A1.5 1.5 0 0 0 5 17.5h10a1.5 1.5 0 0 0 1.5-1.5V5A1.5 1.5 0 0 0 15 3.5h-1.5"/>
+                                <rect x="7" y="2" width="6" height="3" rx="1"/>
+                                <path d="M7 9.5h6M7 13h4"/>
+                            </svg>
+                        </span>
+                        <div class="card__title">Actividades y entregas</div>
+                        <p class="card__text">
+                            Enunciados completos, formato exigido, criterios de evaluación
+                            y fechas límite de cada entregable.
+                        </p>
+                    </a>
+
+                    <a href="recursos-materiales.html" class="card card--link">
+                        <span class="card__icon">
+                            <svg viewBox="0 0 20 20" aria-hidden="true">
+                                <path d="M3 4.5c2.5-1 5-1 7 .5 2-1.5 4.5-1.5 7-.5v11c-2.5-1-5-1-7 .5-2-1.5-4.5-1.5-7-.5v-11Z"/>
+                                <path d="M10 5v11"/>
+                            </svg>
+                        </span>
+                        <div class="card__title">Recursos y materiales</div>
+                        <p class="card__text">
+                            Presentaciones, guías y lecturas de apoyo organizadas por tema,
+                            con búsqueda y descarga directa.
+                        </p>
+                    </a>
+
+                    <a href="team.html" class="card card--link">
+                        <span class="card__icon">
+                            <svg viewBox="0 0 20 20" aria-hidden="true">
+                                <circle cx="7.5" cy="7" r="2.75"/>
+                                <path d="M2.5 16.5c0-2.6 2.2-4.5 5-4.5s5 1.9 5 4.5"/>
+                                <path d="M13.5 5.2a2.6 2.6 0 0 1 0 5.1M14.5 12.4c1.9.5 3 2.1 3 4.1"/>
+                            </svg>
+                        </span>
+                        <div class="card__title">Equipo docente</div>
+                        <p class="card__text">
+                            Profesor y monitoría del curso: perfiles, correos institucionales
+                            y canales de contacto.
+                        </p>
+                    </a>
+
+                    <a href="ruleta-estudiantes.html" class="card card--link">
+                        <span class="card__icon">
+                            <svg viewBox="0 0 20 20" aria-hidden="true">
+                                <circle cx="10" cy="10" r="7.5"/>
+                                <circle cx="10" cy="10" r="4"/>
+                                <circle cx="10" cy="10" r="1.1" fill="currentColor" stroke="none"/>
+                            </svg>
+                        </span>
+                        <div class="card__title">Ruleta de estudiantes</div>
+                        <p class="card__text">
+                            Selección aleatoria para participación en clase, con generación
+                            de preguntas asistida por IA.
+                        </p>
+                    </a>
+
+                    <a href="asistencia-simple.html" class="card card--link">
+                        <span class="card__icon">
+                            <svg viewBox="0 0 20 20" aria-hidden="true">
+                                <rect x="3" y="3" width="14" height="14" rx="2.5"/>
+                                <path d="M6.5 10.2l2.4 2.4 4.6-5"/>
+                            </svg>
+                        </span>
+                        <div class="card__title">Registro de asistencia</div>
+                        <p class="card__text">
+                            Control de asistencia por sesión para el equipo docente,
+                            con estadísticas del grupo.
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================== intro + evaluación -->
+        <section class="section section--alt">
+            <div class="wrap">
+                <div class="intro">
+                    <div>
+                        <span class="eyebrow">Sobre el curso</span>
+                        <h2>Un producto real, validado con usuarios reales</h2>
+                        <p>
+                            El curso recorre el ciclo completo de creación de producto digital:
+                            identificar un problema que le duela a alguien, modelarlo con
+                            <strong>Lean Canvas</strong>, construir un <strong>MVP</strong> donde la
+                            inteligencia artificial sea un componente central, validarlo con
+                            entrevistas y medir tracción con landing pages y analítica.
+                        </p>
+                        <p>
+                            El trabajo es grupal y progresivo: cada entrega parte de la
+                            retroalimentación de la anterior. Las dos entregas mayores se
+                            sustentan frente a un panel de jurados invitados.
+                        </p>
+                        <div class="grid grid--2 mt-24">
+                            <div class="factlist">
+                                <div class="fact">
+                                    <div class="fact__k">Sesión semanal</div>
+                                    <div class="fact__v">Miércoles</div>
+                                </div>
+                                <div class="fact">
+                                    <div class="fact__k">Créditos</div>
+                                    <div class="fact__v">3 · Presencial</div>
+                                </div>
+                            </div>
+                            <div class="factlist">
+                                <div class="fact">
+                                    <div class="fact__k">Receso institucional</div>
+                                    <div class="fact__v">28 sep – 3 oct de 2026</div>
+                                </div>
+                                <div class="fact">
+                                    <div class="fact__k">Último día de clases</div>
+                                    <div class="fact__v">28 de noviembre de 2026</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="eyebrow">Evaluación</span>
+                        <h2 class="mb-16">Distribución de la nota</h2>
+                        <div class="evalbar">
+                            <div class="evalrow">
+                                <strong>Lean Canvas + Problema y Solución</strong>
+                                <span class="pct">20%</span>
+                            </div>
+                            <div class="evalrow">
+                                <strong>Primera entrega del proyecto (jurados)</strong>
+                                <span class="pct">30%</span>
+                            </div>
+                            <div class="evalrow">
+                                <strong>Entrega de landing page</strong>
+                                <span class="pct">10%</span>
+                            </div>
+                            <div class="evalrow">
+                                <strong>Semana de innovación</strong>
+                                <span class="pct">10%</span>
+                            </div>
+                            <div class="evalrow">
+                                <strong>Segunda entrega del proyecto (jurados)</strong>
+                                <span class="pct">30%</span>
+                            </div>
+                        </div>
+                        <p class="small muted mt-16">
+                            El detalle de cada criterio está en
+                            <a href="actividades.html" style="text-decoration: underline;">Actividades y entregas</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ cifras -->
+        <section class="section section--tight">
+            <div class="wrap">
+                <div class="grid grid--4">
+                    <div class="stat">
+                        <span class="stat__num">16</span>
+                        <span class="stat__label">Semanas de clase</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat__num">5</span>
+                        <span class="stat__label">Entregas calificadas</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat__num">2</span>
+                        <span class="stat__label">Sustentaciones con jurados</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat__num">1</span>
+                        <span class="stat__label">MVP funcional al final</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
+
+    <script src="assets/site.js"></script>
 </body>
-</html> 
+</html>

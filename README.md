@@ -1,6 +1,46 @@
-# 🚀 ISIS2007 - PDF Export Tool
+# ISIS2007 · Diseño de Productos e Innovación en TI
 
-Este proyecto permite exportar todas las páginas HTML del curso ISIS2007 (index, schedule, team) en un solo PDF perfecto con imágenes incluidas.
+Portal del curso (sitio estático) y utilidades de apoyo. Semestre **2026-II**,
+Universidad de los Andes.
+
+## 🌐 El sitio
+
+| Página | Archivo |
+| --- | --- |
+| Inicio | `index.html` |
+| Cronograma 2026-II | `schedule.html` |
+| Actividades y entregas | `actividades.html` |
+| Recursos y materiales | `recursos-materiales.html` |
+| Equipo docente | `team.html` |
+| Ruleta de estudiantes | `ruleta-estudiantes.html` |
+| Registro de asistencia | `asistencia-simple.html` |
+
+### Sistema de diseño
+
+Toda la interfaz comparte un único tema inspirado en la identidad visual de
+Uniandes (negro, amarillo institucional, tipografía Inter, mucho espacio en blanco):
+
+```
+assets/theme.css   → tokens de color/tipografía y componentes (cards, tablas, botones…)
+assets/site.js     → cabecera y pie de página compartidos + menú responsive
+```
+
+Para agregar una página al menú, edita el arreglo `NAV` en `assets/site.js`.
+Cada página incluye:
+
+```html
+<link rel="stylesheet" href="assets/theme.css">
+...
+<script src="assets/site.js"></script>
+```
+
+El cronograma resalta automáticamente la próxima sesión según la fecha del día
+y está optimizado para imprimir en PDF (Cmd/Ctrl + P).
+
+## 🧰 Exportación a PDF
+
+Este repositorio también incluye un script que combina las páginas del curso en
+un solo PDF con las imágenes integradas.
 
 ## 📋 Características
 
@@ -44,15 +84,21 @@ npm run convert
 ## 📁 Estructura del proyecto
 
 ```
+├── assets/
+│   ├── theme.css           # Sistema de diseño compartido
+│   └── site.js             # Cabecera, menú y pie de página
 ├── index.html              # Página principal
-├── schedule.html           # Página del cronograma
-├── team.html              # Página del equipo
-├── documento-completo.html # Versión combinada
-├── export-all-to-pdf.js   # Script principal de exportación
-├── FotoArturo.jpeg        # Foto del profesor
-├── FotoJuanes.jpeg        # Foto del monitor
-├── FotoCatalina.jpeg      # Foto del monitor
-└── package.json           # Configuración del proyecto
+├── schedule.html           # Cronograma 2026-II
+├── actividades.html        # Actividades y entregas
+├── recursos-materiales.html# Material de clase
+├── team.html               # Equipo docente
+├── ruleta-estudiantes.html # Ruleta + preguntas con IA
+├── asistencia-simple.html  # Registro de asistencia
+├── Archivos_de_Curso/      # PDFs del curso
+├── export-all-to-pdf.js    # Script de exportación a PDF
+├── FotoArturo.jpeg         # Foto del profesor
+├── FotoJuanes.jpeg         # Foto del monitor
+└── package.json            # Configuración del proyecto
 ```
 
 ## 🎨 Características del PDF generado
@@ -107,4 +153,4 @@ Para problemas técnicos, contacta al equipo de ISIS2007.
 
 **Universidad de los Andes**  
 Departamento de Ingeniería de Sistemas y Computación  
-Semestre 2025-2
+Semestre 2026-II
