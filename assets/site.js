@@ -11,10 +11,20 @@
     { href: 'schedule.html', label: 'Cronograma' },
     { href: 'actividades.html', label: 'Actividades' },
     { href: 'recursos-materiales.html', label: 'Recursos' },
-    { href: 'team.html', label: 'Equipo' },
-    { href: 'ruleta-estudiantes.html', label: 'Ruleta' },
-    { href: 'asistencia-simple.html', label: 'Asistencia' }
+    { href: 'team.html', label: 'Equipo' }
+    /* Secciones desactivadas — para reactivarlas, descomenta la línea
+       correspondiente y bórrala de DISABLED (abajo):
+    , { href: 'ruleta-estudiantes.html', label: 'Ruleta' }
+    , { href: 'asistencia-simple.html', label: 'Asistencia' }
+    */
   ];
+
+  /* Páginas fuera de servicio: se muestra un aviso en lugar del contenido,
+     de modo que tampoco queden accesibles por enlace directo. */
+  var DISABLED = {
+    'ruleta-estudiantes.html': 'Ruleta de estudiantes',
+    'asistencia-simple.html': 'Registro de asistencia'
+  };
 
   /* Páginas que deben marcar como activo otro enlace del menú */
   var ALIASES = {
@@ -94,11 +104,40 @@
     return el;
   }
 
+  function buildDisabledNotice(title) {
+    var el = document.createElement('section');
+    el.className = 'page-off';
+    el.innerHTML =
+      '<div class="wrap wrap--narrow">' +
+        '<div class="page-off__box">' +
+          '<span class="eyebrow">Sección no disponible</span>' +
+          '<h1>' + title + '</h1>' +
+          '<p>' +
+            'Esta herramienta está temporalmente fuera de servicio. ' +
+            'Si necesitas algo relacionado, escribe al equipo docente.' +
+          '</p>' +
+          '<div class="btnrow">' +
+            '<a href="index.html" class="btn">Volver al inicio</a>' +
+            '<a href="team.html" class="btn btn--ghost">Contactar al equipo docente</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    return el;
+  }
+
   function mount() {
     var active = currentPage();
 
     if (!document.querySelector('.topbar')) {
       document.body.insertBefore(buildTopbar(active), document.body.firstChild);
+    }
+
+    /* Si la página está desactivada, se oculta su contenido y se deja el aviso.
+       El DOM original se conserva para que los scripts de la página no fallen. */
+    if (DISABLED[active]) {
+      var page = document.querySelector('.page') || document.body;
+      document.body.classList.add('is-page-off');
+      page.insertBefore(buildDisabledNotice(DISABLED[active]), page.firstChild);
     }
 
     if (!document.querySelector('.sitefooter') && !document.body.hasAttribute('data-no-footer')) {

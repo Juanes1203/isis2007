@@ -676,6 +676,33 @@ select.input {
   color: rgba(255, 255, 255, .45);
 }
 
+/* ------------------------------------------------- sección desactivada --- */
+/* El contenido original se mantiene en el DOM pero oculto, para no romper
+   los scripts de la página. Solo se ve el aviso .page-off. */
+body.is-page-off .page > *:not(.page-off) { display: none !important; }
+body.is-page-off .floating-action { display: none !important; }
+
+.page-off { padding: 90px 0 110px; }
+
+.page-off__box {
+  padding: 44px 40px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--uni-yellow);
+  border-radius: var(--radius);
+}
+
+.page-off__box h1 {
+  font-size: clamp(1.5rem, 3.4vw, 2rem);
+  margin-bottom: 14px;
+}
+
+.page-off__box p {
+  color: var(--muted);
+  max-width: 56ch;
+  margin-bottom: 26px;
+}
+
 /* ------------------------------------------------------------ utilidades - */
 .muted { color: var(--muted); }
 .small { font-size: 13px; }
