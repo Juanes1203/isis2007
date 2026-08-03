@@ -36,6 +36,7 @@
   };
 
   var SEMESTER = '2026-II';
+  var ROOM = 'S1_202';
 
   function currentPage() {
     var file = window.location.pathname.split('/').pop().toLowerCase();
@@ -94,7 +95,7 @@
         '</div>' +
         '<div>' +
           '<strong>Semestre ' + SEMESTER + '</strong><br>' +
-          'Clases: miércoles<br>' +
+          'Clases: miércoles · Salón ' + ROOM + '<br>' +
           'Bogotá, Colombia' +
         '</div>' +
       '</div>' +
