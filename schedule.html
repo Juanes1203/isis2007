@@ -88,7 +88,11 @@
         }
 
         /* Resumen de evaluación */
-        .evalgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
+        /* Seis entregas: 340px reparte 3 por fila en escritorio (2 filas parejas). */
+        .evalgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; }
+        @media (max-width: 420px) {
+            .evalgrid { grid-template-columns: 1fr; }
+        }
 
         .evalcard {
             border: 1px solid var(--line);
@@ -153,12 +157,17 @@
                 <div class="section__head">
                     <span class="eyebrow">Evaluación</span>
                     <h2>Entregas calificadas</h2>
-                    <p>Cinco cortes de nota a lo largo del semestre. Las dos entregas mayores se sustentan frente a jurados.</p>
+                    <p>Seis cortes de nota a lo largo del semestre. Las dos entregas mayores se sustentan frente a jurados.</p>
                 </div>
                 <div class="evalgrid">
                     <div class="evalcard">
-                        <span class="pct">20%</span>
-                        <span class="ttl">Lean Canvas + Problema y Solución</span>
+                        <span class="pct">10%</span>
+                        <span class="ttl">Presentación de Problema y Solución</span>
+                        <span class="wk">Semana 4 · 26 de agosto</span>
+                    </div>
+                    <div class="evalcard">
+                        <span class="pct">10%</span>
+                        <span class="ttl">Entrega del Lean Canvas</span>
                         <span class="wk">Semana 5 · 2 de septiembre</span>
                     </div>
                     <div class="evalcard evalcard--major">
@@ -223,36 +232,36 @@
                             <tr data-date="2026-08-19">
                                 <td class="wk"><span class="wkno">3</span>Semana 3</td>
                                 <td class="dt">Mié. 19 ago.</td>
-                                <td class="tp">Modelos de monetización y mesa redonda</td>
-                                <td class="ds">Estrategias de monetización, análisis de casos de empresas de tecnología y discusión abierta de las ideas de proyecto.</td>
+                                <td class="tp">Monetización y Lean Canvas</td>
+                                <td class="ds">Estrategias y modelos de monetización, análisis de casos de empresas de tecnología y fundamentos del Lean Canvas aplicados a la idea de cada equipo.</td>
                                 <td class="gr"><span class="dash">—</span></td>
                             </tr>
                             <tr data-date="2026-08-26">
                                 <td class="wk"><span class="wkno">4</span>Semana 4</td>
                                 <td class="dt">Mié. 26 ago.</td>
-                                <td class="tp">Running Lean Parte 1 + trabajo guiado</td>
-                                <td class="ds">Aterrizaje del problema, segmentos de cliente y propuesta de valor. Trabajo en clase para avanzar el Lean Canvas.</td>
-                                <td class="gr"><span class="dash">—</span></td>
+                                <td class="tp">Presentación de problema y solución</td>
+                                <td class="ds">Cada equipo sustenta en clase el problema identificado, a quién le duele, la solución propuesta con la IA como componente central y su valor diferencial.</td>
+                                <td class="gr"><span class="badge badge--accent">10%</span></td>
                             </tr>
                             <tr data-date="2026-09-02">
                                 <td class="wk"><span class="wkno">5</span>Semana 5</td>
                                 <td class="dt">Mié. 02 sep.</td>
-                                <td class="tp">Entrega Lean Canvas + presentación de Problema y Solución</td>
-                                <td class="ds">Entrega del Lean Canvas y pitch del problema y la solución propuesta, alineado con lo validado en clase.</td>
-                                <td class="gr"><span class="badge badge--accent">20%</span></td>
+                                <td class="tp">Claude 101 + entrega del Lean Canvas</td>
+                                <td class="ds">Trabajo con Claude aplicado al desarrollo de producto: prompting, proyectos y Claude Code. Se entrega el Lean Canvas del proyecto.</td>
+                                <td class="gr"><span class="badge badge--accent">10%</span></td>
                             </tr>
                             <tr data-date="2026-09-09">
                                 <td class="wk"><span class="wkno">6</span>Semana 6</td>
                                 <td class="dt">Mié. 09 sep.</td>
-                                <td class="tp">MVP, UI/UX y diseño agéntico</td>
-                                <td class="ds">Construcción de MVP, diseño de interfaz y diseño agéntico: LLM, RAG, function calling y fine tuning.</td>
+                                <td class="tp">Running Lean + Building Startups in the AI era</td>
+                                <td class="ds">Aterrizaje del problema, segmentos de cliente y propuesta de valor con Running Lean, y qué cambia al construir startups en la era de la IA.</td>
                                 <td class="gr"><span class="dash">—</span></td>
                             </tr>
                             <tr data-date="2026-09-16">
                                 <td class="wk"><span class="wkno">7</span>Semana 7</td>
                                 <td class="dt">Mié. 16 sep.</td>
-                                <td class="tp">Presentaciones de prueba</td>
-                                <td class="ds">Ensayo de la sustentación ante el equipo docente y retroalimentación previa a la entrega con jurados.</td>
+                                <td class="tp">MVP, UI/UX y diseño agéntico</td>
+                                <td class="ds">Construcción de MVP, diseño de interfaz y diseño agéntico: LLM, RAG, function calling y fine tuning. Incluye ensayo de la sustentación y retroalimentación previa a la entrega con jurados.</td>
                                 <td class="gr"><span class="dash">—</span></td>
                             </tr>
                             <tr data-date="2026-09-23">

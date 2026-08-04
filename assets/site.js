@@ -37,6 +37,7 @@
 
   var SEMESTER = '2026-II';
   var ROOM = 'S1_202';
+  var TIME = '11:00 a. m. – 1:50 p. m.';
 
   function currentPage() {
     var file = window.location.pathname.split('/').pop().toLowerCase();
@@ -95,7 +96,8 @@
         '</div>' +
         '<div>' +
           '<strong>Semestre ' + SEMESTER + '</strong><br>' +
-          'Clases: miércoles · Salón ' + ROOM + '<br>' +
+          'Clases: miércoles · ' + TIME + '<br>' +
+          'Salón ' + ROOM + '<br>' +
           'Bogotá, Colombia' +
         '</div>' +
       '</div>' +

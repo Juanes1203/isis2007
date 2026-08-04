@@ -17,15 +17,16 @@
 
         .steps { counter-reset: step; display: grid; gap: 14px; margin-top: 4px; }
         .steps > div {
-            display: grid;
-            grid-template-columns: 30px 1fr;
+            display: flex;
             gap: 14px;
-            align-items: start;
+            align-items: flex-start;
             font-size: 14.5px;
+            line-height: 1.65;
         }
         .steps > div::before {
             counter-increment: step;
             content: counter(step);
+            flex: 0 0 auto;
             width: 30px; height: 30px;
             display: grid; place-items: center;
             border-radius: 50%;
@@ -34,6 +35,9 @@
             font-size: 12.5px;
             font-weight: 700;
         }
+        /* El texto va en un único hijo: si se dejan nodos sueltos, cada
+           <a>/<strong> se vuelve un item del flex y el paso se descuadra. */
+        .steps > div > span { min-width: 0; }
     </style>
 </head>
 <body>
@@ -58,10 +62,10 @@
                 <div class="card info-card">
                     <h2>Cómo descargar un material</h2>
                     <div class="steps">
-                        <div>Entra a <a href="recursos-materiales.html">Recursos y materiales</a> y busca el documento por título o etiqueta.</div>
-                        <div>Pulsa <strong>Ver</strong> para abrirlo en una pestaña nueva del navegador.</div>
-                        <div>Si no se muestra, pulsa <strong>Descargar</strong> para guardar el PDF en tu equipo.</div>
-                        <div>Abre el archivo con tu visor de PDF preferido.</div>
+                        <div><span>Entra a <a href="recursos-materiales.html">Recursos y materiales</a> y busca el documento por título o etiqueta.</span></div>
+                        <div><span>Pulsa <strong>Ver</strong> para abrirlo en una pestaña nueva del navegador.</span></div>
+                        <div><span>Si no se muestra, pulsa <strong>Descargar</strong> para guardar el PDF en tu equipo.</span></div>
+                        <div><span>Abre el archivo con tu visor de PDF preferido.</span></div>
                     </div>
                 </div>
 
