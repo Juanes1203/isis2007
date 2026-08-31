@@ -323,7 +323,7 @@ body.on-dark .bar{background:#33343a}
       <div class="card"><span class="tag">Nivel 2</span><h3>Contexto + requisitos + restricciones</h3><p>Producto, usuarios, stack cerrado, entidades, qué queda fuera. Aquí empieza a servir.</p></div>
       <div class="card good"><span class="tag">Nivel 3</span><h3>Especificación completa</h3><p>Más criterios de aceptación, ejemplos y una forma explícita de validar la respuesta.</p></div>
     </div>
-    <p class="note">Vamos a subir esta escalera en vivo con un caso real: CampusFlow, un asistente académico para estudiantes.</p>
+    <p class="note">Vamos a subir esta escalera en vivo sobre <b>CampusFlow</b>: un producto que nos inventamos para esta clase, y que van a ver en cada bloque de aquí en adelante.</p>
   </div>
 </section>
 
@@ -402,17 +402,17 @@ body.on-dark .bar{background:#33343a}
 <section class="s">
   <div class="inner">
     <p class="eyebrow">05 · Del producto al código</p>
-    <h2>CampusFlow: el caso de toda la clase</h2>
+    <h2>CampusFlow, el producto de esta clase</h2>
+    <p class="sub">Un producto inventado para el curso. No existe: lo especificamos, lo diseñamos y lo programamos hoy.</p>
     <ul class="pts">
-      <li><b>El problema.</b><span>Syllabus en PDF, fechas en el LMS, entregas en el chat del grupo. Nadie tiene una sola vista de qué debe entregar y cuándo.</span></li>
-      <li><b>La usuaria.</b><span>Ana, quinto semestre, seis materias. Se entera tarde de las entregas.</span></li>
-      <li><b>El MVP.</b><span>Importar el syllabus, extraer entregas con fecha, agenda unificada, preguntas sobre los documentos del curso.</span></li>
-      <li><b>Fuera de alcance.</b><span>App nativa, integración con el LMS, notificaciones push.</span></li>
+      <li><b>Qué hace.</b><span>Le dice a un estudiante qué tiene que entregar y cuándo, leyendo los documentos del curso.</span></li>
+      <li><b>Para quién.</b><span>Ana, quinto semestre, seis materias. Hoy se entera tarde de las entregas.</span></li>
+      <li><b>El MVP.</b><span>Importar el syllabus, extraer las entregas, agenda unificada y preguntas sobre los documentos.</span></li>
     </ul>
-    <div class="flow" style="margin-top:20px">
-      <span>Discovery</span><i>→</i><span>Definición</span><i>→</i><span>Diseño técnico</span><i>→</i><span>Código</span><i>→</i><span>Tests</span>
+    <div class="flow" style="margin-top:18px">
+      <span>Discovery</span><i>&#8594;</i><span>Definición</span><i>&#8594;</i><span>Diseño técnico</span><i>&#8594;</i><span>Código</span><i>&#8594;</i><span>Tests</span>
     </div>
-    <p class="note">Claude acompaña todo ese ciclo. Lo que no hace es validar una hipótesis: eso se hace hablando con usuarios.</p>
+    <p class="note">Claude acompaña todo ese ciclo. Lo que no hace es validar la hipótesis: eso se hace hablando con usuarios.</p>
   </div>
 </section>
 
@@ -650,7 +650,7 @@ msgs += [assistant(resp.content), user(tool_result(resp.tool_use.id, result))]</
       <div class="card good"><span class="tag">Gana valor</span><h3>Diseño de sistemas, product thinking, verificación, seguridad, context engineering, comunicación</h3></div>
     </div>
     <p class="punch">Don't just use AI. Learn to engineer with AI.</p>
-    <p class="note">Ahora sí, el laboratorio: en equipos de tres o cuatro, 45 minutos para construir el MVP de un producto que resuelva un problema real de estudiantes. La guía completa, la rúbrica y la biblioteca de prompts están en el repositorio del curso.</p>
+    <p class="note">Ahora el taller: lo que acabamos de hacer con CampusFlow, aplicado al proyecto que su equipo ya eligió. En el sitio del curso están la guía de trabajo, la biblioteca de prompts y el cheat sheet.</p>
   </div>
 </section>
 

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos · Claude 101 · ISIS2007</title>
+    <meta name="description" content="Documentación oficial verificada y un plan de estudio de dos semanas.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/theme.css">
+    <style>
+        .doc { max-width: 880px; }
+        .doc > *:last-child { margin-bottom: 0; }
+        .doc p, .doc li { max-width: 74ch; }
+        .doc ul, .doc ol { padding-left: 22px; margin: 0 0 14px; }
+        .doc li { margin-bottom: 6px; }
+        .doc li::marker { color: var(--muted-2); }
+
+        .sub {
+            font-size: clamp(1.25rem, 2.6vw, 1.6rem); font-weight: 800; letter-spacing: -.022em;
+            margin: 46px 0 16px; padding-top: 20px; border-top: 1px solid var(--line);
+            scroll-margin-top: 80px;
+        }
+        .doc .sub:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+        .doc h4 { font-size: 1rem; margin: 24px 0 8px; color: var(--ink-2); }
+
+        .eyebrow-in { display: block; font-size: 11.5px; font-weight: 640; letter-spacing: .14em;
+            text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+
+        blockquote.punch, .punch {
+            border: 0; border-left: 6px solid var(--uni-yellow); background: var(--uni-yellow-soft);
+            margin: 22px 0; padding: 16px 20px; border-radius: 0 var(--radius) var(--radius) 0;
+            font-size: clamp(1.05rem, 2vw, 1.3rem); font-weight: 700; letter-spacing: -.015em;
+            line-height: 1.3; max-width: 62ch;
+        }
+        .punch p { margin: 0; }
+        p.ask { font-weight: 700; font-size: 1.08rem; letter-spacing: -.012em; color: var(--ink); }
+
+        .tw { overflow-x: auto; margin: 0 0 20px; }
+        table.tbl { border-collapse: collapse; width: 100%; font-size: .9rem; min-width: 460px; }
+        table.tbl th {
+            text-align: left; font-size: 11px; font-weight: 640; letter-spacing: .1em;
+            text-transform: uppercase; color: var(--muted); padding: 9px 16px 9px 0;
+            border-bottom: 2px solid var(--uni-black); vertical-align: bottom;
+        }
+        table.tbl td { padding: 10px 16px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+        table.tbl tr:last-child td { border-bottom: 0; }
+        table.tbl td:first-child { font-weight: 600; }
+
+        .doc code {
+            font-family: var(--font-mono); font-size: .875em; background: var(--surface-2);
+            border: 1px solid var(--line); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere;
+        }
+        .codewrap { position: relative; margin: 0 0 18px; }
+        .doc pre.code, .prompt pre {
+            background: var(--uni-black); color: #e9e9ec; font-family: var(--font-mono);
+            font-size: 12.5px; line-height: 1.65; padding: 18px 20px; border-radius: var(--radius);
+            overflow-x: auto; margin: 0;
+        }
+        .doc pre code { background: none; border: 0; padding: 0; font-size: inherit; color: inherit; white-space: pre; }
+
+        .prompt { margin: 0 0 20px; border: 1px solid var(--line-strong); border-radius: var(--radius); overflow: hidden; }
+        .prompt-h {
+            margin: 0; padding: 10px 16px; background: var(--uni-yellow); color: var(--uni-black);
+            font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; max-width: none;
+        }
+        .prompt .codewrap { margin: 0; }
+        .prompt pre { border-radius: 0; }
+
+        .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 20px; padding: 0; }
+        .flow span {
+            font-family: var(--font-mono); font-size: 12.5px; background: var(--surface);
+            border: 1px solid var(--line-strong); padding: 8px 13px; border-radius: 6px;
+            position: relative; white-space: nowrap;
+        }
+        .flow span + span::before { content: "\2192"; color: var(--muted-2); font-family: var(--font-sans); margin-right: 9px; margin-left: -3px; }
+        .flow-v { flex-direction: column; align-items: flex-start; gap: 0; }
+        .flow-v span + span { margin-top: 22px; }
+        .flow-v span + span::before { content: "\2193"; position: absolute; left: 14px; top: -20px; margin: 0; }
+
+        .cols2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 0 0 20px; }
+        .col { background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; }
+        .col > *:last-child { margin-bottom: 0; }
+        .colh { font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase;
+            color: var(--uni-black); margin: 0 0 10px; padding-bottom: 8px; border-bottom: 2px solid var(--uni-yellow); }
+
+        .box { border: 1px solid var(--line); border-left: 6px solid var(--muted-2);
+            border-radius: 0 var(--radius) var(--radius) 0; padding: 14px 18px; margin: 0 0 20px; background: var(--surface-2); }
+        .box > *:last-child { margin-bottom: 0; }
+        .boxh { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 8px; color: var(--muted); }
+        .box.everyone { border-left-color: var(--info); background: var(--info-soft); }
+        .box.everyone .boxh { color: var(--info); }
+        .box.engineers { border-left-color: var(--uni-black); background: var(--surface-3); }
+        .box.engineers .boxh { color: var(--uni-black); }
+        .box.warn { border-left-color: var(--warn); background: var(--warn-soft); }
+        .box.warn .boxh { color: var(--warn); }
+        .box.wow { border-left-color: var(--uni-yellow); background: var(--uni-yellow-soft); }
+        .box.wow .boxh { color: var(--warn); }
+
+        ol.steps { list-style: none; padding: 0; margin: 0 0 20px; counter-reset: st; max-width: none; }
+        ol.steps > li { counter-increment: st; position: relative; padding: 0 0 16px 40px; margin: 0 0 16px; border-bottom: 1px solid var(--line); }
+        ol.steps > li:last-child { border-bottom: 0; margin-bottom: 0; }
+        ol.steps > li::before {
+            content: counter(st, decimal-leading-zero); position: absolute; left: 0; top: 0;
+            font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+            width: 26px; height: 26px; border-radius: 6px; background: var(--uni-yellow); color: var(--uni-black);
+            display: flex; align-items: center; justify-content: center;
+        }
+        ol.steps > li > *:last-child { margin-bottom: 0; }
+        .steph { font-weight: 700; font-size: 1.02rem; margin: 2px 0 6px; letter-spacing: -.012em; }
+
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 0 0 20px; }
+        .cards .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
+        .cards .card > *:last-child { margin-bottom: 0; }
+        .cardh { font-weight: 700; font-size: 1rem; margin: 0 0 8px; letter-spacing: -.012em; }
+        .sheet { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; margin: 0 0 24px; }
+        .sheet .card ol, .sheet .card ul { font-size: .92rem; }
+
+        details.fold { border: 1px solid var(--line); border-radius: var(--radius); margin: 0 0 14px; background: var(--surface); overflow: hidden; }
+        details.fold > summary {
+            cursor: pointer; list-style: none; padding: 12px 18px 12px 36px; position: relative;
+            font-family: var(--font-mono); font-size: 13px; background: var(--surface-2);
+        }
+        details.fold > summary::-webkit-details-marker { display: none; }
+        details.fold > summary::before { content: "\25B8"; position: absolute; left: 16px; color: var(--warn); display: inline-block; transition: transform .15s; }
+        details.fold[open] > summary::before { transform: rotate(90deg); }
+        details.fold[open] > summary { border-bottom: 1px solid var(--line); }
+        details.fold > *:not(summary) { margin: 16px 18px; }
+
+        .qa { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; margin: 0 0 16px; }
+        .qh { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--warn); margin: 0 0 8px; }
+        .q { font-weight: 700; font-size: 1.08rem; line-height: 1.35; margin: 0 0 14px; letter-spacing: -.014em; }
+        .qa details.fold { margin-bottom: 0; }
+
+        .unk { font-family: var(--font-mono); font-size: .82em; background: var(--warn-soft); color: var(--warn);
+            padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+
+        .copybtn {
+            position: absolute; top: 8px; right: 8px; font-family: var(--font-sans); font-size: 10.5px;
+            font-weight: 640; letter-spacing: .09em; text-transform: uppercase;
+            background: rgba(255,255,255,.1); color: #c9cad0; border: 1px solid rgba(255,255,255,.2);
+            border-radius: 5px; padding: 4px 9px; cursor: pointer; opacity: 0; transition: opacity .14s;
+        }
+        .codewrap:hover .copybtn, .copybtn:focus-visible { opacity: 1; }
+        .copybtn:hover { background: var(--uni-yellow); color: var(--uni-black); border-color: var(--uni-yellow); }
+        .copybtn.done { background: var(--uni-yellow); color: var(--uni-black); border-color: var(--uni-yellow); }
+        .backlink { margin-bottom: 26px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <section class="pagehead">
+            <div class="wrap">
+                <span class="eyebrow">Claude 101 · ISIS2007</span>
+                <h1>Recursos</h1>
+                <p>Documentación oficial verificada y un plan de estudio de dos semanas.</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="wrap">
+                <p><a class="backlink" href="claude-101.html">Volver a la clase</a></p>
+                <div class="doc">
+                    <h3 class="sub" id="rec-docs">Documentación oficial</h3>
+                    
+                    <div class="tw"><table class="tbl">
+                    <thead><tr><th>Recurso</th><th>Qué encuentras ahí</th><th>Por qué vale la pena</th></tr></thead>
+                    <tbody>
+                      <tr>
+                        <td><a href="https://platform.claude.com/docs/en/models/overview">Models overview</a></td>
+                        <td>Modelos vigentes, IDs exactos, context window, max output, knowledge cutoff.</td>
+                        <td>Es la única fuente que no envejece mal: los IDs cambian y los deprecados rompen código en producción.</td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Tool use</a></td>
+                        <td>El ciclo <code>tool_use</code> / <code>tool_result</code>, client vs server tools, tool_choice, paralelismo.</td>
+                        <td>Ese ciclo es literalmente el corazón de un agente. Sin esto, "agente" es una palabra de marketing.</td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview">Agent Skills</a></td>
+                        <td>SKILL.md, scripts asociados y divulgación progresiva en tres niveles.</td>
+                        <td>Es la forma de empaquetar un workflow tuyo para que sea reutilizable y no viva en un archivo de notas.</td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://code.claude.com/docs/en/overview">Claude Code — overview</a></td>
+                        <td>Todas las superficies: CLI, VS Code, JetBrains, escritorio, web y móvil, con el mismo motor y la misma configuración.</td>
+                        <td>Aclara que no son productos distintos: son entradas distintas al mismo agente.</td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://code.claude.com/docs/en/mcp">MCP en Claude Code</a></td>
+                        <td>Transportes, alcances local/project/user y las advertencias de seguridad.</td>
+                        <td>Es donde vas a configurar MCP de verdad, y donde está escrito el riesgo de prompt injection.</td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://code.claude.com/docs/en/memory">CLAUDE.md y auto memory</a></td>
+                        <td>Cómo se escribe el archivo que se lee al inicio de cada sesión y qué se guarda entre sesiones.</td>
+                        <td>Es el mayor retorno por línea escrita: un buen CLAUDE.md ahorra contexto en cada prompt del semestre.</td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://code.claude.com/docs/en/hooks">Hooks</a></td>
+                        <td>Comandos de shell antes o después de acciones del agente.</td>
+                        <td>Convierte tu disciplina en automatización: formatear tras cada edición, pasar lint antes de commit.</td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://code.claude.com/docs/en/sub-agents">Subagents</a></td>
+                        <td>Varios agentes en paralelo sobre partes distintas de una tarea, con un líder que coordina.</td>
+                        <td>Es el paso de "un agente que hace" a "un equipo que reparte", y cambia cómo divides el trabajo.</td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://code.claude.com/docs/en/best-practices">Best practices</a></td>
+                        <td>Recomendaciones de uso del agente en repos reales.</td>
+                        <td>Lo más corto de leer y lo que más rápido se nota en tu velocidad al día siguiente.</td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://support.claude.com/en/articles/9517075-what-are-projects">Projects</a></td>
+                        <td>Knowledge, project instructions, RAG al acercarse al límite del context window, permisos en Team/Enterprise.</td>
+                        <td>Explica con precisión qué es el modo RAG del Project y por qué no es lo mismo que subir un PDF al chat.</td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://claude.ai/code">Claude Code en la web</a></td>
+                        <td>La superficie web del agente, en claude.ai/code.</td>
+                        <td>Sirve para arrancar una sesión sin terminal y luego traerla a tu máquina con <code>claude --teleport</code>.</td>
+                      </tr>
+                    </tbody>
+                    </table></div>
+                    
+                    <h3 class="sub" id="rec-specs">Especificaciones</h3>
+                    
+                    <div class="tw"><table class="tbl">
+                    <thead><tr><th>Recurso</th><th>Qué encuentras ahí</th><th>Por qué vale la pena</th></tr></thead>
+                    <tbody>
+                      <tr>
+                        <td><a href="https://blog.modelcontextprotocol.io/posts/2026-07-28/">Especificación MCP 2026-07-28</a></td>
+                        <td>Modelo stateless de request/response, multi round-trip requests, routing por headers, listas de tools cacheables con TTL, auth más fuerte, framework de extensiones.</td>
+                        <td>Es el estándar que hoy respaldan públicamente Google Cloud y Microsoft (Foundry). Leer una spec completa es un ejercicio de ingeniería en sí mismo.</td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://modelcontextprotocol.io/docs/develop/build-server">Build an MCP server</a></td>
+                        <td>Guía paso a paso para exponer tools, resources y prompts desde un servidor propio.</td>
+                        <td>Escribir un servidor de tres tools es la forma más rápida de entender qué es y qué no es un agente.</td>
+                      </tr>
+                    </tbody>
+                    </table></div>
+                    
+                    <h3 class="sub" id="rec-critica">Lectura crítica</h3>
+                    
+                    <div class="tw"><table class="tbl">
+                    <thead><tr><th>Recurso</th><th>Qué encuentras ahí</th><th>Por qué vale la pena</th></tr></thead>
+                    <tbody>
+                      <tr>
+                        <td><a href="https://arxiv.org/abs/2507.09089">METR (2025), <em>Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity</em> — arXiv:2507.09089</a></td>
+                        <td>RCT con desarrolladores open source experimentados en tareas reales de sus propios repos: fueron ~19% más lentos con herramientas de IA mientras creían ir ~20% más rápido.</td>
+                        <td>Es el dato más honesto que existe sobre la brecha entre percepción y realidad. Léelo con sus límites: expertos, repos que ya conocían muy bien, herramientas de principios de 2025.</td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/">El mismo estudio, versión divulgativa</a></td>
+                        <td>Resumen del diseño experimental y de los resultados, con gráficas.</td>
+                        <td>Es la versión que puedes citar en una discusión de equipo sin pedirle a nadie que lea un paper.</td>
+                      </tr>
+                      <tr>
+                        <td>Andrej Karpathy, post original sobre <em>vibe coding</em> (febrero de 2025) — <span class="unk">buscar la fuente original</span></td>
+                        <td>La definición inicial: dejarse llevar, aceptar el código sin revisarlo, "olvidar que el código existe".</td>
+                        <td>Vale leer la formulación original antes de opinar sobre el término, porque casi todo lo que se cita después es paráfrasis de paráfrasis.</td>
+                      </tr>
+                      <tr>
+                        <td>Críticas de seguridad al vibe coding (Cloud Security Alliance, prensa 2025–2026) — <span class="unk">buscar la fuente original</span></td>
+                        <td>Argumentos sobre vulnerabilidades y deuda técnica en flujos con poca supervisión.</td>
+                        <td>Útil como contrapeso, pero las cifras que circulan vienen de organizaciones interesadas o de prensa, no de estudios revisados por pares: trátalas como afirmaciones a verificar.</td>
+                      </tr>
+                    </tbody>
+                    </table></div>
+                    
+                    <h3 class="sub" id="rec-practica">Práctica</h3>
+                    
+                    <div class="tw"><table class="tbl">
+                    <thead><tr><th>Recurso</th><th>Qué encuentras ahí</th><th>Por qué vale la pena</th></tr></thead>
+                    <tbody>
+                      <tr>
+                        <td><a href="https://code.claude.com/docs/en/overview">Instalar el CLI y abrir <code>campusflow-api</code></a></td>
+                        <td>Los comandos de instalación y el arranque de sesión en un repo.</td>
+                        <td>Nada de esto se aprende leyendo. El primer <code>claude</code> dentro de tu propio repo cambia la conversación.</td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://code.claude.com/docs/en/memory">Escribir tu propio CLAUDE.md</a></td>
+                        <td>Estándares del repo, decisiones de arquitectura, librerías preferidas, checklist de revisión.</td>
+                        <td>Es la práctica con mejor relación esfuerzo/beneficio de toda la lista.</td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://modelcontextprotocol.io/docs/develop/build-server">Construir un servidor MCP mínimo</a></td>
+                        <td>Un servidor con dos o tres tools sobre datos tuyos, conectado con <code>claude mcp add</code>.</td>
+                        <td>Cierra el círculo entre el ciclo tool_use de la API y lo que ves en tu terminal.</td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Implementar el ciclo de tool use a mano</a></td>
+                        <td>Una llamada a la API con <code>tools</code>, manejo de <code>stop_reason: "tool_use"</code> y devolución de <code>tool_result</code>.</td>
+                        <td>Después de escribirlo una vez, ningún framework de agentes te va a parecer magia.</td>
+                      </tr>
+                    </tbody>
+                    </table></div>
+                    
+                    <h3 class="sub" id="rec-siguiente">Qué hacer las dos semanas siguientes</h3>
+                    
+                    <p>Plan realista: 4 a 6 horas por semana. No es una lista de deseos, es lo que cabe.</p>
+                    
+                    <div class="tw"><table class="tbl">
+                    <thead><tr><th>Semana</th><th>Leer (~2 h)</th><th>Construir (~3 h)</th><th>Verificar</th></tr></thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>Semana 1</strong> — fundamentos y repo</td>
+                        <td><a href="https://platform.claude.com/docs/en/models/overview">Models overview</a>, <a href="https://code.claude.com/docs/en/overview">Claude Code overview</a>, <a href="https://code.claude.com/docs/en/best-practices">best practices</a> y <a href="https://code.claude.com/docs/en/memory">memory</a>.</td>
+                        <td>Instala el CLI, abre tu propio repo, escribe un CLAUDE.md de 30–40 líneas y arregla con él un bug real con su test de regresión.</td>
+                        <td>El test falla antes del fix y pasa después. Tú puedes explicar el diff línea por línea sin volver a abrir el chat.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Semana 2</strong> — tools, MCP y criterio</td>
+                        <td><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Tool use</a>, <a href="https://code.claude.com/docs/en/mcp">MCP en Claude Code</a>, la <a href="https://blog.modelcontextprotocol.io/posts/2026-07-28/">spec 2026-07-28</a> y el <a href="https://arxiv.org/abs/2507.09089">estudio METR</a>.</td>
+                        <td>Escribe un servidor MCP con dos tools sobre datos tuyos siguiendo <a href="https://modelcontextprotocol.io/docs/develop/build-server">build-server</a>, conéctalo con <code>claude mcp add</code> y agrega un hook que pase lint antes de commit.</td>
+                        <td><code>claude mcp list</code> y <code>/mcp</code> muestran el servidor arriba; el hook bloquea un commit sucio; anotaste qué tarea de la semana fue más lenta con IA que sin ella.</td>
+                      </tr>
+                    </tbody>
+                    </table></div>
+                    
+                    <div class="box warn">
+                    <p class="boxh">Cuidado</p>
+                    <p>Si conectas un servidor MCP que trae contenido externo, quedas expuesto a prompt injection. Conecta solo servidores en los que confías y usa credenciales de solo lectura cuando puedas.</p>
+                    </div>
+                    
+                    <blockquote class="punch">Don't just use AI. Learn to engineer with AI.</blockquote>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="assets/site.js"></script>
+    <script>
+    (function () {
+        document.querySelectorAll('.doc pre').forEach(function (pre) {
+            var code = pre.querySelector('code'); if (!code) return;
+            var w = document.createElement('div'); w.className = 'codewrap';
+            pre.parentNode.insertBefore(w, pre); w.appendChild(pre);
+            var b = document.createElement('button');
+            b.type = 'button'; b.className = 'copybtn'; b.textContent = 'copiar';
+            b.addEventListener('click', function () {
+                var done = function () {
+                    b.textContent = 'copiado'; b.classList.add('done');
+                    setTimeout(function () { b.textContent = 'copiar'; b.classList.remove('done'); }, 1500);
+                };
+                if (navigator.clipboard) { navigator.clipboard.writeText(code.innerText).then(done, function () { b.textContent = 'fallo'; }); }
+                else {
+                    var t = document.createElement('textarea'); t.value = code.innerText;
+                    document.body.appendChild(t); t.select();
+                    try { document.execCommand('copy'); done(); } catch (e) { b.textContent = 'fallo'; }
+                    document.body.removeChild(t);
+                }
+            });
+            w.appendChild(b);
+        });
+    })();
+    </script>
+</body>
+</html>

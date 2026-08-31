@@ -38,7 +38,7 @@ Las preguntas se responden haciendo clic: las opciones incorrectas se marcan y p
 | Archivo | Qué contiene |
 |---|---|
 | `index.html` | La presentación de la clase |
-| `laboratorio.md` | El reto en equipos, los 10 entregables, la rúbrica y los tres niveles de challenge |
+| `laboratorio.md` | Guía de trabajo: seis frentes para avanzar el proyecto de tu equipo, evidencia de uso de IA y criterios de evaluación |
 | `prompt-library.md` | 26 prompts completos por rol (PM, SWE, QA, Security, UX, AI Engineer, Code Reviewer) |
 | `buenas-practicas.md` | Prompts que no funcionan y su versión profesional, test de alucinación, tres casos de seguridad, cuándo usar qué herramienta |
 | `cheat-sheet.md` | Una página para imprimir: estructura de prompt, workflow y las 10 reglas |

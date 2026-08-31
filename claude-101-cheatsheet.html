@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheat sheet · Claude 101 · ISIS2007</title>
+    <meta name="description" content="Una página: estructura de un prompt, el ciclo de trabajo y las diez reglas. Para imprimir.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/theme.css">
+    <style>
+        .doc { max-width: 880px; }
+        .doc > *:last-child { margin-bottom: 0; }
+        .doc p, .doc li { max-width: 74ch; }
+        .doc ul, .doc ol { padding-left: 22px; margin: 0 0 14px; }
+        .doc li { margin-bottom: 6px; }
+        .doc li::marker { color: var(--muted-2); }
+
+        .sub {
+            font-size: clamp(1.25rem, 2.6vw, 1.6rem); font-weight: 800; letter-spacing: -.022em;
+            margin: 46px 0 16px; padding-top: 20px; border-top: 1px solid var(--line);
+            scroll-margin-top: 80px;
+        }
+        .doc .sub:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+        .doc h4 { font-size: 1rem; margin: 24px 0 8px; color: var(--ink-2); }
+
+        .eyebrow-in { display: block; font-size: 11.5px; font-weight: 640; letter-spacing: .14em;
+            text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+
+        blockquote.punch, .punch {
+            border: 0; border-left: 6px solid var(--uni-yellow); background: var(--uni-yellow-soft);
+            margin: 22px 0; padding: 16px 20px; border-radius: 0 var(--radius) var(--radius) 0;
+            font-size: clamp(1.05rem, 2vw, 1.3rem); font-weight: 700; letter-spacing: -.015em;
+            line-height: 1.3; max-width: 62ch;
+        }
+        .punch p { margin: 0; }
+        p.ask { font-weight: 700; font-size: 1.08rem; letter-spacing: -.012em; color: var(--ink); }
+
+        .tw { overflow-x: auto; margin: 0 0 20px; }
+        table.tbl { border-collapse: collapse; width: 100%; font-size: .9rem; min-width: 460px; }
+        table.tbl th {
+            text-align: left; font-size: 11px; font-weight: 640; letter-spacing: .1em;
+            text-transform: uppercase; color: var(--muted); padding: 9px 16px 9px 0;
+            border-bottom: 2px solid var(--uni-black); vertical-align: bottom;
+        }
+        table.tbl td { padding: 10px 16px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+        table.tbl tr:last-child td { border-bottom: 0; }
+        table.tbl td:first-child { font-weight: 600; }
+
+        .doc code {
+            font-family: var(--font-mono); font-size: .875em; background: var(--surface-2);
+            border: 1px solid var(--line); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere;
+        }
+        .codewrap { position: relative; margin: 0 0 18px; }
+        .doc pre.code, .prompt pre {
+            background: var(--uni-black); color: #e9e9ec; font-family: var(--font-mono);
+            font-size: 12.5px; line-height: 1.65; padding: 18px 20px; border-radius: var(--radius);
+            overflow-x: auto; margin: 0;
+        }
+        .doc pre code { background: none; border: 0; padding: 0; font-size: inherit; color: inherit; white-space: pre; }
+
+        .prompt { margin: 0 0 20px; border: 1px solid var(--line-strong); border-radius: var(--radius); overflow: hidden; }
+        .prompt-h {
+            margin: 0; padding: 10px 16px; background: var(--uni-yellow); color: var(--uni-black);
+            font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; max-width: none;
+        }
+        .prompt .codewrap { margin: 0; }
+        .prompt pre { border-radius: 0; }
+
+        .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 20px; padding: 0; }
+        .flow span {
+            font-family: var(--font-mono); font-size: 12.5px; background: var(--surface);
+            border: 1px solid var(--line-strong); padding: 8px 13px; border-radius: 6px;
+            position: relative; white-space: nowrap;
+        }
+        .flow span + span::before { content: "\2192"; color: var(--muted-2); font-family: var(--font-sans); margin-right: 9px; margin-left: -3px; }
+        .flow-v { flex-direction: column; align-items: flex-start; gap: 0; }
+        .flow-v span + span { margin-top: 22px; }
+        .flow-v span + span::before { content: "\2193"; position: absolute; left: 14px; top: -20px; margin: 0; }
+
+        .cols2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 0 0 20px; }
+        .col { background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; }
+        .col > *:last-child { margin-bottom: 0; }
+        .colh { font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase;
+            color: var(--uni-black); margin: 0 0 10px; padding-bottom: 8px; border-bottom: 2px solid var(--uni-yellow); }
+
+        .box { border: 1px solid var(--line); border-left: 6px solid var(--muted-2);
+            border-radius: 0 var(--radius) var(--radius) 0; padding: 14px 18px; margin: 0 0 20px; background: var(--surface-2); }
+        .box > *:last-child { margin-bottom: 0; }
+        .boxh { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 8px; color: var(--muted); }
+        .box.everyone { border-left-color: var(--info); background: var(--info-soft); }
+        .box.everyone .boxh { color: var(--info); }
+        .box.engineers { border-left-color: var(--uni-black); background: var(--surface-3); }
+        .box.engineers .boxh { color: var(--uni-black); }
+        .box.warn { border-left-color: var(--warn); background: var(--warn-soft); }
+        .box.warn .boxh { color: var(--warn); }
+        .box.wow { border-left-color: var(--uni-yellow); background: var(--uni-yellow-soft); }
+        .box.wow .boxh { color: var(--warn); }
+
+        ol.steps { list-style: none; padding: 0; margin: 0 0 20px; counter-reset: st; max-width: none; }
+        ol.steps > li { counter-increment: st; position: relative; padding: 0 0 16px 40px; margin: 0 0 16px; border-bottom: 1px solid var(--line); }
+        ol.steps > li:last-child { border-bottom: 0; margin-bottom: 0; }
+        ol.steps > li::before {
+            content: counter(st, decimal-leading-zero); position: absolute; left: 0; top: 0;
+            font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+            width: 26px; height: 26px; border-radius: 6px; background: var(--uni-yellow); color: var(--uni-black);
+            display: flex; align-items: center; justify-content: center;
+        }
+        ol.steps > li > *:last-child { margin-bottom: 0; }
+        .steph { font-weight: 700; font-size: 1.02rem; margin: 2px 0 6px; letter-spacing: -.012em; }
+
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 0 0 20px; }
+        .cards .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
+        .cards .card > *:last-child { margin-bottom: 0; }
+        .cardh { font-weight: 700; font-size: 1rem; margin: 0 0 8px; letter-spacing: -.012em; }
+        .sheet { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; margin: 0 0 24px; }
+        .sheet .card ol, .sheet .card ul { font-size: .92rem; }
+
+        details.fold { border: 1px solid var(--line); border-radius: var(--radius); margin: 0 0 14px; background: var(--surface); overflow: hidden; }
+        details.fold > summary {
+            cursor: pointer; list-style: none; padding: 12px 18px 12px 36px; position: relative;
+            font-family: var(--font-mono); font-size: 13px; background: var(--surface-2);
+        }
+        details.fold > summary::-webkit-details-marker { display: none; }
+        details.fold > summary::before { content: "\25B8"; position: absolute; left: 16px; color: var(--warn); display: inline-block; transition: transform .15s; }
+        details.fold[open] > summary::before { transform: rotate(90deg); }
+        details.fold[open] > summary { border-bottom: 1px solid var(--line); }
+        details.fold > *:not(summary) { margin: 16px 18px; }
+
+        .qa { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; margin: 0 0 16px; }
+        .qh { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--warn); margin: 0 0 8px; }
+        .q { font-weight: 700; font-size: 1.08rem; line-height: 1.35; margin: 0 0 14px; letter-spacing: -.014em; }
+        .qa details.fold { margin-bottom: 0; }
+
+        .unk { font-family: var(--font-mono); font-size: .82em; background: var(--warn-soft); color: var(--warn);
+            padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+
+        .copybtn {
+            position: absolute; top: 8px; right: 8px; font-family: var(--font-sans); font-size: 10.5px;
+            font-weight: 640; letter-spacing: .09em; text-transform: uppercase;
+            background: rgba(255,255,255,.1); color: #c9cad0; border: 1px solid rgba(255,255,255,.2);
+            border-radius: 5px; padding: 4px 9px; cursor: pointer; opacity: 0; transition: opacity .14s;
+        }
+        .codewrap:hover .copybtn, .copybtn:focus-visible { opacity: 1; }
+        .copybtn:hover { background: var(--uni-yellow); color: var(--uni-black); border-color: var(--uni-yellow); }
+        .copybtn.done { background: var(--uni-yellow); color: var(--uni-black); border-color: var(--uni-yellow); }
+        .backlink { margin-bottom: 26px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <section class="pagehead">
+            <div class="wrap">
+                <span class="eyebrow">Claude 101 · ISIS2007</span>
+                <h1>Cheat sheet</h1>
+                <p>Una página: estructura de un prompt, el ciclo de trabajo y las diez reglas. Para imprimir.</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="wrap">
+                <p><a class="backlink" href="claude-101.html">Volver a la clase</a></p>
+                <div class="doc">
+                    <div class="sheet">
+                    
+                    <div class="card">
+                    <p class="cardh">1. Prompting — las seis partes</p>
+                    <ul>
+                      <li><strong>Context</strong> — quién eres, qué producto es, qué stack, qué existe ya.</li>
+                      <li><strong>Goal</strong> — una sola tarea, en una frase, con el resultado esperado.</li>
+                      <li><strong>Constraints</strong> — versiones, librerías permitidas, estilo, lo que NO debe tocar.</li>
+                      <li><strong>Input</strong> — los datos reales: schema, ejemplo de payload, archivo, error completo.</li>
+                      <li><strong>Output</strong> — formato exacto: diff, archivo completo, tabla, JSON con estas llaves.</li>
+                      <li><strong>Validation</strong> — cómo se comprueba que sirve: tests que deben pasar, casos borde.</li>
+                    </ul>
+                    <p>Si el prompt no dice cómo se valida, el modelo decide por ti qué significa "correcto".</p>
+                    </div>
+                    
+                    <div class="card">
+                    <p class="cardh">2. Workflow — el ciclo</p>
+                    <div class="flow flow-v">
+                      <span>Specify</span>
+                      <span>Generate</span>
+                      <span>Inspect</span>
+                      <span>Test</span>
+                      <span>Validate</span>
+                      <span>Iterate</span>
+                    </div>
+                    <ul>
+                      <li><strong>Specify</strong> — escribe el alcance, los criterios de aceptación y los casos borde antes de pedir código.</li>
+                      <li><strong>Generate</strong> — deja que el agente produzca el cambio completo, no fragmentos sueltos.</li>
+                      <li><strong>Inspect</strong> — lee el diff línea por línea; mira dependencias nuevas y archivos tocados de más.</li>
+                      <li><strong>Test</strong> — corre la suite y agrega tú los casos borde que faltan; que alguno falle primero.</li>
+                      <li><strong>Validate</strong> — comprueba contra el criterio de aceptación, no contra "compiló y no explotó".</li>
+                      <li><strong>Iterate</strong> — cambia el contexto, no el tono: más datos, menos alcance, otro ángulo.</li>
+                    </ul>
+                    </div>
+                    
+                    <div class="card">
+                    <p class="cardh">3. Herramientas — úsala cuando</p>
+                    <div class="tw"><table class="tbl">
+                    <thead><tr><th>Herramienta</th><th>Úsala cuando</th></tr></thead>
+                    <tbody>
+                      <tr><td>Claude (chat)</td><td>Necesitas pensar, explorar o decidir: discovery, diseño, explicar un error, comparar opciones.</td></tr>
+                      <tr><td>Projects</td><td>Varias conversaciones comparten el mismo contexto: knowledge del producto + project instructions estables.</td></tr>
+                      <tr><td>Claude Code</td><td>El trabajo ocurre en el repositorio: leer el codebase, editar archivos, correr tests, git y PRs.</td></tr>
+                      <tr><td>RAG</td><td>El corpus es grande, cambia seguido o tiene permisos por usuario, y no cabe en una sola pasada.</td></tr>
+                      <tr><td>MCP</td><td>Quieres que el modelo hable con un sistema externo (tools, resources, prompts) por un estándar y no por un script pegado.</td></tr>
+                      <tr><td>Agents</td><td>La tarea es multi-paso, con tool use en ciclo y verificación intermedia, no una sola respuesta.</td></tr>
+                    </tbody>
+                    </table></div>
+                    </div>
+                    
+                    <div class="card">
+                    <p class="cardh">4. Golden Rules</p>
+                    <ol>
+                      <li><strong>Give context.</strong> — el modelo no adivina tu repo.</li>
+                      <li><strong>Be specific.</strong> — ambiguo entra, basura sale.</li>
+                      <li><strong>Iterate.</strong> — el primer output es borrador.</li>
+                      <li><strong>Verify.</strong> — comprueba antes de confiar.</li>
+                      <li><strong>Test.</strong> — casos borde, no solo happy path.</li>
+                      <li><strong>Don't trust blindly.</strong> — suena seguro, puede mentir.</li>
+                      <li><strong>Understand what AI generates.</strong> — si no lo explicas, no lo entregues.</li>
+                      <li><strong>Protect secrets and data.</strong> — nada de keys ni datos reales.</li>
+                      <li><strong>Use AI to accelerate thinking, not replace it.</strong> — piensa tú, acelera con IA.</li>
+                      <li><strong>You are responsible for the final product.</strong> — la firma del PR es tuya.</li>
+                    </ol>
+                    </div>
+                    
+                    <div class="card">
+                    <p class="cardh">5. Comandos</p>
+                    <pre class="code" data-lang="bash"><code># instalar el CLI
+                    curl -fsSL https://claude.ai/install.sh | bash      # macOS / Linux / WSL
+                    irm https://claude.ai/install.ps1 | iex             # PowerShell
+                    brew install --cask claude-code
+                    winget install Anthropic.ClaudeCode
+                    
+                    # abrir una sesión en el repo
+                    cd campusflow-api &amp;&amp; claude
+                    
+                    # modo no interactivo (pipe, CI, scripts)
+                    claude -p "explica qué hace services/deadlines.py"
+                    git diff main --name-only | claude -p "revisa estos archivos por problemas de seguridad"
+                    
+                    # MCP
+                    claude mcp add --transport http notion https://mcp.notion.com/mcp
+                    claude mcp list
+                    /mcp                    # dentro de la sesión: estado de los servidores
+                    
+                    # contexto persistente del repo
+                    CLAUDE.md               # en la raíz; se lee al inicio de cada sesión
+                    
+                    # traer al terminal una sesión iniciada en web o móvil
+                    claude --teleport
+                    
+                    # programar trabajo recurrente en la nube
+                    /schedule</code></pre>
+                    <p>Alcances de MCP: local (<code>~/.claude.json</code>), project (<code>.mcp.json</code>, versionado y compartido con el equipo), user.</p>
+                    </div>
+                    
+                    <div class="card">
+                    <p class="cardh">6. Señales de alarma</p>
+                    <ol>
+                      <li>Vas a hacer merge y no leíste el diff.</li>
+                      <li>Tu prompt cabe en un tweet.</li>
+                      <li>Los tests los escribió la misma pasada que el código y ninguno falla.</li>
+                      <li>Agregaste una dependencia que no sabes qué hace ni quién la mantiene.</li>
+                      <li>Hay una API key en el repo.</li>
+                      <li>No sabes explicar una función que vas a entregar.</li>
+                      <li>"Funciona" es tu único criterio de aceptación.</li>
+                      <li>Llevas cinco intentos repitiendo el mismo prompt sin cambiar el contexto.</li>
+                    </ol>
+                    </div>
+                    
+                    </div>
+                    
+                    <blockquote class="punch">Don't just prompt. Engineer.</blockquote>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="assets/site.js"></script>
+    <script>
+    (function () {
+        document.querySelectorAll('.doc pre').forEach(function (pre) {
+            var code = pre.querySelector('code'); if (!code) return;
+            var w = document.createElement('div'); w.className = 'codewrap';
+            pre.parentNode.insertBefore(w, pre); w.appendChild(pre);
+            var b = document.createElement('button');
+            b.type = 'button'; b.className = 'copybtn'; b.textContent = 'copiar';
+            b.addEventListener('click', function () {
+                var done = function () {
+                    b.textContent = 'copiado'; b.classList.add('done');
+                    setTimeout(function () { b.textContent = 'copiar'; b.classList.remove('done'); }, 1500);
+                };
+                if (navigator.clipboard) { navigator.clipboard.writeText(code.innerText).then(done, function () { b.textContent = 'fallo'; }); }
+                else {
+                    var t = document.createElement('textarea'); t.value = code.innerText;
+                    document.body.appendChild(t); t.select();
+                    try { document.execCommand('copy'); done(); } catch (e) { b.textContent = 'fallo'; }
+                    document.body.removeChild(t);
+                }
+            });
+            w.appendChild(b);
+        });
+    })();
+    </script>
+</body>
+</html>

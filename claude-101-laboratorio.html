@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de trabajo · Claude 101 · ISIS2007</title>
+    <meta name="description" content="Qué puede ir haciendo tu equipo con su propio proyecto usando lo que vimos en clase: seis frentes de trabajo, evidencia de uso de IA y criterios de evaluación.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/theme.css">
+    <style>
+        .doc { max-width: 880px; }
+        .doc > *:last-child { margin-bottom: 0; }
+        .doc p, .doc li { max-width: 74ch; }
+        .doc ul, .doc ol { padding-left: 22px; margin: 0 0 14px; }
+        .doc li { margin-bottom: 6px; }
+        .doc li::marker { color: var(--muted-2); }
+
+        .sub {
+            font-size: clamp(1.25rem, 2.6vw, 1.6rem); font-weight: 800; letter-spacing: -.022em;
+            margin: 46px 0 16px; padding-top: 20px; border-top: 1px solid var(--line);
+            scroll-margin-top: 80px;
+        }
+        .doc .sub:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+        .doc h4 { font-size: 1rem; margin: 24px 0 8px; color: var(--ink-2); }
+
+        .eyebrow-in { display: block; font-size: 11.5px; font-weight: 640; letter-spacing: .14em;
+            text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+
+        blockquote.punch, .punch {
+            border: 0; border-left: 6px solid var(--uni-yellow); background: var(--uni-yellow-soft);
+            margin: 22px 0; padding: 16px 20px; border-radius: 0 var(--radius) var(--radius) 0;
+            font-size: clamp(1.05rem, 2vw, 1.3rem); font-weight: 700; letter-spacing: -.015em;
+            line-height: 1.3; max-width: 62ch;
+        }
+        .punch p { margin: 0; }
+        p.ask { font-weight: 700; font-size: 1.08rem; letter-spacing: -.012em; color: var(--ink); }
+
+        .tw { overflow-x: auto; margin: 0 0 20px; }
+        table.tbl { border-collapse: collapse; width: 100%; font-size: .9rem; min-width: 460px; }
+        table.tbl th {
+            text-align: left; font-size: 11px; font-weight: 640; letter-spacing: .1em;
+            text-transform: uppercase; color: var(--muted); padding: 9px 16px 9px 0;
+            border-bottom: 2px solid var(--uni-black); vertical-align: bottom;
+        }
+        table.tbl td { padding: 10px 16px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+        table.tbl tr:last-child td { border-bottom: 0; }
+        table.tbl td:first-child { font-weight: 600; }
+
+        .doc code {
+            font-family: var(--font-mono); font-size: .875em; background: var(--surface-2);
+            border: 1px solid var(--line); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere;
+        }
+        .codewrap { position: relative; margin: 0 0 18px; }
+        .doc pre.code, .prompt pre {
+            background: var(--uni-black); color: #e9e9ec; font-family: var(--font-mono);
+            font-size: 12.5px; line-height: 1.65; padding: 18px 20px; border-radius: var(--radius);
+            overflow-x: auto; margin: 0;
+        }
+        .doc pre code { background: none; border: 0; padding: 0; font-size: inherit; color: inherit; white-space: pre; }
+
+        .prompt { margin: 0 0 20px; border: 1px solid var(--line-strong); border-radius: var(--radius); overflow: hidden; }
+        .prompt-h {
+            margin: 0; padding: 10px 16px; background: var(--uni-yellow); color: var(--uni-black);
+            font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; max-width: none;
+        }
+        .prompt .codewrap { margin: 0; }
+        .prompt pre { border-radius: 0; }
+
+        .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 20px; padding: 0; }
+        .flow span {
+            font-family: var(--font-mono); font-size: 12.5px; background: var(--surface);
+            border: 1px solid var(--line-strong); padding: 8px 13px; border-radius: 6px;
+            position: relative; white-space: nowrap;
+        }
+        .flow span + span::before { content: "\2192"; color: var(--muted-2); font-family: var(--font-sans); margin-right: 9px; margin-left: -3px; }
+        .flow-v { flex-direction: column; align-items: flex-start; gap: 0; }
+        .flow-v span + span { margin-top: 22px; }
+        .flow-v span + span::before { content: "\2193"; position: absolute; left: 14px; top: -20px; margin: 0; }
+
+        .cols2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 0 0 20px; }
+        .col { background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; }
+        .col > *:last-child { margin-bottom: 0; }
+        .colh { font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase;
+            color: var(--uni-black); margin: 0 0 10px; padding-bottom: 8px; border-bottom: 2px solid var(--uni-yellow); }
+
+        .box { border: 1px solid var(--line); border-left: 6px solid var(--muted-2);
+            border-radius: 0 var(--radius) var(--radius) 0; padding: 14px 18px; margin: 0 0 20px; background: var(--surface-2); }
+        .box > *:last-child { margin-bottom: 0; }
+        .boxh { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 8px; color: var(--muted); }
+        .box.everyone { border-left-color: var(--info); background: var(--info-soft); }
+        .box.everyone .boxh { color: var(--info); }
+        .box.engineers { border-left-color: var(--uni-black); background: var(--surface-3); }
+        .box.engineers .boxh { color: var(--uni-black); }
+        .box.warn { border-left-color: var(--warn); background: var(--warn-soft); }
+        .box.warn .boxh { color: var(--warn); }
+        .box.wow { border-left-color: var(--uni-yellow); background: var(--uni-yellow-soft); }
+        .box.wow .boxh { color: var(--warn); }
+
+        ol.steps { list-style: none; padding: 0; margin: 0 0 20px; counter-reset: st; max-width: none; }
+        ol.steps > li { counter-increment: st; position: relative; padding: 0 0 16px 40px; margin: 0 0 16px; border-bottom: 1px solid var(--line); }
+        ol.steps > li:last-child { border-bottom: 0; margin-bottom: 0; }
+        ol.steps > li::before {
+            content: counter(st, decimal-leading-zero); position: absolute; left: 0; top: 0;
+            font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+            width: 26px; height: 26px; border-radius: 6px; background: var(--uni-yellow); color: var(--uni-black);
+            display: flex; align-items: center; justify-content: center;
+        }
+        ol.steps > li > *:last-child { margin-bottom: 0; }
+        .steph { font-weight: 700; font-size: 1.02rem; margin: 2px 0 6px; letter-spacing: -.012em; }
+
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 0 0 20px; }
+        .cards .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
+        .cards .card > *:last-child { margin-bottom: 0; }
+        .cardh { font-weight: 700; font-size: 1rem; margin: 0 0 8px; letter-spacing: -.012em; }
+        .sheet { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; margin: 0 0 24px; }
+        .sheet .card ol, .sheet .card ul { font-size: .92rem; }
+
+        details.fold { border: 1px solid var(--line); border-radius: var(--radius); margin: 0 0 14px; background: var(--surface); overflow: hidden; }
+        details.fold > summary {
+            cursor: pointer; list-style: none; padding: 12px 18px 12px 36px; position: relative;
+            font-family: var(--font-mono); font-size: 13px; background: var(--surface-2);
+        }
+        details.fold > summary::-webkit-details-marker { display: none; }
+        details.fold > summary::before { content: "\25B8"; position: absolute; left: 16px; color: var(--warn); display: inline-block; transition: transform .15s; }
+        details.fold[open] > summary::before { transform: rotate(90deg); }
+        details.fold[open] > summary { border-bottom: 1px solid var(--line); }
+        details.fold > *:not(summary) { margin: 16px 18px; }
+
+        .qa { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; margin: 0 0 16px; }
+        .qh { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--warn); margin: 0 0 8px; }
+        .q { font-weight: 700; font-size: 1.08rem; line-height: 1.35; margin: 0 0 14px; letter-spacing: -.014em; }
+        .qa details.fold { margin-bottom: 0; }
+
+        .unk { font-family: var(--font-mono); font-size: .82em; background: var(--warn-soft); color: var(--warn);
+            padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+
+        .copybtn {
+            position: absolute; top: 8px; right: 8px; font-family: var(--font-sans); font-size: 10.5px;
+            font-weight: 640; letter-spacing: .09em; text-transform: uppercase;
+            background: rgba(255,255,255,.1); color: #c9cad0; border: 1px solid rgba(255,255,255,.2);
+            border-radius: 5px; padding: 4px 9px; cursor: pointer; opacity: 0; transition: opacity .14s;
+        }
+        .codewrap:hover .copybtn, .copybtn:focus-visible { opacity: 1; }
+        .copybtn:hover { background: var(--uni-yellow); color: var(--uni-black); border-color: var(--uni-yellow); }
+        .copybtn.done { background: var(--uni-yellow); color: var(--uni-black); border-color: var(--uni-yellow); }
+        .backlink { margin-bottom: 26px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <section class="pagehead">
+            <div class="wrap">
+                <span class="eyebrow">Claude 101 · ISIS2007</span>
+                <h1>Guía de trabajo</h1>
+                <p>Qué puede ir haciendo tu equipo con su propio proyecto usando lo que vimos en clase: seis frentes de trabajo, evidencia de uso de IA y criterios de evaluación.</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="wrap">
+                <p><a class="backlink" href="claude-101.html">Volver a la clase</a></p>
+                <div class="doc">
+                    <h3 class="sub" id="lab-punto-partida">De dónde parten</h3>
+                    
+                    <p>Cada equipo llega con un proyecto ya elegido. Eso cambia el ejercicio: no se trata de inventar un producto en 45 minutos, sino de <strong>avanzarlo con criterio de ingeniería</strong> apoyándose en IA.</p>
+                    
+                    <p>Lo que hicimos con CampusFlow durante la clase — problema, usuario, MVP, historias, diseño técnico, código, tests — es exactamente lo que van a hacer con su propia idea. La diferencia es que CampusFlow era un ejemplo y esto es su proyecto.</p>
+                    
+                    <div class="box warn">
+                      <p class="boxh">Antes de abrir Claude</p>
+                      <p>Pónganse de acuerdo en una frase: <em>"nuestro producto le permite a ___ hacer ___ para que ___"</em>. Si el equipo no la puede decir sin discutir, ese es el primer frente de trabajo, no el código.</p>
+                    </div>
+                    
+                    <h3 class="sub" id="lab-frentes">Los seis frentes</h3>
+                    
+                    <p>Escojan dónde está su proyecto hoy y avancen desde ahí. Muchos equipos van a necesitar el frente 1 aunque crean que ya lo tienen resuelto.</p>
+                    
+                    <ol class="steps">
+                      <li>
+                        <p class="steph">Afilar el problema y el usuario</p>
+                        <p><strong>Les sirve si</strong> su usuario es "los estudiantes" en general, o si no saben cómo resuelve hoy ese problema sin ustedes.</p>
+                        <p><strong>Qué pedirle a Claude:</strong> que actúe como product researcher, que a partir de su descripción liste usuarios candidatos, hipótesis y riesgos, y que marque explícitamente qué está asumiendo.</p>
+                        <p><strong>Cómo saben que quedó:</strong> pueden nombrar una persona concreta, con qué frecuencia le pasa el problema y qué usa hoy en su lugar. Y tienen escrita al menos una hipótesis que podría resultar falsa.</p>
+                        <div class="box warn">
+                          <p class="boxh">Cuidado</p>
+                          <p>Claude genera hipótesis, no las valida. Una hipótesis solo se valida hablando con usuarios reales. Si el entregable dice "validamos con Claude", eso no es validación.</p>
+                        </div>
+                      </li>
+                      <li>
+                        <p class="steph">Recortar el MVP</p>
+                        <p><strong>Les sirve si</strong> su lista de funcionalidades tiene más de cinco cosas, o si no hay nada explícitamente fuera de alcance.</p>
+                        <p><strong>Qué pedirle a Claude:</strong> que ordene las funcionalidades por valor para el usuario contra esfuerzo, que proponga el corte mínimo que ya resuelve el problema, y que justifique cada exclusión.</p>
+                        <p><strong>Cómo saben que quedó:</strong> tienen una tabla de lo que entra y lo que <em>no</em> entra en v0. La segunda columna es la que demuestra que hubo decisión.</p>
+                        <div class="tw"><table class="tbl">
+                          <thead><tr><th>Entra en v0</th><th>Queda fuera</th><th>Por qué</th></tr></thead>
+                          <tbody>
+                            <tr><td>La capacidad que resuelve el dolor central</td><td>Todo lo que sea "y además…"</td><td>Sin esto el producto no existe</td></tr>
+                            <tr><td>El flujo mínimo de punta a punta</td><td>Perfiles, ajustes, personalización</td><td>No cambian si la hipótesis es cierta o falsa</td></tr>
+                          </tbody>
+                        </table></div>
+                      </li>
+                      <li>
+                        <p class="steph">User stories y criterios de aceptación</p>
+                        <p><strong>Les sirve si</strong> van a empezar a programar. Sin criterios de aceptación no pueden evaluar lo que Claude genere.</p>
+                        <p><strong>Qué pedirle a Claude:</strong> que convierta cada capacidad del MVP en historias con criterios en formato Dado / Cuando / Entonces, y que agregue los casos borde que ustedes no pensaron.</p>
+                        <p><strong>Cómo saben que quedó:</strong> cada historia tiene al menos un criterio que puede fallar. "El sistema funciona correctamente" no es un criterio.</p>
+                        <div class="prompt"><p class="prompt-h">Plantilla de historia</p><pre><code>Como {{TIPO_DE_USUARIO}}
+                    quiero {{CAPACIDAD}}
+                    para {{RESULTADO}}
+                    
+                    Criterios de aceptación
+                    - Dado {{CONTEXTO}}, cuando {{ACCIÓN}}, entonces {{RESULTADO OBSERVABLE}}
+                    - Caso borde: dado {{SITUACIÓN RARA}}, entonces {{COMPORTAMIENTO ESPERADO}}</code></pre></div>
+                      </li>
+                      <li>
+                        <p class="steph">Diseño técnico</p>
+                        <p><strong>Les sirve si</strong> ya saben qué construir pero no cómo, o si cada integrante tiene un stack distinto en la cabeza.</p>
+                        <p><strong>Qué pedirle a Claude:</strong> que proponga dos o tres arquitecturas alternativas para su caso con sus contras, no una sola. Ustedes eligen y escriben por qué.</p>
+                        <p><strong>Cómo saben que quedó:</strong> tienen el stack cerrado, las entidades principales y los endpoints o pantallas del MVP. Y una decisión que tomaron <em>en contra</em> de lo que Claude propuso, con su razón.</p>
+                        <div class="box engineers">
+                          <p class="boxh">Para ingenieros</p>
+                          <p>Hay decisiones que un modelo no debería cerrar solo: el modelo de datos que define el negocio, los límites de consistencia, qué se guarda de los usuarios y por cuánto tiempo, y cualquier cosa que cueste plata. Esas se discuten en el equipo y se dejan escritas.</p>
+                        </div>
+                      </li>
+                      <li>
+                        <p class="steph">Construir con Claude Code</p>
+                        <p><strong>Les sirve si</strong> ya tienen repositorio y algo que implementar.</p>
+                        <p><strong>El orden que funciona:</strong> escribir un <code>CLAUDE.md</code> corto antes del primer prompt, trabajar en rama, pedir cambios pequeños, leer el diff, correr los tests, hacer commit. Repetir.</p>
+                        <div class="prompt"><p class="prompt-h">CLAUDE.md mínimo para su repo</p><pre><code># {{NOMBRE DEL PROYECTO}}
+                    
+                    Qué es: {{UNA FRASE}}
+                    Stack: {{LENGUAJE, FRAMEWORK, BASE DE DATOS}}
+                    
+                    Comandos
+                    - Tests: {{COMANDO}}
+                    - Correr en local: {{COMANDO}}
+                    
+                    Estándares
+                    - {{CONVENCIÓN DE NOMBRES, ESTILO, ESTRUCTURA DE CARPETAS}}
+                    - Nada de SQL construido por concatenación de strings.
+                    - Ningún secreto en el código: van en variables de entorno.
+                    
+                    Qué no tocar
+                    - {{ARCHIVOS O CARPETAS QUE NO SE MODIFICAN}}
+                    
+                    Antes de dar algo por terminado
+                    - Los tests pasan y hay al menos un caso borde cubierto.
+                    - El diff se revisó línea por línea.</code></pre></div>
+                        <p><strong>Cómo saben que quedó:</strong> el código corre, y cualquier integrante puede explicar qué hace la función que acaba de entrar.</p>
+                      </li>
+                      <li>
+                        <p class="steph">Verificar</p>
+                        <p><strong>Les sirve siempre.</strong> Es el frente que más se salta y el que más pesa en la evaluación.</p>
+                        <ul>
+                          <li><strong>Tests:</strong> pidan explícitamente los casos borde. El happy path lo escribe cualquiera.</li>
+                          <li><strong>Diff:</strong> revisen alcance inesperado, archivos que no debía tocar, dependencias nuevas, secretos, y tests que "pasan" porque bajaron la exigencia.</li>
+                          <li><strong>Seguridad:</strong> consultas parametrizadas, validación de entradas, nada de llaves en el repositorio.</li>
+                        </ul>
+                        <blockquote class="punch">Nunca hagan merge de un diff que no entienden.</blockquote>
+                      </li>
+                    </ol>
+                    
+                    <h3 class="sub" id="lab-evidencia">Evidencia de uso de IA</h3>
+                    
+                    <p>Esto no es burocracia: es la parte que más pesa, porque es donde se ve si el equipo pensó o solo pegó.</p>
+                    
+                    <p>Guarden en una carpeta <code>ai-evidence/</code> mientras trabajan, no al final:</p>
+                    
+                    <div class="tw"><table class="tbl">
+                      <thead><tr><th>Qué guardar</th><th>Mínimo</th><th>Qué demuestra</th></tr></thead>
+                      <tbody>
+                        <tr><td>Cadenas de iteración</td><td>Dos casos: prompt inicial, qué salió mal, prompt corregido</td><td>Que saben diagnosticar por qué falló, no solo reintentar</td></tr>
+                        <tr><td>Un diff comentado</td><td>Uno, con sus notas de revisión</td><td>Que leyeron lo que entró al repositorio</td></tr>
+                        <tr><td>Una decisión en contra de Claude</td><td>Una, con la razón</td><td>Que hay criterio propio</td></tr>
+                        <tr><td>Un error encontrado en código generado</td><td>Uno, con cómo lo detectaron</td><td>Que verifican en vez de confiar</td></tr>
+                      </tbody>
+                    </table></div>
+                    
+                    <p class="ask">¿Qué hizo Claude y qué decisiones tomó el equipo?</p>
+                    
+                    <p>Esa pregunta se responde en un párrafo al final. Si la respuesta es "Claude hizo todo", falta trabajo.</p>
+                    
+                    <h3 class="sub" id="lab-regla">La regla</h3>
+                    
+                    <div class="cols2">
+                      <div class="col">
+                        <p class="colh">Esto NO es falta</p>
+                        <ul>
+                          <li>Que Claude haya escrito el 100% del código.</li>
+                          <li>Que la arquitectura la haya propuesto Claude y ustedes la hayan adoptado.</li>
+                          <li>Usar IA en todas las etapas del proyecto.</li>
+                        </ul>
+                      </div>
+                      <div class="col">
+                        <p class="colh">Esto sí</p>
+                        <ul>
+                          <li>Entregar código que nadie en el equipo puede explicar.</li>
+                          <li>No haber verificado nada de lo que se generó.</li>
+                          <li>No tener una sola decisión propia en todo el proyecto.</li>
+                          <li>Tests que solo cubren el happy path porque nadie los leyó.</li>
+                        </ul>
+                      </div>
+                    </div>
+                    
+                    <p>En la sustentación se le pide a un integrante al azar que explique una función específica, que justifique una decisión de diseño, o que haga un cambio pequeño en vivo. Tres preguntas típicas:</p>
+                    
+                    <ol>
+                      <li>Señalen esta función y explíquenla: qué recibe, qué devuelve, qué pasa si le llega vacío.</li>
+                      <li>¿Por qué eligieron este diseño y no el otro? ¿Qué propuso Claude que descartaron?</li>
+                      <li>Agreguen aquí un caso borde y háganlo pasar.</li>
+                    </ol>
+                    
+                    <blockquote class="punch">Usar IA para todo el código no es la falta. La falta es no entender lo que entregaron.</blockquote>
+                    
+                    <h3 class="sub" id="lab-criterios">Criterios de evaluación</h3>
+                    
+                    <p>Referencia de en qué se fija la evaluación del proyecto. Los pesos exactos los define el curso; lo que importa aquí es dónde poner el esfuerzo.</p>
+                    
+                    <div class="tw"><table class="tbl">
+                      <thead><tr><th>Criterio</th><th>Insuficiente</th><th>Bueno</th><th>Excelente</th></tr></thead>
+                      <tbody>
+                        <tr>
+                          <td>Problema y usuario</td>
+                          <td>Usuario genérico, problema sin evidencia</td>
+                          <td>Persona concreta con su alternativa actual</td>
+                          <td>Además, hipótesis explícitas y al menos una contrastada con alguien real</td>
+                        </tr>
+                        <tr>
+                          <td>Alcance del MVP</td>
+                          <td>Todo entra, nada queda fuera</td>
+                          <td>Corte definido con lo que no entra</td>
+                          <td>Cada exclusión tiene razón y se sostiene bajo preguntas</td>
+                        </tr>
+                        <tr>
+                          <td>Diseño técnico</td>
+                          <td>Es lo que salió del primer prompt, sin cuestionar</td>
+                          <td>Stack y entidades justificados</td>
+                          <td>Se compararon alternativas y se documentó la decisión</td>
+                        </tr>
+                        <tr>
+                          <td>Código y tests</td>
+                          <td>Corre a veces; tests ausentes o solo happy path</td>
+                          <td>Corre; tests con algún caso borde</td>
+                          <td>Corre; casos borde escritos por el equipo y un error real encontrado</td>
+                        </tr>
+                        <tr>
+                          <td>Uso de IA con evidencia</td>
+                          <td>Prompts sueltos o ninguno</td>
+                          <td>Iteraciones documentadas</td>
+                          <td>Iteraciones, diffs revisados y decisiones propias contra lo sugerido</td>
+                        </tr>
+                        <tr>
+                          <td>Comprensión</td>
+                          <td>Nadie explica el código entregado</td>
+                          <td>El equipo explica lo esencial</td>
+                          <td>Cualquiera explica cualquier parte y la modifica en vivo</td>
+                        </tr>
+                      </tbody>
+                    </table></div>
+                    
+                    <div class="box warn">
+                      <p class="boxh">Tope</p>
+                      <p>Un proyecto que funciona pero que el equipo no entiende cae en Insuficiente en comprensión, y eso topa la nota sin importar qué tan pulido esté el resto. Funcionar no es el criterio.</p>
+                    </div>
+                    
+                    <h3 class="sub" id="lab-niveles">Tres niveles, según dónde esté el equipo</h3>
+                    
+                    <div class="cards">
+                      <div class="card">
+                        <p class="cardh">Nivel 1 — Prompting</p>
+                        <p>Trabajan con Claude en el chat o en un Project.</p>
+                        <p><strong>Reto:</strong> armen el Project de su producto con su propio knowledge (brief, requisitos, decisiones técnicas) y muestren la misma pregunta respondida fuera y dentro del Project.</p>
+                      </div>
+                      <div class="card">
+                        <p class="cardh">Nivel 2 — Engineer</p>
+                        <p>Trabajan con Claude Code sobre su repositorio.</p>
+                        <p><strong>Reto:</strong> un <code>CLAUDE.md</code> propio, una feature implementada en rama con su test de caso borde, y el diff revisado con comentarios antes del merge.</p>
+                      </div>
+                      <div class="card">
+                        <p class="cardh">Nivel 3 — AI Engineer</p>
+                        <p>La IA es parte del producto, no solo de cómo lo construyen.</p>
+                        <p><strong>Reto:</strong> un endpoint que responda preguntas sobre tres documentos propios citando la fuente y respondiendo "no está en los documentos" cuando no esté; o conectar un servidor MCP existente a su flujo de trabajo dejando evidencia.</p>
+                      </div>
+                    </div>
+                    
+                    <p>El nivel es el reto adicional, no el proyecto base. Un nivel 3 brillante sobre un producto sin problema definido no compensa el frente 1.</p>
+                    
+                    <h3 class="sub" id="lab-materiales">Antes de empezar</h3>
+                    
+                    <div class="tw"><table class="tbl">
+                      <thead><tr><th>Qué</th><th>Cómo</th></tr></thead>
+                      <tbody>
+                        <tr><td>Repositorio del equipo</td><td>Creado, con todos con acceso, y una rama por persona</td></tr>
+                        <tr><td>Claude Code</td><td><code>curl -fsSL https://claude.ai/install.sh | bash</code>, luego <code>cd su-proyecto &amp;&amp; claude</code></td></tr>
+                        <tr><td>Carpeta de evidencia</td><td><code>ai-evidence/</code> en el repositorio, desde el primer commit</td></tr>
+                        <tr><td>Si alguien no tiene plan pago</td><td>Trabajen en el chat web y documenten los prompts. La evidencia vale igual.</td></tr>
+                      </tbody>
+                    </table></div>
+                    
+                    <p>La biblioteca de prompts tiene 26 plantillas listas por rol. Empiecen por la del rol que corresponde al frente en el que están, y reemplacen los marcadores con los datos de su producto.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="assets/site.js"></script>
+    <script>
+    (function () {
+        document.querySelectorAll('.doc pre').forEach(function (pre) {
+            var code = pre.querySelector('code'); if (!code) return;
+            var w = document.createElement('div'); w.className = 'codewrap';
+            pre.parentNode.insertBefore(w, pre); w.appendChild(pre);
+            var b = document.createElement('button');
+            b.type = 'button'; b.className = 'copybtn'; b.textContent = 'copiar';
+            b.addEventListener('click', function () {
+                var done = function () {
+                    b.textContent = 'copiado'; b.classList.add('done');
+                    setTimeout(function () { b.textContent = 'copiar'; b.classList.remove('done'); }, 1500);
+                };
+                if (navigator.clipboard) { navigator.clipboard.writeText(code.innerText).then(done, function () { b.textContent = 'fallo'; }); }
+                else {
+                    var t = document.createElement('textarea'); t.value = code.innerText;
+                    document.body.appendChild(t); t.select();
+                    try { document.execCommand('copy'); done(); } catch (e) { b.textContent = 'fallo'; }
+                    document.body.removeChild(t);
+                }
+            });
+            w.appendChild(b);
+        });
+    })();
+    </script>
+</body>
+</html>

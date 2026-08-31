@@ -33,6 +33,11 @@
     'working-attendance.html': 'asistencia-simple.html',
     'simple-attendance.html': 'asistencia-simple.html',
     'acceso-archivos.html': 'recursos-materiales.html',
+    'claude-101-laboratorio.html': 'claude-101.html',
+    'claude-101-prompts.html': 'claude-101.html',
+    'claude-101-practicas.html': 'claude-101.html',
+    'claude-101-cheatsheet.html': 'claude-101.html',
+    'claude-101-recursos.html': 'claude-101.html',
     '': 'index.html'
   };
 
