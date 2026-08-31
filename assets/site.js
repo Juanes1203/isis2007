@@ -11,6 +11,7 @@
     { href: 'schedule.html', label: 'Cronograma' },
     { href: 'actividades.html', label: 'Actividades' },
     { href: 'recursos-materiales.html', label: 'Recursos' },
+    { href: 'claude-101.html', label: 'Claude 101' },
     { href: 'team.html', label: 'Equipo' }
     /* Secciones desactivadas — para reactivarlas, descomenta la línea
        correspondiente y bórrala de DISABLED (abajo):

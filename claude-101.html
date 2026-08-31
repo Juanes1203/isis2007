@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude 101 · ISIS2007 — Universidad de los Andes</title>
+    <meta name="description" content="Clase práctica sobre cómo trabajar con Claude, Claude Code, RAG, MCP y agentes para construir productos reales. Presentación, laboratorio, prompt library y repositorio de práctica.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/theme.css">
+    <style>
+        .lead-quote {
+            border-left: 6px solid var(--uni-yellow);
+            padding: 4px 0 4px 20px;
+            margin: 0 0 28px;
+            font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+            font-weight: 700;
+            letter-spacing: -.015em;
+            line-height: 1.3;
+            max-width: 30ch;
+        }
+        .filelist { display: grid; gap: 10px; }
+        .filerow {
+            display: grid;
+            grid-template-columns: minmax(160px, 220px) 1fr;
+            gap: 4px 20px;
+            align-items: baseline;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--line);
+        }
+        .filerow:last-child { border-bottom: 0; }
+        .filerow a { font-weight: 640; }
+        .filerow p { margin: 0; color: var(--muted); font-size: .95rem; }
+        @media (max-width: 620px) { .filerow { grid-template-columns: 1fr; } }
+
+        .keys { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 4px; }
+        .keys kbd {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            border: 1px solid var(--line-strong);
+            border-bottom-width: 2px;
+            border-radius: 5px;
+            padding: 3px 8px;
+            background: var(--surface);
+        }
+        .ideas { counter-reset: idea; list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+        .ideas li { counter-increment: idea; position: relative; padding-left: 34px; }
+        .ideas li::before {
+            content: counter(idea);
+            position: absolute; left: 0; top: 1px;
+            font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+            width: 22px; height: 22px; border-radius: 5px;
+            background: var(--uni-yellow); color: var(--uni-black);
+            display: flex; align-items: center; justify-content: center;
+        }
+        pre.shell {
+            background: var(--uni-black); color: #e9e9ec;
+            font-family: var(--font-mono); font-size: 13px; line-height: 1.7;
+            padding: 16px 18px; border-radius: var(--radius); overflow-x: auto; margin: 0;
+        }
+        pre.shell b { color: var(--uni-yellow); font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="page">
+
+        <section class="pagehead">
+            <div class="wrap">
+                <span class="eyebrow">ISIS2007 · Semestre 2026-II</span>
+                <h1>Claude 101 — De Prompting a Product Engineering</h1>
+                <p>
+                    Clase práctica de tres horas sobre cómo trabajar con Claude, Projects, Claude Code,
+                    RAG, MCP y agentes para construir productos reales. Todo el material de la sesión
+                    está aquí: la presentación, el laboratorio, la biblioteca de prompts y el
+                    repositorio sobre el que vamos a trabajar en vivo.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="wrap">
+                <p class="lead-quote">
+                    La IA no es un buscador de respuestas ni una máquina para copiar código.
+                    Es una nueva interfaz para trabajar con software, conocimiento y productos.
+                </p>
+                <div class="btnrow">
+                    <a class="btn btn--accent" href="claude-101/index.html">Abrir la presentación</a>
+                    <a class="btn btn--ghost" href="claude-101/laboratorio.md">Guía del laboratorio</a>
+                    <a class="btn btn--ghost" href="claude-101/cheat-sheet.md">Cheat sheet</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--alt">
+            <div class="wrap">
+                <div class="section__head">
+                    <h2>La presentación</h2>
+                    <p>28 slides con seis preguntas de opción múltiple que respondemos durante la sesión.</p>
+                </div>
+                <div class="grid grid--3">
+                    <div class="card">
+                        <h3 class="card__title">Cómo se navega</h3>
+                        <div class="keys">
+                            <kbd>→</kbd><kbd>←</kbd><kbd>espacio</kbd><kbd>Esc</kbd><kbd>i</kbd>
+                        </div>
+                        <p>Flechas o barra espaciadora para avanzar. <strong>Esc</strong> o <strong>i</strong> abre el índice. En celular se avanza deslizando.</p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card__title">Las preguntas</h3>
+                        <p>Se responden haciendo clic. Las opciones incorrectas quedan marcadas y puedes seguir intentando; al acertar aparece la explicación. Algunas piden dos respuestas.</p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card__title">El caso</h3>
+                        <p>Toda la clase gira alrededor de <strong>CampusFlow</strong>, un asistente académico para estudiantes. El mismo producto aparece en los prompts, en el Project y en el código.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="wrap">
+                <div class="section__head">
+                    <h2>Material de la clase</h2>
+                    <p>Para consultar durante el laboratorio y después de la sesión.</p>
+                </div>
+                <div class="filelist">
+                    <div class="filerow">
+                        <a href="claude-101/laboratorio.md">Laboratorio</a>
+                        <p>El reto en equipos, los diez entregables, la rúbrica completa y los tres niveles de challenge.</p>
+                    </div>
+                    <div class="filerow">
+                        <a href="claude-101/prompt-library.md">Prompt library</a>
+                        <p>26 prompts listos para copiar, organizados por rol: producto, ingeniería, QA, seguridad, UX, AI engineering y code review.</p>
+                    </div>
+                    <div class="filerow">
+                        <a href="claude-101/buenas-practicas.md">Buenas prácticas</a>
+                        <p>Los prompts que no funcionan y su versión profesional, el test de alucinación, tres casos de seguridad con código y la tabla de cuándo usar qué herramienta.</p>
+                    </div>
+                    <div class="filerow">
+                        <a href="claude-101/cheat-sheet.md">Cheat sheet</a>
+                        <p>Una página: estructura de un prompt, el ciclo de trabajo y las diez reglas. Para imprimir.</p>
+                    </div>
+                    <div class="filerow">
+                        <a href="claude-101/recursos.md">Recursos</a>
+                        <p>Documentación oficial verificada y un plan de estudio de dos semanas después de la clase.</p>
+                    </div>
+                    <div class="filerow">
+                        <a href="claude-101/campusflow-kit/">CampusFlow kit</a>
+                        <p>Los siete documentos que se cargan al knowledge de un Claude Project: brief, personas, requisitos, arquitectura, esquema de base de datos, estándares y README.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--alt">
+            <div class="wrap">
+                <div class="section__head">
+                    <h2>El repositorio de práctica</h2>
+                    <p><code>campusflow-api</code> es un backend pequeño y real. Trae un bug intencional y una feature sin implementar: los dos son parte del ejercicio.</p>
+                </div>
+                <div class="grid grid--2">
+                    <div>
+                        <pre class="shell">cd claude-101/campusflow-api
+python3 -m venv .venv &amp;&amp; <b>source</b> .venv/bin/activate
+pip install -r requirements.txt
+python seed.py
+pytest -q
+uvicorn app.main:app --reload</pre>
+                    </div>
+                    <div class="card">
+                        <h3 class="card__title">Qué buscar</h3>
+                        <p>
+                            Llama a <code>GET /courses/1/agenda</code> y mira el campo <code>status</code>
+                            de la entrega que vence hoy a las 23:59. Ahí está el bug.
+                        </p>
+                        <p style="margin-top:10px">
+                            <code>GET /courses/1/workload</code> responde 501: esa es la feature que falta.
+                        </p>
+                        <p style="margin-top:10px">
+                            Lee el <code>CLAUDE.md</code> de la raíz antes de empezar. Es lo que hace que
+                            Claude Code se comporte bien desde el primer prompt.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="wrap">
+                <div class="section__head">
+                    <h2>Las diez ideas de la clase</h2>
+                    <p>Si al salir del salón te llevas esto, la sesión funcionó.</p>
+                </div>
+                <ol class="ideas">
+                    <li>Context matters.</li>
+                    <li>Prompting is not magic.</li>
+                    <li>Projects turn conversations into workspaces.</li>
+                    <li>Claude Code works with the codebase, not just the question.</li>
+                    <li>Vibe coding is powerful but dangerous without engineering discipline.</li>
+                    <li>RAG gives models access to external knowledge.</li>
+                    <li>MCP connects models with tools and systems.</li>
+                    <li>Agents can act, not only answer.</li>
+                    <li>AI-generated code still needs engineering.</li>
+                    <li>The engineer is responsible for the result.</li>
+                </ol>
+                <p class="lead-quote" style="margin-top:28px">Don't just use AI. Learn to engineer with AI.</p>
+                <p style="color:var(--muted);font-size:.92rem;max-width:70ch">
+                    Material verificado con documentación oficial a agosto de 2026. Lo que no se pudo
+                    confirmar en fuentes primarias está marcado como <em>no verificado</em>: las
+                    capacidades de estas herramientas cambian cada pocos meses, así que verifica antes
+                    de citar.
+                </p>
+            </div>
+        </section>
+
+    </div>
+    <script src="assets/site.js"></script>
+</body>
+</html>
