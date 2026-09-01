@@ -225,7 +225,7 @@ body.on-dark .bar{background:#33343a}
 <section class="s">
   <div class="inner">
     <p class="eyebrow">01 · Debate</p>
-    <h2 class="wide">Si Claude puede escribir el código, ¿qué debería saber hacer todavía un ingeniero?</h2>
+    <h2 class="wide">Si la IA puede escribir el código, ¿qué debería saber hacer todavía un ingeniero?</h2>
     <p class="sub">Tres minutos. Sin buscar en internet. Vamos a anotar las respuestas y las retomamos al final de la clase.</p>
   </div>
 </section>
@@ -412,7 +412,7 @@ body.on-dark .bar{background:#33343a}
     <div class="flow" style="margin-top:18px">
       <span>Discovery</span><i>&#8594;</i><span>Definición</span><i>&#8594;</i><span>Diseño técnico</span><i>&#8594;</i><span>Código</span><i>&#8594;</i><span>Tests</span>
     </div>
-    <p class="note">Claude acompaña todo ese ciclo. Lo que no hace es validar la hipótesis: eso se hace hablando con usuarios.</p>
+    <p class="note">Un modelo puede acompañar todo ese ciclo. Lo que no hace es validar la hipótesis: eso se hace hablando con usuarios.</p>
   </div>
 </section>
 
@@ -426,7 +426,7 @@ body.on-dark .bar{background:#33343a}
       <button class="opt" data-ok="0"><span class="k">A</span><span>Lo pegan al inicio de cada chat nuevo.</span></button>
       <button class="opt" data-ok="1"><span class="k">B</span><span>En el knowledge de un Project, como archivo versionado.</span></button>
       <button class="opt" data-ok="0"><span class="k">C</span><span>En las instrucciones del Project, junto con el rol.</span></button>
-      <button class="opt" data-ok="0"><span class="k">D</span><span>En ningún lado: Claude lo deduce del código.</span></button>
+      <button class="opt" data-ok="0"><span class="k">D</span><span>En ningún lado: el modelo lo deduce del código.</span></button>
     </div>
     <p class="why" data-why><b>B</b>. El knowledge es para los documentos del producto que cambian poco y que toda conversación necesita: esquema, requisitos, arquitectura, estándares. Las <b>instructions</b> son otra cosa: el rol, las reglas de respuesta, el formato. Y meterlo en cada chat a mano (A) es exactamente el costo que un Project existe para eliminar.</p>
   </div>
@@ -638,6 +638,21 @@ msgs += [assistant(resp.content), user(tool_result(resp.tool_use.id, result))]</
 </section>
 
 <!-- 28 -->
+<section class="s">
+  <div class="inner">
+    <p class="eyebrow">10 · Antes de cerrar</p>
+    <h2>Nada de esto necesita un plan pago</h2>
+    <p class="sub">Usamos una herramienta concreta para poder mostrar el flujo completo. Los conceptos no son de una marca.</p>
+    <div class="grid">
+      <div class="card"><span class="tag">Ruta 1</span><h3>Lo que ya tienen</h3><p>GitHub Education da Copilot a estudiantes verificados. Gemini CLI tiene capa gratuita. JetBrains regala sus IDEs.</p></div>
+      <div class="card"><span class="tag">Ruta 2</span><h3>Agente open source</h3><p>OpenCode, Aider, Cline, Continue, Goose. Gratis y de código abierto; se conectan a cualquier proveedor.</p></div>
+      <div class="card"><span class="tag">Ruta 3</span><h3>Todo local</h3><p>Ollama o LM Studio con un modelo de código. Cero costo, cero datos enviados, y menos capacidad.</p></div>
+    </div>
+    <p class="note">La guía completa —comandos, qué modelo corre en su portátil, límites y privacidad— está en el sitio del curso.</p>
+  </div>
+</section>
+
+<!-- 29 -->
 <section class="s dark">
   <div class="inner">
     <p class="eyebrow">10 · Cierre</p>
@@ -661,7 +676,7 @@ msgs += [assistant(resp.content), user(tool_result(resp.tool_use.id, result))]</
   <span class="brand"><b>IS</b><span>ISIS2007 · Claude 101</span></span>
   <div class="ctrls">
     <button class="btn" id="prev" type="button" aria-label="Anterior">←</button>
-    <span class="count"><b id="cur">1</b> / <span id="tot">28</span></span>
+    <span class="count"><b id="cur">1</b> / <span id="tot">29</span></span>
     <button class="btn" id="next" type="button" aria-label="Siguiente">→</button>
     <button class="btn" id="idx" type="button">Índice</button>
   </div>

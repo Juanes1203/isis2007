@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sin suscripción · Claude 101 · ISIS2007</title>
+    <meta name="description" content="Cómo montar un entorno de trabajo completo sin pagar: accesos de estudiante, agentes de código open source y modelos corriendo en tu máquina.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/theme.css">
+    <style>
+        .doc { max-width: 880px; }
+        .doc > *:last-child { margin-bottom: 0; }
+        .doc p, .doc li { max-width: 74ch; }
+        .doc ul, .doc ol { padding-left: 22px; margin: 0 0 14px; }
+        .doc li { margin-bottom: 6px; }
+        .doc li::marker { color: var(--muted-2); }
+
+        .sub {
+            font-size: clamp(1.25rem, 2.6vw, 1.6rem); font-weight: 800; letter-spacing: -.022em;
+            margin: 46px 0 16px; padding-top: 20px; border-top: 1px solid var(--line);
+            scroll-margin-top: 80px;
+        }
+        .doc .sub:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+        .doc h4 { font-size: 1rem; margin: 24px 0 8px; color: var(--ink-2); }
+
+        .eyebrow-in { display: block; font-size: 11.5px; font-weight: 640; letter-spacing: .14em;
+            text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+
+        blockquote.punch, .punch {
+            border: 0; border-left: 6px solid var(--uni-yellow); background: var(--uni-yellow-soft);
+            margin: 22px 0; padding: 16px 20px; border-radius: 0 var(--radius) var(--radius) 0;
+            font-size: clamp(1.05rem, 2vw, 1.3rem); font-weight: 700; letter-spacing: -.015em;
+            line-height: 1.3; max-width: 62ch;
+        }
+        .punch p { margin: 0; }
+        p.ask { font-weight: 700; font-size: 1.08rem; letter-spacing: -.012em; color: var(--ink); }
+
+        .tw { overflow-x: auto; margin: 0 0 20px; }
+        table.tbl { border-collapse: collapse; width: 100%; font-size: .9rem; min-width: 460px; }
+        table.tbl th {
+            text-align: left; font-size: 11px; font-weight: 640; letter-spacing: .1em;
+            text-transform: uppercase; color: var(--muted); padding: 9px 16px 9px 0;
+            border-bottom: 2px solid var(--uni-black); vertical-align: bottom;
+        }
+        table.tbl td { padding: 10px 16px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+        table.tbl tr:last-child td { border-bottom: 0; }
+        table.tbl td:first-child { font-weight: 600; }
+
+        .doc code {
+            font-family: var(--font-mono); font-size: .875em; background: var(--surface-2);
+            border: 1px solid var(--line); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere;
+        }
+        .codewrap { position: relative; margin: 0 0 18px; }
+        .doc pre.code, .prompt pre {
+            background: var(--uni-black); color: #e9e9ec; font-family: var(--font-mono);
+            font-size: 12.5px; line-height: 1.65; padding: 18px 20px; border-radius: var(--radius);
+            overflow-x: auto; margin: 0;
+        }
+        .doc pre code { background: none; border: 0; padding: 0; font-size: inherit; color: inherit; white-space: pre; }
+
+        .prompt { margin: 0 0 20px; border: 1px solid var(--line-strong); border-radius: var(--radius); overflow: hidden; }
+        .prompt-h {
+            margin: 0; padding: 10px 16px; background: var(--uni-yellow); color: var(--uni-black);
+            font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; max-width: none;
+        }
+        .prompt .codewrap { margin: 0; }
+        .prompt pre { border-radius: 0; }
+
+        .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 20px; padding: 0; }
+        .flow span {
+            font-family: var(--font-mono); font-size: 12.5px; background: var(--surface);
+            border: 1px solid var(--line-strong); padding: 8px 13px; border-radius: 6px;
+            position: relative; white-space: nowrap;
+        }
+        .flow span + span::before { content: "\2192"; color: var(--muted-2); font-family: var(--font-sans); margin-right: 9px; margin-left: -3px; }
+        .flow-v { flex-direction: column; align-items: flex-start; gap: 0; }
+        .flow-v span + span { margin-top: 22px; }
+        .flow-v span + span::before { content: "\2193"; position: absolute; left: 14px; top: -20px; margin: 0; }
+
+        .cols2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 0 0 20px; }
+        .col { background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; }
+        .col > *:last-child { margin-bottom: 0; }
+        .colh { font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase;
+            color: var(--uni-black); margin: 0 0 10px; padding-bottom: 8px; border-bottom: 2px solid var(--uni-yellow); }
+
+        .box { border: 1px solid var(--line); border-left: 6px solid var(--muted-2);
+            border-radius: 0 var(--radius) var(--radius) 0; padding: 14px 18px; margin: 0 0 20px; background: var(--surface-2); }
+        .box > *:last-child { margin-bottom: 0; }
+        .boxh { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 8px; color: var(--muted); }
+        .box.everyone { border-left-color: var(--info); background: var(--info-soft); }
+        .box.everyone .boxh { color: var(--info); }
+        .box.engineers { border-left-color: var(--uni-black); background: var(--surface-3); }
+        .box.engineers .boxh { color: var(--uni-black); }
+        .box.warn { border-left-color: var(--warn); background: var(--warn-soft); }
+        .box.warn .boxh { color: var(--warn); }
+        .box.wow { border-left-color: var(--uni-yellow); background: var(--uni-yellow-soft); }
+        .box.wow .boxh { color: var(--warn); }
+
+        ol.steps { list-style: none; padding: 0; margin: 0 0 20px; counter-reset: st; max-width: none; }
+        ol.steps > li { counter-increment: st; position: relative; padding: 0 0 16px 40px; margin: 0 0 16px; border-bottom: 1px solid var(--line); }
+        ol.steps > li:last-child { border-bottom: 0; margin-bottom: 0; }
+        ol.steps > li::before {
+            content: counter(st, decimal-leading-zero); position: absolute; left: 0; top: 0;
+            font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+            width: 26px; height: 26px; border-radius: 6px; background: var(--uni-yellow); color: var(--uni-black);
+            display: flex; align-items: center; justify-content: center;
+        }
+        ol.steps > li > *:last-child { margin-bottom: 0; }
+        .steph { font-weight: 700; font-size: 1.02rem; margin: 2px 0 6px; letter-spacing: -.012em; }
+
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 0 0 20px; }
+        .cards .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
+        .cards .card > *:last-child { margin-bottom: 0; }
+        .cardh { font-weight: 700; font-size: 1rem; margin: 0 0 8px; letter-spacing: -.012em; }
+        .sheet { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; margin: 0 0 24px; }
+        .sheet .card ol, .sheet .card ul { font-size: .92rem; }
+
+        details.fold { border: 1px solid var(--line); border-radius: var(--radius); margin: 0 0 14px; background: var(--surface); overflow: hidden; }
+        details.fold > summary {
+            cursor: pointer; list-style: none; padding: 12px 18px 12px 36px; position: relative;
+            font-family: var(--font-mono); font-size: 13px; background: var(--surface-2);
+        }
+        details.fold > summary::-webkit-details-marker { display: none; }
+        details.fold > summary::before { content: "\25B8"; position: absolute; left: 16px; color: var(--warn); display: inline-block; transition: transform .15s; }
+        details.fold[open] > summary::before { transform: rotate(90deg); }
+        details.fold[open] > summary { border-bottom: 1px solid var(--line); }
+        details.fold > *:not(summary) { margin: 16px 18px; }
+
+        .qa { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; margin: 0 0 16px; }
+        .qh { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--warn); margin: 0 0 8px; }
+        .q { font-weight: 700; font-size: 1.08rem; line-height: 1.35; margin: 0 0 14px; letter-spacing: -.014em; }
+        .qa details.fold { margin-bottom: 0; }
+
+        .unk { font-family: var(--font-mono); font-size: .82em; background: var(--warn-soft); color: var(--warn);
+            padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+
+        .copybtn {
+            position: absolute; top: 8px; right: 8px; font-family: var(--font-sans); font-size: 10.5px;
+            font-weight: 640; letter-spacing: .09em; text-transform: uppercase;
+            background: rgba(255,255,255,.1); color: #c9cad0; border: 1px solid rgba(255,255,255,.2);
+            border-radius: 5px; padding: 4px 9px; cursor: pointer; opacity: 0; transition: opacity .14s;
+        }
+        .codewrap:hover .copybtn, .copybtn:focus-visible { opacity: 1; }
+        .copybtn:hover { background: var(--uni-yellow); color: var(--uni-black); border-color: var(--uni-yellow); }
+        .copybtn.done { background: var(--uni-yellow); color: var(--uni-black); border-color: var(--uni-yellow); }
+        .backlink { margin-bottom: 26px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <section class="pagehead">
+            <div class="wrap">
+                <span class="eyebrow">Claude 101 · ISIS2007</span>
+                <h1>Sin suscripción</h1>
+                <p>Cómo montar un entorno de trabajo completo sin pagar: accesos de estudiante, agentes de código open source y modelos corriendo en tu máquina.</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="wrap">
+                <p><a class="backlink" href="claude-101.html">Volver a la clase</a></p>
+                <div class="doc">
+                    <h3 class="sub" id="ht-premisa">La premisa</h3>
+                    
+                    <p>Usamos Claude en clase porque necesitábamos una herramienta concreta para mostrar el flujo completo, no porque sea la única. Todo lo que practicaron —escribir una especificación, dar contexto a un modelo, revisar un diff, escribir el caso borde que falta— se hace igual con cualquier herramienta.</p>
+                    
+                    <p>Hay tres rutas, y se pueden combinar. La tercera es la única que funciona sin internet.</p>
+                    
+                    <div class="cards">
+                      <div class="card">
+                        <p class="cardh">1. Lo que ya tienen por ser estudiantes</p>
+                        <p>Programas educativos y planes gratuitos. Lo más rápido de montar.</p>
+                      </div>
+                      <div class="card">
+                        <p class="cardh">2. Agente open source + API gratuita</p>
+                        <p>Un agente de código libre conectado a un proveedor con capa gratuita. La ruta más práctica para trabajar sobre un repositorio.</p>
+                      </div>
+                      <div class="card">
+                        <p class="cardh">3. Todo local</p>
+                        <p>Modelo abierto corriendo en su máquina. Cero costo, cero envío de datos, y menos capacidad.</p>
+                      </div>
+                    </div>
+                    
+                    <h3 class="sub" id="ht-estudiante">Ruta 1 — Lo que ya tienen</h3>
+                    
+                    <div class="tw"><table class="tbl">
+                      <thead><tr><th>Programa</th><th>Qué da</th><th>Qué pide</th></tr></thead>
+                      <tbody>
+                        <tr>
+                          <td>GitHub Education</td>
+                          <td>Acceso gratuito a Copilot para estudiantes verificados, más 180 core-hours de Codespaces al mes</td>
+                          <td>Estar inscrito en un programa que otorgue título, cuenta personal de GitHub y prueba de matrícula vigente (carné con fecha, horario o certificado)</td>
+                        </tr>
+                        <tr>
+                          <td>Copilot Free</td>
+                          <td>Hasta 2.000 completions al mes, sin verificar estudiante</td>
+                          <td>Solo cuenta de GitHub</td>
+                        </tr>
+                        <tr>
+                          <td>Gemini CLI</td>
+                          <td>Capa gratuita con cuenta personal de Google: 60 solicitudes por minuto y 1.000 al día, ventana de contexto de 1M tokens</td>
+                          <td>Cuenta de Google</td>
+                        </tr>
+                        <tr>
+                          <td>Claude Free</td>
+                          <td>Chat en web, móvil y escritorio, con búsqueda, ejecución de código y conectores MCP remotos. <strong>Claude Code no está en el plan gratuito.</strong></td>
+                          <td>Cuenta</td>
+                        </tr>
+                        <tr>
+                          <td>ChatGPT Free</td>
+                          <td>Chat de texto, acceso limitado a Codex, contexto reducido</td>
+                          <td>Cuenta</td>
+                        </tr>
+                        <tr>
+                          <td>JetBrains para estudiantes</td>
+                          <td>IDEs completos gratis (IntelliJ IDEA Ultimate, PyCharm, WebStorm), renovable cada año. No sirve para trabajo comercial.</td>
+                          <td>Verificación con correo universitario</td>
+                        </tr>
+                      </tbody>
+                    </table></div>
+                    
+                    <p>La verificación de GitHub Education tarda unos días y a veces rebota: manden una foto legible del carné con la fecha visible, o el certificado de matrícula del semestre. Háganlo antes de necesitarlo.</p>
+                    
+                    <h3 class="sub" id="ht-agentes">Ruta 2 — Agentes de código open source</h3>
+                    
+                    <p>Todos estos son gratis y de código abierto. Lo que cuesta no es el agente, es el modelo al que lo conecten: con una capa gratuita o un modelo local, el costo es cero.</p>
+                    
+                    <div class="tw"><table class="tbl">
+                      <thead><tr><th>Herramienta</th><th>Licencia</th><th>Dónde corre</th><th>Modelos locales</th></tr></thead>
+                      <tbody>
+                        <tr><td>OpenCode</td><td>MIT</td><td>Terminal, escritorio, extensión de IDE</td><td>Sí, documentado</td></tr>
+                        <tr><td>Aider</td><td>Apache 2.0</td><td>Terminal</td><td>Sí</td></tr>
+                        <tr><td>Cline</td><td>Apache 2.0</td><td>VS Code, JetBrains, Zed, Neovim, CLI</td><td>Sí, documentado</td></tr>
+                        <tr><td>Continue</td><td>Apache 2.0</td><td>VS Code, JetBrains, CLI</td><td>Sí, incluso sin internet</td></tr>
+                        <tr><td>Goose</td><td>Apache 2.0</td><td>Terminal y app de escritorio</td><td>Sí, con soporte MCP</td></tr>
+                        <tr><td>Gemini CLI</td><td>Apache 2.0</td><td>Terminal</td><td>No: usa modelos Gemini</td></tr>
+                      </tbody>
+                    </table></div>
+                    
+                    <p>Dos avisos de estado, porque el ecosistema se mueve rápido y los tutoriales de 2025 ya envejecieron: <strong>Roo Code se descontinuó</strong> (su propio repositorio lo dice y recomienda Cline o el fork ZooCode), y <strong>Goose cambió de organización</strong> en abril de 2026, así que los enlaces a <code>block/goose</code> están obsoletos.</p>
+                    
+                    <h4>OpenCode, paso a paso</h4>
+                    
+                    <p>Es el más parecido a lo que vieron en la demo: agente de terminal que trabaja sobre el repositorio, con modos de plan y de construcción, subagentes y soporte de MCP.</p>
+                    
+                    <div class="prompt"><p class="prompt-h">Instalar y arrancar</p><pre><code>curl -fsSL https://opencode.ai/install | bash
+                    
+                    cd su-proyecto
+                    opencode</code></pre></div>
+                    
+                    <p>Soporta más de 75 proveedores de modelos. Para conectarlo a un modelo local basta apuntarlo a un endpoint compatible con la API de OpenAI —Ollama en <code>http://localhost:11434/v1</code>, LM Studio en <code>http://127.0.0.1:1234/v1</code>— y su documentación trae los ejemplos de configuración.</p>
+                    
+                    <p>El archivo de instrucciones del repositorio que escribieron para el taller sirve igual acá: cambia el nombre del archivo según la herramienta, no el contenido.</p>
+                    
+                    <h3 class="sub" id="ht-local">Ruta 3 — Modelos corriendo en su máquina</h3>
+                    
+                    <p>Dos formas de levantar un modelo local. Ambas exponen un endpoint compatible con la API de OpenAI, que es lo que permite conectarlas a cualquiera de los agentes de arriba.</p>
+                    
+                    <div class="cols2">
+                      <div class="col">
+                        <p class="colh">Ollama · terminal</p>
+                        <pre class="code" data-lang="bash"><code>curl -fsSL https://ollama.com/install.sh | sh
+                    
+                    ollama pull qwen2.5-coder:7b
+                    ollama run qwen2.5-coder:7b</code></pre>
+                        <p>Endpoint: <code>http://localhost:11434/v1</code>. Pide una API key que ignora: pongan literalmente <code>ollama</code>.</p>
+                      </div>
+                      <div class="col">
+                        <p class="colh">LM Studio · interfaz gráfica</p>
+                        <pre class="code" data-lang="bash"><code>lms get
+                    lms server start</code></pre>
+                        <p>Se descarga la aplicación de <code>lmstudio.ai</code> y el CLI <code>lms</code> viene incluido. Endpoint: <code>http://127.0.0.1:1234/v1</code>.</p>
+                      </div>
+                    </div>
+                    
+                    <h4>Qué modelo corre en su portátil</h4>
+                    
+                    <p>Regla práctica con cuantización de 4 bits: cuenten unos 0,6 GB de memoria por cada mil millones de parámetros, más lo que ocupe el contexto. No es una cifra oficial, es una aproximación para calcular antes de descargar 14 GB.</p>
+                    
+                    <div class="tw"><table class="tbl">
+                      <thead><tr><th>Su máquina</th><th>Qué corre de verdad</th><th>Para qué sirve</th></tr></thead>
+                      <tbody>
+                        <tr>
+                          <td>8 GB de RAM</td>
+                          <td>Modelos de 1,5B a 7B con contexto corto</td>
+                          <td>Explicar código, generar funciones sueltas, autocompletar. Compite con el navegador y el IDE por la memoria.</td>
+                        </tr>
+                        <tr>
+                          <td>16 GB de RAM</td>
+                          <td>7B cómodo, 14B justo</td>
+                          <td>Lo anterior, más tareas de un solo archivo con algo de contexto</td>
+                        </tr>
+                        <tr>
+                          <td>32 GB o Mac con 24–32 GB unificados</td>
+                          <td>Hasta 24B–30B</td>
+                          <td>Empieza a ser usable para tareas agénticas cortas</td>
+                        </tr>
+                        <tr>
+                          <td>Windows sin GPU dedicada</td>
+                          <td>Corre en CPU</td>
+                          <td>Funciona para completar código; frustrante para agentes</td>
+                        </tr>
+                      </tbody>
+                    </table></div>
+                    
+                    <p>Modelos de código que se pueden descargar hoy en el rango de un portátil: <code>qwen2.5-coder</code> (0.5B a 14B), <code>deepseek-coder</code> (1.3B y 6.7B), <code>starcoder2</code>, <code>codegemma</code>, <code>yi-coder</code>, <code>opencoder</code>. Ya en el límite superior: <code>devstral:24b</code> (14 GB de descarga, pensado explícitamente para agentes) y <code>qwen3-coder:30b</code> (19 GB).</p>
+                    
+                    <h3 class="sub" id="ht-honesto">Lo que hay que saber antes de elegir</h3>
+                    
+                    <ul>
+                      <li><strong>Un modelo de 7B local no es un modelo frontera.</strong> Sirve muy bien para explicar código, escribir funciones y autocompletar. En tareas agénticas de varios pasos —llamar herramientas correctamente, editar varios archivos de forma coherente, no perder el hilo— falla bastante más y a veces entra en bucles. Para trabajar sobre un repositorio real, una capa gratuita en la nube rinde mejor que un 7B local.</li>
+                      <li><strong>Privacidad.</strong> Las capas gratuitas suelen usar lo que envías para mejorar el producto. Los términos de la API de Gemini, por ejemplo, dicen explícitamente que en los servicios no pagos Google usa el contenido enviado y las respuestas generadas para desarrollar sus productos, y que revisores humanos pueden leerlo. Cada proveedor tiene su política y hay que leerla. Regla simple: nada de código propietario de una práctica, datos personales de terceros ni trabajos confidenciales en una capa gratuita. Si eso les preocupa, la ruta local no envía nada.</li>
+                      <li><strong>Los límites de tasa se agotan.</strong> Un agente hace decenas de llamadas por tarea. Es normal quedarse sin cuota a mitad de una sesión larga: tengan un plan B configurado antes de necesitarlo.</li>
+                      <li><strong>Batería y calor.</strong> La inferencia local mantiene el procesador al máximo. En portátil eso es ventilador a fondo y batería que se va rápido: trabajen enchufados.</li>
+                      <li><strong>La herramienta es gratis, el uso no siempre.</strong> OpenCode, Aider, Cline, Continue y Goose son libres, pero necesitan una API key. Sin capa gratuita ni modelo local, generan costo.</li>
+                    </ul>
+                    
+                    <h3 class="sub" id="ht-recomendacion">Qué montaría yo</h3>
+                    
+                    <div class="tw"><table class="tbl">
+                      <thead><tr><th>Si...</th><th>Montaje</th></tr></thead>
+                      <tbody>
+                        <tr><td>Quieren empezar en cinco minutos</td><td>Verifiquen GitHub Education y usen Copilot en su IDE de siempre</td></tr>
+                        <tr><td>Quieren un agente sobre el repositorio, como en la demo</td><td>OpenCode conectado a una capa gratuita de API</td></tr>
+                        <tr><td>Trabajan sin internet o con datos sensibles</td><td>Ollama con un modelo de código + OpenCode o Continue apuntando al endpoint local</td></tr>
+                        <tr><td>Ya viven en VS Code</td><td>Cline o Continue, con capa gratuita o con Ollama</td></tr>
+                      </tbody>
+                    </table></div>
+                    
+                    <p>Cualquiera de esos montajes alcanza para el taller y para el proyecto del curso. Elijan uno y móntenlo antes de la próxima sesión, no durante.</p>
+                    
+                    <p class="note">Datos verificados en la documentación oficial de cada herramienta a septiembre de 2026. Este ecosistema cambia cada pocos meses: si un comando o un límite no cuadra, la fuente es la documentación del proyecto, no esta página.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="assets/site.js"></script>
+    <script>
+    (function () {
+        document.querySelectorAll('.doc pre').forEach(function (pre) {
+            var code = pre.querySelector('code'); if (!code) return;
+            var w = document.createElement('div'); w.className = 'codewrap';
+            pre.parentNode.insertBefore(w, pre); w.appendChild(pre);
+            var b = document.createElement('button');
+            b.type = 'button'; b.className = 'copybtn'; b.textContent = 'copiar';
+            b.addEventListener('click', function () {
+                var done = function () {
+                    b.textContent = 'copiado'; b.classList.add('done');
+                    setTimeout(function () { b.textContent = 'copiar'; b.classList.remove('done'); }, 1500);
+                };
+                if (navigator.clipboard) { navigator.clipboard.writeText(code.innerText).then(done, function () { b.textContent = 'fallo'; }); }
+                else {
+                    var t = document.createElement('textarea'); t.value = code.innerText;
+                    document.body.appendChild(t); t.select();
+                    try { document.execCommand('copy'); done(); } catch (e) { b.textContent = 'fallo'; }
+                    document.body.removeChild(t);
+                }
+            });
+            w.appendChild(b);
+        });
+    })();
+    </script>
+</body>
+</html>

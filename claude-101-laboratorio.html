@@ -167,10 +167,7 @@
                     
                     <p>Lo que hicimos con CampusFlow durante la clase — problema, usuario, MVP, historias, diseño técnico, código, tests — es exactamente lo que van a hacer con su propia idea. La diferencia es que CampusFlow era un ejemplo y esto es su proyecto.</p>
                     
-                    <div class="box warn">
-                      <p class="boxh">Antes de abrir Claude</p>
-                      <p>Pónganse de acuerdo en una frase: <em>"nuestro producto le permite a ___ hacer ___ para que ___"</em>. Si el equipo no la puede decir sin discutir, ese es el primer frente de trabajo, no el código.</p>
-                    </div>
+                    <p>Antes de abrir cualquier herramienta, pónganse de acuerdo en una frase: <em>"nuestro producto le permite a ___ hacer ___ para que ___"</em>. Si todavía no la tienen, ahí está el primer frente de trabajo.</p>
                     
                     <h3 class="sub" id="lab-frentes">Los seis frentes</h3>
                     
@@ -180,17 +177,14 @@
                       <li>
                         <p class="steph">Afilar el problema y el usuario</p>
                         <p><strong>Les sirve si</strong> su usuario es "los estudiantes" en general, o si no saben cómo resuelve hoy ese problema sin ustedes.</p>
-                        <p><strong>Qué pedirle a Claude:</strong> que actúe como product researcher, que a partir de su descripción liste usuarios candidatos, hipótesis y riesgos, y que marque explícitamente qué está asumiendo.</p>
+                        <p><strong>Qué pedir:</strong> que actúe como product researcher, que a partir de su descripción liste usuarios candidatos, hipótesis y riesgos, y que marque explícitamente qué está asumiendo.</p>
                         <p><strong>Cómo saben que quedó:</strong> pueden nombrar una persona concreta, con qué frecuencia le pasa el problema y qué usa hoy en su lugar. Y tienen escrita al menos una hipótesis que podría resultar falsa.</p>
-                        <div class="box warn">
-                          <p class="boxh">Cuidado</p>
-                          <p>Claude genera hipótesis, no las valida. Una hipótesis solo se valida hablando con usuarios reales. Si el entregable dice "validamos con Claude", eso no es validación.</p>
-                        </div>
+                        <p>Un modelo genera hipótesis; validarlas es otra cosa y se hace hablando con usuarios.</p>
                       </li>
                       <li>
                         <p class="steph">Recortar el MVP</p>
                         <p><strong>Les sirve si</strong> su lista de funcionalidades tiene más de cinco cosas, o si no hay nada explícitamente fuera de alcance.</p>
-                        <p><strong>Qué pedirle a Claude:</strong> que ordene las funcionalidades por valor para el usuario contra esfuerzo, que proponga el corte mínimo que ya resuelve el problema, y que justifique cada exclusión.</p>
+                        <p><strong>Qué pedir:</strong> que ordene las funcionalidades por valor para el usuario contra esfuerzo, que proponga el corte mínimo que ya resuelve el problema, y que justifique cada exclusión.</p>
                         <p><strong>Cómo saben que quedó:</strong> tienen una tabla de lo que entra y lo que <em>no</em> entra en v0. La segunda columna es la que demuestra que hubo decisión.</p>
                         <div class="tw"><table class="tbl">
                           <thead><tr><th>Entra en v0</th><th>Queda fuera</th><th>Por qué</th></tr></thead>
@@ -202,8 +196,8 @@
                       </li>
                       <li>
                         <p class="steph">User stories y criterios de aceptación</p>
-                        <p><strong>Les sirve si</strong> van a empezar a programar. Sin criterios de aceptación no pueden evaluar lo que Claude genere.</p>
-                        <p><strong>Qué pedirle a Claude:</strong> que convierta cada capacidad del MVP en historias con criterios en formato Dado / Cuando / Entonces, y que agregue los casos borde que ustedes no pensaron.</p>
+                        <p><strong>Les sirve si</strong> van a empezar a programar. Sin criterios de aceptación no pueden evaluar lo que salga generado.</p>
+                        <p><strong>Qué pedir:</strong> que convierta cada capacidad del MVP en historias con criterios en formato Dado / Cuando / Entonces, y que agregue los casos borde que ustedes no pensaron.</p>
                         <p><strong>Cómo saben que quedó:</strong> cada historia tiene al menos un criterio que puede fallar. "El sistema funciona correctamente" no es un criterio.</p>
                         <div class="prompt"><p class="prompt-h">Plantilla de historia</p><pre><code>Como {{TIPO_DE_USUARIO}}
                     quiero {{CAPACIDAD}}
@@ -216,18 +210,19 @@
                       <li>
                         <p class="steph">Diseño técnico</p>
                         <p><strong>Les sirve si</strong> ya saben qué construir pero no cómo, o si cada integrante tiene un stack distinto en la cabeza.</p>
-                        <p><strong>Qué pedirle a Claude:</strong> que proponga dos o tres arquitecturas alternativas para su caso con sus contras, no una sola. Ustedes eligen y escriben por qué.</p>
-                        <p><strong>Cómo saben que quedó:</strong> tienen el stack cerrado, las entidades principales y los endpoints o pantallas del MVP. Y una decisión que tomaron <em>en contra</em> de lo que Claude propuso, con su razón.</p>
+                        <p><strong>Qué pedir:</strong> que proponga dos o tres arquitecturas alternativas para su caso con sus contras, no una sola. Ustedes eligen y escriben por qué.</p>
+                        <p><strong>Cómo saben que quedó:</strong> tienen el stack cerrado, las entidades principales y los endpoints o pantallas del MVP. Y una decisión que tomaron <em>en contra</em> de lo que propuso el modelo, con su razón.</p>
                         <div class="box engineers">
                           <p class="boxh">Para ingenieros</p>
                           <p>Hay decisiones que un modelo no debería cerrar solo: el modelo de datos que define el negocio, los límites de consistencia, qué se guarda de los usuarios y por cuánto tiempo, y cualquier cosa que cueste plata. Esas se discuten en el equipo y se dejan escritas.</p>
                         </div>
                       </li>
                       <li>
-                        <p class="steph">Construir con Claude Code</p>
+                        <p class="steph">Construir con un agente de código</p>
                         <p><strong>Les sirve si</strong> ya tienen repositorio y algo que implementar.</p>
-                        <p><strong>El orden que funciona:</strong> escribir un <code>CLAUDE.md</code> corto antes del primer prompt, trabajar en rama, pedir cambios pequeños, leer el diff, correr los tests, hacer commit. Repetir.</p>
-                        <div class="prompt"><p class="prompt-h">CLAUDE.md mínimo para su repo</p><pre><code># {{NOMBRE DEL PROYECTO}}
+                        <p><strong>El orden que funciona:</strong> escribir un archivo de instrucciones del repo antes del primer prompt, trabajar en rama, pedir cambios pequeños, leer el diff, correr los tests, hacer commit. Repetir.</p>
+                        <p>Ese archivo se llama <code>CLAUDE.md</code> en Claude Code; otros agentes leen su equivalente. El contenido es el mismo:</p>
+                        <div class="prompt"><p class="prompt-h">Archivo de instrucciones mínimo para su repo</p><pre><code># {{NOMBRE DEL PROYECTO}}
                     
                     Qué es: {{UNA FRASE}}
                     Stack: {{LENGUAJE, FRAMEWORK, BASE DE DATOS}}
@@ -263,7 +258,7 @@
                     
                     <h3 class="sub" id="lab-evidencia">Evidencia de uso de IA</h3>
                     
-                    <p>Esto no es burocracia: es la parte que más pesa, porque es donde se ve si el equipo pensó o solo pegó.</p>
+                    <p>Es la parte que más pesa de la evaluación, porque es donde se ve el criterio del equipo.</p>
                     
                     <p>Guarden en una carpeta <code>ai-evidence/</code> mientras trabajan, no al final:</p>
                     
@@ -272,14 +267,14 @@
                       <tbody>
                         <tr><td>Cadenas de iteración</td><td>Dos casos: prompt inicial, qué salió mal, prompt corregido</td><td>Que saben diagnosticar por qué falló, no solo reintentar</td></tr>
                         <tr><td>Un diff comentado</td><td>Uno, con sus notas de revisión</td><td>Que leyeron lo que entró al repositorio</td></tr>
-                        <tr><td>Una decisión en contra de Claude</td><td>Una, con la razón</td><td>Que hay criterio propio</td></tr>
+                        <tr><td>Una decisión en contra del modelo</td><td>Una, con la razón</td><td>Que hay criterio propio</td></tr>
                         <tr><td>Un error encontrado en código generado</td><td>Uno, con cómo lo detectaron</td><td>Que verifican en vez de confiar</td></tr>
                       </tbody>
                     </table></div>
                     
-                    <p class="ask">¿Qué hizo Claude y qué decisiones tomó el equipo?</p>
+                    <p class="ask">¿Qué hizo la IA y qué decisiones tomó el equipo?</p>
                     
-                    <p>Esa pregunta se responde en un párrafo al final. Si la respuesta es "Claude hizo todo", falta trabajo.</p>
+                    <p>Se responde en un párrafo al final.</p>
                     
                     <h3 class="sub" id="lab-regla">La regla</h3>
                     
@@ -287,18 +282,18 @@
                       <div class="col">
                         <p class="colh">Esto NO es falta</p>
                         <ul>
-                          <li>Que Claude haya escrito el 100% del código.</li>
-                          <li>Que la arquitectura la haya propuesto Claude y ustedes la hayan adoptado.</li>
+                          <li>Que la IA haya escrito el 100% del código.</li>
+                          <li>Que la arquitectura la haya propuesto el modelo y ustedes la hayan adoptado.</li>
                           <li>Usar IA en todas las etapas del proyecto.</li>
                         </ul>
                       </div>
                       <div class="col">
                         <p class="colh">Esto sí</p>
                         <ul>
-                          <li>Entregar código que nadie en el equipo puede explicar.</li>
+                          <li>Entregar código que el equipo no puede explicar.</li>
                           <li>No haber verificado nada de lo que se generó.</li>
                           <li>No tener una sola decisión propia en todo el proyecto.</li>
-                          <li>Tests que solo cubren el happy path porque nadie los leyó.</li>
+                          <li>Tests que solo cubren el happy path.</li>
                         </ul>
                       </div>
                     </div>
@@ -310,8 +305,6 @@
                       <li>¿Por qué eligieron este diseño y no el otro? ¿Qué propuso Claude que descartaron?</li>
                       <li>Agreguen aquí un caso borde y háganlo pasar.</li>
                     </ol>
-                    
-                    <blockquote class="punch">Usar IA para todo el código no es la falta. La falta es no entender lo que entregaron.</blockquote>
                     
                     <h3 class="sub" id="lab-criterios">Criterios de evaluación</h3>
                     
@@ -334,7 +327,7 @@
                         </tr>
                         <tr>
                           <td>Diseño técnico</td>
-                          <td>Es lo que salió del primer prompt, sin cuestionar</td>
+                          <td>Es lo que salió del primer prompt, sin comparar alternativas</td>
                           <td>Stack y entidades justificados</td>
                           <td>Se compararon alternativas y se documentó la decisión</td>
                         </tr>
@@ -352,30 +345,25 @@
                         </tr>
                         <tr>
                           <td>Comprensión</td>
-                          <td>Nadie explica el código entregado</td>
+                          <td>El equipo no puede explicar el código entregado</td>
                           <td>El equipo explica lo esencial</td>
                           <td>Cualquiera explica cualquier parte y la modifica en vivo</td>
                         </tr>
                       </tbody>
                     </table></div>
                     
-                    <div class="box warn">
-                      <p class="boxh">Tope</p>
-                      <p>Un proyecto que funciona pero que el equipo no entiende cae en Insuficiente en comprensión, y eso topa la nota sin importar qué tan pulido esté el resto. Funcionar no es el criterio.</p>
-                    </div>
-                    
                     <h3 class="sub" id="lab-niveles">Tres niveles, según dónde esté el equipo</h3>
                     
                     <div class="cards">
                       <div class="card">
                         <p class="cardh">Nivel 1 — Prompting</p>
-                        <p>Trabajan con Claude en el chat o en un Project.</p>
-                        <p><strong>Reto:</strong> armen el Project de su producto con su propio knowledge (brief, requisitos, decisiones técnicas) y muestren la misma pregunta respondida fuera y dentro del Project.</p>
+                        <p>Trabajan con un modelo en el chat, o en un Project si usan Claude.</p>
+                        <p><strong>Reto:</strong> armen el espacio de trabajo de su producto con su propio contexto (brief, requisitos, decisiones técnicas) y muestren la misma pregunta respondida con y sin ese contexto.</p>
                       </div>
                       <div class="card">
                         <p class="cardh">Nivel 2 — Engineer</p>
-                        <p>Trabajan con Claude Code sobre su repositorio.</p>
-                        <p><strong>Reto:</strong> un <code>CLAUDE.md</code> propio, una feature implementada en rama con su test de caso borde, y el diff revisado con comentarios antes del merge.</p>
+                        <p>Trabajan con un agente de código sobre su repositorio.</p>
+                        <p><strong>Reto:</strong> un archivo de instrucciones propio, una feature implementada en rama con su test de caso borde, y el diff revisado con comentarios antes del merge.</p>
                       </div>
                       <div class="card">
                         <p class="cardh">Nivel 3 — AI Engineer</p>
@@ -392,13 +380,13 @@
                       <thead><tr><th>Qué</th><th>Cómo</th></tr></thead>
                       <tbody>
                         <tr><td>Repositorio del equipo</td><td>Creado, con todos con acceso, y una rama por persona</td></tr>
-                        <tr><td>Claude Code</td><td><code>curl -fsSL https://claude.ai/install.sh | bash</code>, luego <code>cd su-proyecto &amp;&amp; claude</code></td></tr>
+                        <tr><td>Un agente de código</td><td>Claude Code si tienen plan pago; si no, cualquiera de las opciones gratuitas de la guía de herramientas</td></tr>
                         <tr><td>Carpeta de evidencia</td><td><code>ai-evidence/</code> en el repositorio, desde el primer commit</td></tr>
-                        <tr><td>Si alguien no tiene plan pago</td><td>Trabajen en el chat web y documenten los prompts. La evidencia vale igual.</td></tr>
+                        <tr><td>Si nadie del equipo tiene plan pago</td><td>Hay opciones gratuitas que sirven igual para este taller. Ver la guía de herramientas.</td></tr>
                       </tbody>
                     </table></div>
                     
-                    <p>La biblioteca de prompts tiene 26 plantillas listas por rol. Empiecen por la del rol que corresponde al frente en el que están, y reemplacen los marcadores con los datos de su producto.</p>
+                    <p>La biblioteca de prompts tiene 26 plantillas por rol. Funcionan con cualquier modelo: empiecen por la del frente en el que están y reemplacen los marcadores con los datos de su producto.</p>
                 </div>
             </div>
         </section>

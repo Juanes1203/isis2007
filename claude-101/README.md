@@ -10,7 +10,7 @@ La clase recorre un solo caso de principio a fin: **CampusFlow**, un asistente a
 
 ## La presentación
 
-`index.html` — 28 slides con seis preguntas de opción múltiple intercaladas para responder durante la sesión.
+`index.html` — 29 slides con seis preguntas de opción múltiple intercaladas para responder durante la sesión.
 
 Se abre en cualquier navegador, sin instalar nada:
 
@@ -39,6 +39,7 @@ Las preguntas se responden haciendo clic: las opciones incorrectas se marcan y p
 |---|---|
 | `index.html` | La presentación de la clase |
 | `laboratorio.md` | Guía de trabajo: seis frentes para avanzar el proyecto de tu equipo, evidencia de uso de IA y criterios de evaluación |
+| `herramientas.md` | Cómo montar todo esto sin pagar: accesos de estudiante, agentes open source y modelos locales |
 | `prompt-library.md` | 26 prompts completos por rol (PM, SWE, QA, Security, UX, AI Engineer, Code Reviewer) |
 | `buenas-practicas.md` | Prompts que no funcionan y su versión profesional, test de alucinación, tres casos de seguridad, cuándo usar qué herramienta |
 | `cheat-sheet.md` | Una página para imprimir: estructura de prompt, workflow y las 10 reglas |
