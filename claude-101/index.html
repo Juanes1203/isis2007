@@ -375,7 +375,7 @@ body.on-dark .bar{background:#33343a}
       <button class="opt" data-ok="0"><span class="k">C</span><span>Pedirle amablemente que se esfuerce.</span></button>
       <button class="opt" data-ok="1"><span class="k">D</span><span>Una instrucción de validación: que liste supuestos y diga qué no pudo determinar.</span></button>
     </div>
-    <p class="why" data-why><b>B</b> y <b>D</b>. Un prompt largo lleno de relleno rinde peor que uno corto y preciso. Lo que sube de nivel es poder <b>auditar</b> la respuesta: sin criterios de aceptación, "quedó bien" es una opinión; sin validación, los supuestos llegan disfrazados de hechos.</p>
+    <p class="why" data-why><b>B</b> y <b>D</b>. Un prompt largo lleno de relleno rinde peor que uno corto y preciso. Lo que sube de nivel es que la respuesta se pueda <b>auditar</b>: sin criterios de aceptación, "quedó bien" es una opinión; sin validación, los supuestos llegan disfrazados de hechos.</p>
   </div>
 </section>
 
@@ -441,7 +441,7 @@ body.on-dark .bar{background:#33343a}
       <div class="card bad"><span class="tag">Chat web</span><h3>Hablamos sobre el código</h3><p>Pegas un archivo, te devuelve texto, copias y pegas de vuelta. El contexto se pierde en cada vuelta y nadie ejecuta nada.</p></div>
       <div class="card good"><span class="tag">Claude Code</span><h3>Trabaja con el repositorio</h3><p>Lee el codebase, edita varios archivos, corre los comandos, ve fallar los tests, arregla y hace el commit.</p></div>
     </div>
-    <p class="punch">Lo que cambia es el acceso al sistema de archivos y a las herramientas.</p>
+    <p class="punch">Cambia el acceso al sistema de archivos y a las herramientas.</p>
     <p class="note">Corre en terminal, VS Code, JetBrains, app de escritorio, web y móvil. Los mismos CLAUDE.md, settings y servidores MCP funcionan en todas.</p>
   </div>
 </section>
@@ -493,7 +493,7 @@ msgs += [assistant(resp.content), user(tool_result(resp.tool_use.id, result))]</
       <button class="opt" data-ok="1"><span class="k">C</span><span>Describir el síntoma, cómo reproducirlo y pedir el diagnóstico antes de cualquier cambio.</span></button>
       <button class="opt" data-ok="0"><span class="k">D</span><span>"Reescribe el módulo de agenda, creo que el problema está ahí."</span></button>
     </div>
-    <p class="why" data-why><b>C</b>. Un agente con acceso al repo <b>busca solo</b>. Lo que necesita es saber qué está roto y cómo verlo fallar. Pedir el diagnóstico antes del arreglo te deja revisar el razonamiento mientras todavía es barato cambiarlo. Ojo con D: "creo que está ahí" convierte tu corazonada en una restricción, y el agente va a buscar donde le dijiste.</p>
+    <p class="why" data-why><b>C</b>. Un agente con acceso al repo <b>busca solo</b>. Necesita saber qué está roto y cómo verlo fallar. Pedir el diagnóstico antes del arreglo te deja revisar el razonamiento mientras todavía es barato cambiarlo. Ojo con D: "creo que está ahí" convierte tu corazonada en una restricción, y el agente va a buscar donde le dijiste.</p>
   </div>
 </section>
 

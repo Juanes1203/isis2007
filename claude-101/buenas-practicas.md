@@ -1,18 +1,12 @@
 # Buenas prácticas, seguridad y cuándo usar qué
 
-Parte VI
+### Prompts que nunca debes usar
 
-## Secciones especiales
-
-Cinco anexos que se usan como material de apoyo durante la clase: los prompts que hay que desaprender, una actividad de 5 minutos sobre alucinación, tres casos de seguridad con código, un mapa de cuándo usar qué, y una comparación neutral del panorama de herramientas.
-
-### 1. Prompts que nunca debes usar
-
-No son prompts malos por cortos. Son malos porque trasladan al modelo decisiones que son tuyas: el alcance, el stack, el criterio de correcto y la definición de "mejor".
+Lo malo no es que sean cortos. Es que le pasan al modelo decisiones que son tuyas: el alcance, el stack, qué cuenta como correcto y qué significa "mejor".
 
 Un modelo no se bloquea ante la ambigüedad. La resuelve. Escoge por ti, en silencio, y sigue adelante como si le hubieras dicho qué hacer.
 
-Caso 1 — "Hazme el código."
+"Hazme el código."
 
 **Qué falta:** qué código, para qué entidad, con qué contrato de entrada/salida, en qué archivo del repo, con qué stack, con qué tests.
 
@@ -20,7 +14,7 @@ Caso 1 — "Hazme el código."
 
 **Qué produce en la práctica:** 60 líneas plausibles que no importan nada del proyecto, no usan SQLAlchemy 2.x, no validan con Pydantic v2 y no compilan contra tus modelos.
 
-Caso 2 — "Arregla esto."
+"Arregla esto."
 
 **Qué falta:** qué es "esto", cuál es el comportamiento observado, cuál es el esperado, con qué entrada se reproduce, y en qué archivos vive la lógica.
 
@@ -28,25 +22,25 @@ Caso 2 — "Arregla esto."
 
 **Qué produce en la práctica:** en el bug de `days_left` te cambia un `.days` por un `ceil()`, la entrega de hoy 23:59 deja de verse vencida, y la copia duplicada en `api/routes.py` sigue rota. El síntoma desaparece; el defecto no.
 
-Caso 3 — "Haz una app."
+"Haz una app."
 
 **Qué falta:** para quién, qué problema, qué entra en v0 y qué no, qué superficie, qué stack, qué se considera terminado.
 
 **Qué hace el modelo con esa ambigüedad:** inventa usuarios, inventa alcance y casi siempre agrega frontend, login social y notificaciones push porque son el relleno estadísticamente esperado de "una app".
 
-**Qué produce en la práctica:** un scaffold grande, bonito y ajeno. Lo caro no es escribirlo: es que tú tengas que leer 900 líneas para descubrir que resolvió otro problema.
+**Qué produce en la práctica:** un scaffold grande, bonito y ajeno. Escribirlo sale barato. Lo caro es que tú tengas que leer 900 líneas para descubrir que resolvió otro problema.
 
-Caso 4 — "Optimiza mi código."
+"Optimiza mi código."
 
 **Qué falta:** optimizar *qué dimensión*. Latencia, memoria, consultas a la base, legibilidad, costo en tokens, throughput. Y contra qué número: no dijiste cuánto tarda hoy ni cuánto necesitas.
 
-**Qué hace el modelo con esa ambigüedad:** optimiza la dimensión equivocada. Por defecto persigue elegancia sintáctica —comprehensions, one-liners— que no mueve la aguja, o micro-optimiza un loop mientras el cuello de botella real es un N+1 contra Postgres.
+**Qué hace el modelo con esa ambigüedad:** optimiza la dimensión equivocada. Por defecto persigue elegancia sintáctica (comprehensions, one-liners) que no mueve la aguja, o micro-optimiza un loop mientras el cuello de botella real es un N+1 contra Postgres.
 
 **Qué produce en la práctica:** código más corto, menos legible, igual de lento, y sin ninguna medición que respalde el cambio.
 
 Las cuatro reescrituras profesionales, todas sobre CampusFlow. Sirven tal cual: cópialas y adáptalas.
 
-Reescritura 1 — en vez de "Hazme el código."
+En vez de "Hazme el código."
 
     Rol: eres un ingeniero backend senior trabajando en el repo campusflow-api.
 
@@ -89,7 +83,7 @@ Reescritura 1 — en vez de "Hazme el código."
     Antes de escribir código, lista en 5 bullets los supuestos que estás
     haciendo. Si algo del contrato es ambiguo, pregunta en vez de asumir.
 
-Reescritura 2 — en vez de "Arregla esto."
+En vez de "Arregla esto."
 
     Contexto: repo campusflow-api. Bug reportado por Ana (usuaria del MVP).
 
@@ -124,7 +118,7 @@ Reescritura 2 — en vez de "Arregla esto."
 
     No cambies el contrato público del endpoint ni el esquema de la base.
 
-Reescritura 3 — en vez de "Haz una app."
+En vez de "Haz una app."
 
     Rol: product engineer. Vamos a definir el alcance de un MVP, no a escribir
     código todavía.
@@ -166,7 +160,7 @@ Reescritura 3 — en vez de "Haz una app."
     Formato: tablas. Sin introducción ni conclusión. Si una historia no se puede
     verificar con un test, dímelo en vez de escribirla.
 
-Reescritura 4 — en vez de "Optimiza mi código."
+En vez de "Optimiza mi código."
 
     Contexto: repo campusflow-api. Endpoint GET /agenda.
 
@@ -217,43 +211,43 @@ Cuidado
 
 La regla es heurística, no ley. Hay prompts cortos excelentes cuando el contexto ya vive en otro lado: un CLAUDE.md bien escrito, el knowledge de un Project, o un repo que el agente ya leyó. Lo que no puede faltar es el contexto; lo que puede variar es dónde está.
 
-### 2. Claude Hallucination Test (5 min)
+### Ponerlo a inventar, a propósito
 
-Actividad corta. El objetivo no es "pillar al modelo": es que cada estudiante vea con sus propios ojos que la fluidez de una respuesta no dice nada sobre su veracidad.
+Actividad corta, para que cada estudiante vea con sus propios ojos que lo bien que suena una respuesta no dice nada sobre si es cierta.
 
 Dos preguntas. Media clase hace la (a), la otra mitad la (b).
 
-Pregunta (a) — detalle administrativo específico
+Un detalle administrativo específico
 
 *"¿Qué porcentaje exacto de la nota final vale el proyecto final en el curso de Bases de Datos de Ingeniería de Sistemas de la Universidad de los Andes en el semestre 2026-2, y cuántas faltas de asistencia permite el reglamento antes de reprobar?"*
 
 **Por qué es trampa:** es información local, no publicada de forma estable, específica de un semestre y de una sección, y posterior al knowledge cutoff del modelo. No existe en sus pesos.
 
-**Patrón de falla esperado:** el modelo produce una respuesta con la *forma* correcta —porcentajes que suman 100, un umbral de inasistencias con aire de reglamento— porque conoce la estructura típica de un syllabus universitario. Lo que no tiene es el dato de *este* curso. La respuesta puede venir sin ninguna advertencia, o con una advertencia genérica seguida igualmente de cifras concretas.
+**Patrón de falla esperado:** el modelo produce una respuesta con la *forma* correcta (porcentajes que suman 100, un umbral de inasistencias con aire de reglamento) porque conoce la estructura típica de un syllabus universitario. Lo que no tiene es el dato de *este* curso. La respuesta puede venir sin ninguna advertencia, o con una advertencia genérica seguida igualmente de cifras concretas.
 
-Pregunta (b) — parámetro o endpoint plausible
+Un parámetro que suena plausible
 
 *"¿Cómo se llama exactamente el parámetro de `qdrant-client` que controla el `ef` de búsqueda HNSW en tiempo de query, y qué endpoint expone la API de Cohere Rerank 3.5 para reordenar documentos? Dame la firma completa."*
 
 **Por qué es trampa:** son librerías con menos presencia en el entrenamiento que `requests` o `pandas`, con APIs que cambian entre versiones menores. El modelo ha visto muchos nombres parecidos.
 
-**Patrón de falla esperado:** nombres de parámetro sintácticamente perfectos y del estilo correcto de la librería, mezclando la nomenclatura de varias versiones o de librerías vecinas. Es el peor caso: no es un error obvio, es un error que compila mentalmente y solo falla en runtime.
+**Patrón de falla esperado:** nombres de parámetro sintácticamente perfectos y del estilo correcto de la librería, mezclando la nomenclatura de varias versiones o de librerías vecinas. Es el peor caso. No salta a la vista, compila mentalmente y solo falla en runtime.
 
 **Mecánica exacta (5 minutos):**
 
-1.  Minuto 0–1 — Preguntar
+1.  Minuto 0 a 1. Preguntar
 
     Cada estudiante lanza su pregunta tal cual, sin dar contexto adicional y sin pedirle al modelo que aclare si no sabe.
 
-2.  Minuto 1–2 — Copiar
+2.  Minuto 1 a 2. Copiar
 
     Copia la respuesta completa. Sin resumirla y sin editarla.
 
-3.  Minuto 2–4 — Descomponer
+3.  Minuto 2 a 4. Descomponer
 
     Llena la tabla de cuatro columnas, una fila por afirmación verificable de la respuesta. Si una frase no se puede verificar ni refutar, también va: eso mismo es un hallazgo.
 
-4.  Minuto 4–5 — Puesta en común
+4.  Minuto 4 a 5. Puesta en común
 
     Dos voluntarios leen su fila más peligrosa: la afirmación que ellos habrían aceptado sin revisar.
 
@@ -267,9 +261,9 @@ Pregunta (b) — parámetro o endpoint plausible
 
 **Por qué suena igual de seguro cuando acierta y cuando inventa.** El modelo no consulta una base de datos y luego redacta. Genera el siguiente token más probable dado el contexto. La fluidez viene del modelo de lenguaje; la veracidad vendría de los datos. Son dos cosas distintas, y solo una de las dos está garantizada.
 
-El tono seguro no es una señal de que el modelo "sabe": es el registro por defecto de la prosa expositiva que vio en el entrenamiento. Un dato correcto y uno inventado se producen con la misma maquinaria y salen con la misma cadencia.
+El tono seguro no dice nada sobre si el modelo sabe. Es el registro por defecto de la prosa expositiva que vio en el entrenamiento. Un dato correcto y uno inventado se producen con la misma maquinaria y salen con la misma cadencia.
 
-**Cómo se ve una señal de incertidumbre bien calibrada.** No es un "podría estar equivocado" pegado al final. Es específica y accionable:
+**Cómo se ve una señal de incertidumbre que sí sirve.** Un "podría estar equivocado" pegado al final no cuenta. Tiene que ser específica y accionable:
 
 - Nombra *qué* parte no sabe, no la respuesta entera: "el nombre del parámetro lo recuerdo como `hnsw_ef`, pero cambió entre versiones; confírmalo en el changelog".
 - Distingue entre lo estructural y lo puntual: "la forma de un syllabus de Uniandes es esta; el porcentaje exacto de tu sección no lo puedo saber".
@@ -282,11 +276,11 @@ Nota honesta
 
 Con búsqueda web activada, el modelo falla mucho menos en la pregunta (a): puede traer el documento y citarlo. Pero aparece un modo de falla distinto — atribuir el dato a una fuente que no lo dice, mezclar el reglamento general con el syllabus de la sección, o citar una versión vieja del documento. Verificar sigue siendo trabajo del estudiante: abrir el enlace y confirmar que la frase citada está ahí. Una cita no es una verificación.
 
-### 3. AI Security: tres ejemplos prácticos
+### Tres formas de romperlo
 
 Tres fallas que vas a ver en código generado por IA. Ninguna es exótica: las tres aparecen porque el modelo reproduce el patrón más frecuente de su entrenamiento y nadie se lo prohibió en el prompt.
 
-**Ejemplo 1 — Secreto expuesto y commiteado**
+**Una llave subida al repositorio**
 
 ``` code
 # app/core/settings.py   -- generado por IA, commiteado tal cual
@@ -314,7 +308,7 @@ Por qué borrarla en el siguiente commit no sirve
 
 Git es un almacén de objetos inmutable con historia. Un commit que borra la línea agrega un objeto nuevo; el blob con la llave sigue ahí, alcanzable por su SHA, presente en todos los clones y en cada fork. `git rm` y "ya la quité" son teatro: la llave sigue siendo recuperable con `git log -p` o pidiendo el objeto directamente.
 
-**Corrección — lo que se hace de verdad, en este orden:**
+**Lo que se hace de verdad, en este orden:**
 
 1.  **Rotar la llave primero.** Revócala en el proveedor y emite una nueva. Todo lo demás es secundario: una llave expuesta se considera comprometida desde el instante en que salió de tu máquina.
 2.  **Limpiar el historial** con `git-filter-repo` (o BFG), forzar el push, y avisar al equipo para que reclone. Ojo: si hubo forks o el repo está en un servidor que guarda objetos huérfanos, la limpieza no es garantía. Por eso el paso 1 va primero.
@@ -347,7 +341,7 @@ repos:
       - id: gitleaks
 ```
 
-**Ejemplo 2 — SQL injection generada por IA**
+**Una inyección de SQL que escribió el modelo**
 
 ``` code
 # app/api/routes.py   -- generado por IA a partir de "hazme un buscador de materias"
@@ -375,7 +369,7 @@ La consulta resultante cierra el literal, une la tabla `users` y devuelve correo
 
 Por qué el modelo generó eso
 
-Dos razones, y ninguna es misteriosa. Primera: la concatenación con f-string es un patrón enormemente frecuente en el código público con el que se entrenó — tutoriales, respuestas de foros, snippets viejos. Es lo estadísticamente esperado para "buscador con LIKE". Segunda: nadie se lo prohibió. El prompt pedía un buscador; no pedía consultas parametrizadas, ni validación, ni un umbral de seguridad. El modelo optimiza lo que le pediste, no lo que diste por sentado.
+Por dos razones. La primera: la concatenación con f-string es un patrón enormemente frecuente en el código público con el que se entrenó — tutoriales, respuestas de foros, snippets viejos. Es lo estadísticamente esperado para "buscador con LIKE". Segunda: nadie se lo prohibió. El prompt pedía un buscador; no pedía consultas parametrizadas, ni validación, ni un umbral de seguridad. El modelo optimiza lo que le pediste, no lo que diste por sentado.
 
 ``` code
 # app/schemas/search.py   -- validación explícita
@@ -407,7 +401,7 @@ async def search_courses(
 
 Dos matices que hay que decir en voz alta. La f-string dentro de `ilike()` no es concatenación de SQL: construye el *valor* del patrón, que SQLAlchemy envía como parámetro ligado. Y el `limit(50)` no es estética: sin él, una búsqueda de una letra es un DoS gratis.
 
-**Ejemplo 3 — Prompt injection desde un documento subido**
+**Instrucciones escondidas en un documento**
 
 Un estudiante sube a CampusFlow un "syllabus" en PDF. El texto del PDF, en cuerpo 6 y color blanco sobre fondo blanco, contiene:
 
@@ -432,7 +426,7 @@ Riesgo
 
 Peor caso concreto: el asistente revela el system prompt (que suele contener reglas de negocio, nombres de tools y a veces rutas internas), y si tiene una tool de escritura como `mark_deliverable_done`, la ejecuta. El estudiante marca sus entregas como completadas sin entregar nada. Escalando: si el agente tiene credenciales de escritura sobre la base, un PDF puede modificar registros de otros usuarios. El atacante no necesitó una vulnerabilidad de software: necesitó un PDF.
 
-Corrección — mitigaciones reales
+Cómo se mitiga
 
 No hay parche de una línea. Hay capas:
 
@@ -469,7 +463,7 @@ READ_ONLY_TOOLS = ["search_course_documents", "get_deliverable"]
 
 Conexión con MCP
 
-Esto es exactamente el riesgo que documenta la especificación de MCP: un servidor MCP que trae contenido externo te expone a prompt injection. El servidor no tiene que ser malicioso — basta con que traiga un issue de GitHub, una página web o un PDF que alguien más escribió. De ahí las dos reglas: conecta solo servidores en los que confías, y usa credenciales de solo lectura cuando puedas. Un servidor MCP con permisos de escritura sobre tu repo y acceso a contenido de terceros es una superficie de ataque, no una comodidad.
+Es el mismo riesgo que documenta la especificación de MCP: un servidor MCP que trae contenido externo te expone a prompt injection. El servidor no tiene que ser malicioso — basta con que traiga un issue de GitHub, una página web o un PDF que alguien más escribió. De ahí las dos reglas: conecta solo servidores en los que confías, y usa credenciales de solo lectura cuando puedas. Un servidor MCP con permisos de escritura sobre tu repo y acceso a contenido de terceros es una superficie de ataque, no una comodidad.
 
 **Checklist de seguridad para código generado por IA**
 
@@ -482,7 +476,7 @@ Esto es exactamente el riesgo que documenta la especificación de MCP: un servid
 7.  Dependencias que el modelo sugirió: verifica que el paquete existe, que el nombre es el correcto y que no está abandonado. `pip-audit` en CI.
 8.  Manejo de errores: nada de devolver el traceback al cliente; log estructurado del lado del servidor y un mensaje genérico afuera.
 
-### 4. ¿Cuándo usar qué?
+### ¿Cuándo usar qué?
 
 La tabla que hay que memorizar, con una tercera columna que casi nunca se enseña: cómo te das cuenta de que elegiste mal.
 
@@ -503,7 +497,7 @@ Un Project que por dentro usa RAG
 
 Cuando el knowledge de un Project se acerca al límite del context window, el Project activa modo RAG y amplía la capacidad hasta ~10x (planes pagos). El usuario no configuró embeddings, ni vector store, ni chunking: subió PDFs. RAG está ahí, como implementación, no como decisión de producto.
 
-Consecuencia práctica: "usar un Project" y "usar RAG" no son alternativas excluyentes. Son la misma cosa vista a dos niveles de abstracción.
+O sea que "usar un Project" y "usar RAG" no compiten. Son la misma cosa vista a dos niveles distintos.
 
 Claude Code que además usa MCP
 
@@ -517,7 +511,7 @@ Consecuencia práctica: la fila "codebase" y la fila "herramientas externas" se 
 
 Si tu respuesta a la pregunta 5 es "todavía no", ¿quién decide cuándo sí, y qué pasa con el código que ya escribiste sin revisar?
 
-### 5. Comparación con otras herramientas
+### Cómo se compara con lo demás
 
 Comparación neutral, sin marketing y sin recomendación. Solo lo que está documentado. Lo que no pudimos verificar está marcado como tal, y marcado significa marcado: no lo cites como hecho.
 
@@ -536,6 +530,6 @@ Esta comparación es de **agosto de 2026** y se construyó únicamente con docum
 
 Tres tendencias comunes, que importan más que cualquier fila de la tabla. Primera: el encuadre pasó de "autocompletado" a "agente". Segunda: la ejecución paralela, en background y asíncrona es hoy el diferenciador declarado. Tercera: MCP se está asentando como capa de extensibilidad común, con adopción desigual. Y casi todos ofrecen terminal + IDE + nube en vez de una sola superficie.
 
-El cierre honesto: la elección de herramienta importa menos de lo que parece. Todas convergen hacia el mismo conjunto de capacidades, y la que hoy va adelante en una columna va atrás el trimestre siguiente. Lo que no converge solo es la disciplina de ingeniería — especificar bien, revisar los diffs, escribir los tests, entender el código antes de mergearlo, y responder por lo que sale a producción. Ninguna de esas cosas te la da la herramienta. Aprender a operar cualquiera de estas herramientas toma una tarde; aprender a no aceptar código que no entiendes toma toda la carrera.
+La elección de herramienta importa menos de lo que parece. Todas convergen hacia el mismo conjunto de capacidades, y la que hoy va adelante en una columna va atrás el trimestre siguiente. Lo que no converge solo es la disciplina de ingeniería — especificar bien, revisar los diffs, escribir los tests, entender el código antes de mergearlo, y responder por lo que sale a producción. Ninguna de esas cosas te la da la herramienta. Aprender a operar cualquiera de estas herramientas toma una tarde; aprender a no aceptar código que no entiendes toma toda la carrera.
 
 > La herramienta cambia cada seis meses. La responsabilidad sobre el resultado, no.

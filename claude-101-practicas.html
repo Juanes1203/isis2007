@@ -161,22 +161,22 @@
             <div class="wrap">
                 <p><a class="backlink" href="claude-101.html">Volver a la clase</a></p>
                 <div class="doc">
-                    <h3 class="sub" id="nunca">1. Prompts que nunca debes usar</h3>
+                    <h3 class="sub" id="nunca">Prompts que nunca debes usar</h3>
                     
-                    <p>No son prompts malos por cortos. Son malos porque trasladan al modelo decisiones que son tuyas: el alcance, el stack, el criterio de correcto y la definición de "mejor".</p>
+                    <p>Lo malo no es que sean cortos. Es que le pasan al modelo decisiones que son tuyas: el alcance, el stack, qué cuenta como correcto y qué significa "mejor".</p>
                     
                     <p>Un modelo no se bloquea ante la ambigüedad. La resuelve. Escoge por ti, en silencio, y sigue adelante como si le hubieras dicho qué hacer.</p>
                     
                     <div class="cards">
-                      <div class="card"><p class="cardh">Caso 1 — "Hazme el código."</p><p><strong>Qué falta:</strong> qué código, para qué entidad, con qué contrato de entrada/salida, en qué archivo del repo, con qué stack, con qué tests.</p><p><strong>Qué hace el modelo con esa ambigüedad:</strong> inventa un dominio genérico, elige un stack al azar (probablemente Flask + SQLite, que es lo más frecuente en su entrenamiento) y produce un archivo autocontenido que no encaja en <code>campusflow-api</code>.</p><p><strong>Qué produce en la práctica:</strong> 60 líneas plausibles que no importan nada del proyecto, no usan SQLAlchemy 2.x, no validan con Pydantic v2 y no compilan contra tus modelos.</p></div>
-                      <div class="card"><p class="cardh">Caso 2 — "Arregla esto."</p><p><strong>Qué falta:</strong> qué es "esto", cuál es el comportamiento observado, cuál es el esperado, con qué entrada se reproduce, y en qué archivos vive la lógica.</p><p><strong>Qué hace el modelo con esa ambigüedad:</strong> asume cuál es el bug a partir de lo que le parece sospechoso en el fragmento, y arregla el síntoma más visible.</p><p><strong>Qué produce en la práctica:</strong> en el bug de <code>days_left</code> te cambia un <code>.days</code> por un <code>ceil()</code>, la entrega de hoy 23:59 deja de verse vencida, y la copia duplicada en <code>api/routes.py</code> sigue rota. El síntoma desaparece; el defecto no.</p></div>
-                      <div class="card"><p class="cardh">Caso 3 — "Haz una app."</p><p><strong>Qué falta:</strong> para quién, qué problema, qué entra en v0 y qué no, qué superficie, qué stack, qué se considera terminado.</p><p><strong>Qué hace el modelo con esa ambigüedad:</strong> inventa usuarios, inventa alcance y casi siempre agrega frontend, login social y notificaciones push porque son el relleno estadísticamente esperado de "una app".</p><p><strong>Qué produce en la práctica:</strong> un scaffold grande, bonito y ajeno. Lo caro no es escribirlo: es que tú tengas que leer 900 líneas para descubrir que resolvió otro problema.</p></div>
-                      <div class="card"><p class="cardh">Caso 4 — "Optimiza mi código."</p><p><strong>Qué falta:</strong> optimizar <em>qué dimensión</em>. Latencia, memoria, consultas a la base, legibilidad, costo en tokens, throughput. Y contra qué número: no dijiste cuánto tarda hoy ni cuánto necesitas.</p><p><strong>Qué hace el modelo con esa ambigüedad:</strong> optimiza la dimensión equivocada. Por defecto persigue elegancia sintáctica —comprehensions, one-liners— que no mueve la aguja, o micro-optimiza un loop mientras el cuello de botella real es un N+1 contra Postgres.</p><p><strong>Qué produce en la práctica:</strong> código más corto, menos legible, igual de lento, y sin ninguna medición que respalde el cambio.</p></div>
+                      <div class="card"><p class="cardh">"Hazme el código."</p><p><strong>Qué falta:</strong> qué código, para qué entidad, con qué contrato de entrada/salida, en qué archivo del repo, con qué stack, con qué tests.</p><p><strong>Qué hace el modelo con esa ambigüedad:</strong> inventa un dominio genérico, elige un stack al azar (probablemente Flask + SQLite, que es lo más frecuente en su entrenamiento) y produce un archivo autocontenido que no encaja en <code>campusflow-api</code>.</p><p><strong>Qué produce en la práctica:</strong> 60 líneas plausibles que no importan nada del proyecto, no usan SQLAlchemy 2.x, no validan con Pydantic v2 y no compilan contra tus modelos.</p></div>
+                      <div class="card"><p class="cardh">"Arregla esto."</p><p><strong>Qué falta:</strong> qué es "esto", cuál es el comportamiento observado, cuál es el esperado, con qué entrada se reproduce, y en qué archivos vive la lógica.</p><p><strong>Qué hace el modelo con esa ambigüedad:</strong> asume cuál es el bug a partir de lo que le parece sospechoso en el fragmento, y arregla el síntoma más visible.</p><p><strong>Qué produce en la práctica:</strong> en el bug de <code>days_left</code> te cambia un <code>.days</code> por un <code>ceil()</code>, la entrega de hoy 23:59 deja de verse vencida, y la copia duplicada en <code>api/routes.py</code> sigue rota. El síntoma desaparece; el defecto no.</p></div>
+                      <div class="card"><p class="cardh">"Haz una app."</p><p><strong>Qué falta:</strong> para quién, qué problema, qué entra en v0 y qué no, qué superficie, qué stack, qué se considera terminado.</p><p><strong>Qué hace el modelo con esa ambigüedad:</strong> inventa usuarios, inventa alcance y casi siempre agrega frontend, login social y notificaciones push porque son el relleno estadísticamente esperado de "una app".</p><p><strong>Qué produce en la práctica:</strong> un scaffold grande, bonito y ajeno. Escribirlo sale barato. Lo caro es que tú tengas que leer 900 líneas para descubrir que resolvió otro problema.</p></div>
+                      <div class="card"><p class="cardh">"Optimiza mi código."</p><p><strong>Qué falta:</strong> optimizar <em>qué dimensión</em>. Latencia, memoria, consultas a la base, legibilidad, costo en tokens, throughput. Y contra qué número: no dijiste cuánto tarda hoy ni cuánto necesitas.</p><p><strong>Qué hace el modelo con esa ambigüedad:</strong> optimiza la dimensión equivocada. Por defecto persigue elegancia sintáctica (comprehensions, one-liners) que no mueve la aguja, o micro-optimiza un loop mientras el cuello de botella real es un N+1 contra Postgres.</p><p><strong>Qué produce en la práctica:</strong> código más corto, menos legible, igual de lento, y sin ninguna medición que respalde el cambio.</p></div>
                     </div>
                     
                     <p>Las cuatro reescrituras profesionales, todas sobre CampusFlow. Sirven tal cual: cópialas y adáptalas.</p>
                     
-                    <div class="prompt"><p class="prompt-h">Reescritura 1 — en vez de "Hazme el código."</p><pre><code>Rol: eres un ingeniero backend senior trabajando en el repo campusflow-api.
+                    <div class="prompt"><p class="prompt-h">En vez de "Hazme el código."</p><pre><code>Rol: eres un ingeniero backend senior trabajando en el repo campusflow-api.
                     
                     Contexto del proyecto:
                     - Python 3.12, FastAPI, PostgreSQL 16 + pgvector, SQLAlchemy 2.x (estilo 2.0,
@@ -217,7 +217,7 @@
                     Antes de escribir código, lista en 5 bullets los supuestos que estás
                     haciendo. Si algo del contrato es ambiguo, pregunta en vez de asumir.</code></pre></div>
                     
-                    <div class="prompt"><p class="prompt-h">Reescritura 2 — en vez de "Arregla esto."</p><pre><code>Contexto: repo campusflow-api. Bug reportado por Ana (usuaria del MVP).
+                    <div class="prompt"><p class="prompt-h">En vez de "Arregla esto."</p><pre><code>Contexto: repo campusflow-api. Bug reportado por Ana (usuaria del MVP).
                     
                     Comportamiento observado:
                     Una entrega con due_at = hoy 23:59 (hora de Bogotá) aparece en la agenda
@@ -250,7 +250,7 @@
                     
                     No cambies el contrato público del endpoint ni el esquema de la base.</code></pre></div>
                     
-                    <div class="prompt"><p class="prompt-h">Reescritura 3 — en vez de "Haz una app."</p><pre><code>Rol: product engineer. Vamos a definir el alcance de un MVP, no a escribir
+                    <div class="prompt"><p class="prompt-h">En vez de "Haz una app."</p><pre><code>Rol: product engineer. Vamos a definir el alcance de un MVP, no a escribir
                     código todavía.
                     
                     Producto: CampusFlow, asistente académico para estudiantes de pregrado.
@@ -290,7 +290,7 @@
                     Formato: tablas. Sin introducción ni conclusión. Si una historia no se puede
                     verificar con un test, dímelo en vez de escribirla.</code></pre></div>
                     
-                    <div class="prompt"><p class="prompt-h">Reescritura 4 — en vez de "Optimiza mi código."</p><pre><code>Contexto: repo campusflow-api. Endpoint GET /agenda.
+                    <div class="prompt"><p class="prompt-h">En vez de "Optimiza mi código."</p><pre><code>Contexto: repo campusflow-api. Endpoint GET /agenda.
                     
                     Métrica objetivo: latencia p95 del endpoint.
                     Estado actual medido: p95 = 1.4 s con 6 materias y 40 deliverables por
@@ -326,24 +326,24 @@
                     
                     <div class="box warn"><p class="boxh">Cuidado</p><p>La regla es heurística, no ley. Hay prompts cortos excelentes cuando el contexto ya vive en otro lado: un CLAUDE.md bien escrito, el knowledge de un Project, o un repo que el agente ya leyó. Lo que no puede faltar es el contexto; lo que puede variar es dónde está.</p></div>
                     
-                    <h3 class="sub" id="alucinacion">2. Claude Hallucination Test (5 min)</h3>
+                    <h3 class="sub" id="alucinacion">Ponerlo a inventar, a propósito</h3>
                     
-                    <p>Actividad corta. El objetivo no es "pillar al modelo": es que cada estudiante vea con sus propios ojos que la fluidez de una respuesta no dice nada sobre su veracidad.</p>
+                    <p>Actividad corta, para que cada estudiante vea con sus propios ojos que lo bien que suena una respuesta no dice nada sobre si es cierta.</p>
                     
                     <p>Dos preguntas. Media clase hace la (a), la otra mitad la (b).</p>
                     
                     <div class="cards">
-                      <div class="card"><p class="cardh">Pregunta (a) — detalle administrativo específico</p><p><em>"¿Qué porcentaje exacto de la nota final vale el proyecto final en el curso de Bases de Datos de Ingeniería de Sistemas de la Universidad de los Andes en el semestre 2026-2, y cuántas faltas de asistencia permite el reglamento antes de reprobar?"</em></p><p><strong>Por qué es trampa:</strong> es información local, no publicada de forma estable, específica de un semestre y de una sección, y posterior al knowledge cutoff del modelo. No existe en sus pesos.</p><p><strong>Patrón de falla esperado:</strong> el modelo produce una respuesta con la <em>forma</em> correcta —porcentajes que suman 100, un umbral de inasistencias con aire de reglamento— porque conoce la estructura típica de un syllabus universitario. Lo que no tiene es el dato de <em>este</em> curso. La respuesta puede venir sin ninguna advertencia, o con una advertencia genérica seguida igualmente de cifras concretas.</p></div>
-                      <div class="card"><p class="cardh">Pregunta (b) — parámetro o endpoint plausible</p><p><em>"¿Cómo se llama exactamente el parámetro de <code>qdrant-client</code> que controla el <code>ef</code> de búsqueda HNSW en tiempo de query, y qué endpoint expone la API de Cohere Rerank 3.5 para reordenar documentos? Dame la firma completa."</em></p><p><strong>Por qué es trampa:</strong> son librerías con menos presencia en el entrenamiento que <code>requests</code> o <code>pandas</code>, con APIs que cambian entre versiones menores. El modelo ha visto muchos nombres parecidos.</p><p><strong>Patrón de falla esperado:</strong> nombres de parámetro sintácticamente perfectos y del estilo correcto de la librería, mezclando la nomenclatura de varias versiones o de librerías vecinas. Es el peor caso: no es un error obvio, es un error que compila mentalmente y solo falla en runtime.</p></div>
+                      <div class="card"><p class="cardh">Un detalle administrativo específico</p><p><em>"¿Qué porcentaje exacto de la nota final vale el proyecto final en el curso de Bases de Datos de Ingeniería de Sistemas de la Universidad de los Andes en el semestre 2026-2, y cuántas faltas de asistencia permite el reglamento antes de reprobar?"</em></p><p><strong>Por qué es trampa:</strong> es información local, no publicada de forma estable, específica de un semestre y de una sección, y posterior al knowledge cutoff del modelo. No existe en sus pesos.</p><p><strong>Patrón de falla esperado:</strong> el modelo produce una respuesta con la <em>forma</em> correcta (porcentajes que suman 100, un umbral de inasistencias con aire de reglamento) porque conoce la estructura típica de un syllabus universitario. Lo que no tiene es el dato de <em>este</em> curso. La respuesta puede venir sin ninguna advertencia, o con una advertencia genérica seguida igualmente de cifras concretas.</p></div>
+                      <div class="card"><p class="cardh">Un parámetro que suena plausible</p><p><em>"¿Cómo se llama exactamente el parámetro de <code>qdrant-client</code> que controla el <code>ef</code> de búsqueda HNSW en tiempo de query, y qué endpoint expone la API de Cohere Rerank 3.5 para reordenar documentos? Dame la firma completa."</em></p><p><strong>Por qué es trampa:</strong> son librerías con menos presencia en el entrenamiento que <code>requests</code> o <code>pandas</code>, con APIs que cambian entre versiones menores. El modelo ha visto muchos nombres parecidos.</p><p><strong>Patrón de falla esperado:</strong> nombres de parámetro sintácticamente perfectos y del estilo correcto de la librería, mezclando la nomenclatura de varias versiones o de librerías vecinas. Es el peor caso. No salta a la vista, compila mentalmente y solo falla en runtime.</p></div>
                     </div>
                     
                     <p><strong>Mecánica exacta (5 minutos):</strong></p>
                     
                     <ol class="steps">
-                      <li><p class="steph">Minuto 0–1 — Preguntar</p><p>Cada estudiante lanza su pregunta tal cual, sin dar contexto adicional y sin pedirle al modelo que aclare si no sabe.</p></li>
-                      <li><p class="steph">Minuto 1–2 — Copiar</p><p>Copia la respuesta completa. Sin resumirla y sin editarla.</p></li>
-                      <li><p class="steph">Minuto 2–4 — Descomponer</p><p>Llena la tabla de cuatro columnas, una fila por afirmación verificable de la respuesta. Si una frase no se puede verificar ni refutar, también va: eso mismo es un hallazgo.</p></li>
-                      <li><p class="steph">Minuto 4–5 — Puesta en común</p><p>Dos voluntarios leen su fila más peligrosa: la afirmación que ellos habrían aceptado sin revisar.</p></li>
+                      <li><p class="steph">Minuto 0 a 1. Preguntar</p><p>Cada estudiante lanza su pregunta tal cual, sin dar contexto adicional y sin pedirle al modelo que aclare si no sabe.</p></li>
+                      <li><p class="steph">Minuto 1 a 2. Copiar</p><p>Copia la respuesta completa. Sin resumirla y sin editarla.</p></li>
+                      <li><p class="steph">Minuto 2 a 4. Descomponer</p><p>Llena la tabla de cuatro columnas, una fila por afirmación verificable de la respuesta. Si una frase no se puede verificar ni refutar, también va: eso mismo es un hallazgo.</p></li>
+                      <li><p class="steph">Minuto 4 a 5. Puesta en común</p><p>Dos voluntarios leen su fila más peligrosa: la afirmación que ellos habrían aceptado sin revisar.</p></li>
                     </ol>
                     
                     <div class="tw"><table class="tbl"><thead><tr><th>Qué afirma</th><th>Qué evidencia existe</th><th>Qué no está comprobado</th><th>Cómo lo verificaría</th></tr></thead><tbody>
@@ -356,9 +356,9 @@
                     
                     <p><strong>Por qué suena igual de seguro cuando acierta y cuando inventa.</strong> El modelo no consulta una base de datos y luego redacta. Genera el siguiente token más probable dado el contexto. La fluidez viene del modelo de lenguaje; la veracidad vendría de los datos. Son dos cosas distintas, y solo una de las dos está garantizada.</p>
                     
-                    <p>El tono seguro no es una señal de que el modelo "sabe": es el registro por defecto de la prosa expositiva que vio en el entrenamiento. Un dato correcto y uno inventado se producen con la misma maquinaria y salen con la misma cadencia.</p>
+                    <p>El tono seguro no dice nada sobre si el modelo sabe. Es el registro por defecto de la prosa expositiva que vio en el entrenamiento. Un dato correcto y uno inventado se producen con la misma maquinaria y salen con la misma cadencia.</p>
                     
-                    <p><strong>Cómo se ve una señal de incertidumbre bien calibrada.</strong> No es un "podría estar equivocado" pegado al final. Es específica y accionable:</p>
+                    <p><strong>Cómo se ve una señal de incertidumbre que sí sirve.</strong> Un "podría estar equivocado" pegado al final no cuenta. Tiene que ser específica y accionable:</p>
                     
                     <ul>
                       <li>Nombra <em>qué</em> parte no sabe, no la respuesta entera: "el nombre del parámetro lo recuerdo como <code>hnsw_ef</code>, pero cambió entre versiones; confírmalo en el changelog".</li>
@@ -371,11 +371,11 @@
                     
                     <div class="box warn"><p class="boxh">Nota honesta</p><p>Con búsqueda web activada, el modelo falla mucho menos en la pregunta (a): puede traer el documento y citarlo. Pero aparece un modo de falla distinto — atribuir el dato a una fuente que no lo dice, mezclar el reglamento general con el syllabus de la sección, o citar una versión vieja del documento. Verificar sigue siendo trabajo del estudiante: abrir el enlace y confirmar que la frase citada está ahí. Una cita no es una verificación.</p></div>
                     
-                    <h3 class="sub" id="seguridad">3. AI Security: tres ejemplos prácticos</h3>
+                    <h3 class="sub" id="seguridad">Tres formas de romperlo</h3>
                     
                     <p>Tres fallas que vas a ver en código generado por IA. Ninguna es exótica: las tres aparecen porque el modelo reproduce el patrón más frecuente de su entrenamiento y nadie se lo prohibió en el prompt.</p>
                     
-                    <p><strong>Ejemplo 1 — Secreto expuesto y commiteado</strong></p>
+                    <p><strong>Una llave subida al repositorio</strong></p>
                     
                     <pre class="code" data-lang="python"><code># app/core/settings.py   -- generado por IA, commiteado tal cual
                     
@@ -395,7 +395,7 @@
                       <div class="card"><p class="cardh">Por qué borrarla en el siguiente commit no sirve</p><p>Git es un almacén de objetos inmutable con historia. Un commit que borra la línea agrega un objeto nuevo; el blob con la llave sigue ahí, alcanzable por su SHA, presente en todos los clones y en cada fork. <code>git rm</code> y "ya la quité" son teatro: la llave sigue siendo recuperable con <code>git log -p</code> o pidiendo el objeto directamente.</p></div>
                     </div>
                     
-                    <p><strong>Corrección — lo que se hace de verdad, en este orden:</strong></p>
+                    <p><strong>Lo que se hace de verdad, en este orden:</strong></p>
                     
                     <ol>
                       <li><strong>Rotar la llave primero.</strong> Revócala en el proveedor y emite una nueva. Todo lo demás es secundario: una llave expuesta se considera comprometida desde el instante en que salió de tu máquina.</li>
@@ -426,7 +426,7 @@
                         hooks:
                           - id: gitleaks</code></pre>
                     
-                    <p><strong>Ejemplo 2 — SQL injection generada por IA</strong></p>
+                    <p><strong>Una inyección de SQL que escribió el modelo</strong></p>
                     
                     <pre class="code" data-lang="python"><code># app/api/routes.py   -- generado por IA a partir de "hazme un buscador de materias"
                     
@@ -439,7 +439,7 @@
                     <div class="cards">
                       <div class="card"><p class="cardh">Problema</p><p>La entrada del usuario se concatena en la cadena SQL con una f-string. No hay parámetros ligados, no hay validación, y <code>text()</code> ejecuta lo que le llegue.</p></div>
                       <div class="card"><p class="cardh">Riesgo</p><p>Cadena de ataque concreta sobre el endpoint público de CampusFlow:</p><pre class="code" data-lang="text"><code>GET /courses/search?q=%25' UNION SELECT id, email, hashed_password FROM users --</code></pre><p>La consulta resultante cierra el literal, une la tabla <code>users</code> y devuelve correos y hashes de contraseña por un endpoint de búsqueda de materias. Con la misma puerta se puede llegar a <code>'; DROP TABLE deliverables; --</code> si la conexión permite múltiples sentencias, o exfiltrar los <code>chunks</code> de documentos privados de otros cursos. Un endpoint de lectura "inofensivo" se convierte en acceso a toda la base.</p></div>
-                      <div class="card"><p class="cardh">Por qué el modelo generó eso</p><p>Dos razones, y ninguna es misteriosa. Primera: la concatenación con f-string es un patrón enormemente frecuente en el código público con el que se entrenó — tutoriales, respuestas de foros, snippets viejos. Es lo estadísticamente esperado para "buscador con LIKE". Segunda: nadie se lo prohibió. El prompt pedía un buscador; no pedía consultas parametrizadas, ni validación, ni un umbral de seguridad. El modelo optimiza lo que le pediste, no lo que diste por sentado.</p></div>
+                      <div class="card"><p class="cardh">Por qué el modelo generó eso</p><p>Por dos razones. La primera: la concatenación con f-string es un patrón enormemente frecuente en el código público con el que se entrenó — tutoriales, respuestas de foros, snippets viejos. Es lo estadísticamente esperado para "buscador con LIKE". Segunda: nadie se lo prohibió. El prompt pedía un buscador; no pedía consultas parametrizadas, ni validación, ni un umbral de seguridad. El modelo optimiza lo que le pediste, no lo que diste por sentado.</p></div>
                     </div>
                     
                     <pre class="code" data-lang="python"><code># app/schemas/search.py   -- validación explícita
@@ -471,7 +471,7 @@
                     
                     <p>Dos matices que hay que decir en voz alta. La f-string dentro de <code>ilike()</code> no es concatenación de SQL: construye el <em>valor</em> del patrón, que SQLAlchemy envía como parámetro ligado. Y el <code>limit(50)</code> no es estética: sin él, una búsqueda de una letra es un DoS gratis.</p>
                     
-                    <p><strong>Ejemplo 3 — Prompt injection desde un documento subido</strong></p>
+                    <p><strong>Instrucciones escondidas en un documento</strong></p>
                     
                     <p>Un estudiante sube a CampusFlow un "syllabus" en PDF. El texto del PDF, en cuerpo 6 y color blanco sobre fondo blanco, contiene:</p>
                     
@@ -487,7 +487,7 @@
                     <div class="cards">
                       <div class="card"><p class="cardh">Problema</p><p>Ese texto entra al pipeline: se extrae del PDF, se parte en chunks, se embebe, y más tarde el retriever lo trae como "contexto del curso" y lo pega en el prompt del asistente. Para el modelo, el contenido recuperado y tus instrucciones llegan por el mismo canal: son tokens en la misma ventana.</p><p>El modelo no tiene un tipo de dato "datos" y otro "instrucciones". No hay separación de planos como en una CPU. Todo es texto, y el texto que parece una instrucción compite con tus instrucciones reales.</p></div>
                       <div class="card"><p class="cardh">Riesgo</p><p>Peor caso concreto: el asistente revela el system prompt (que suele contener reglas de negocio, nombres de tools y a veces rutas internas), y si tiene una tool de escritura como <code>mark_deliverable_done</code>, la ejecuta. El estudiante marca sus entregas como completadas sin entregar nada. Escalando: si el agente tiene credenciales de escritura sobre la base, un PDF puede modificar registros de otros usuarios. El atacante no necesitó una vulnerabilidad de software: necesitó un PDF.</p></div>
-                      <div class="card"><p class="cardh">Corrección — mitigaciones reales</p><p>No hay parche de una línea. Hay capas:</p><ul><li><strong>Separar lo no confiable con delimitadores y decirlo en el system prompt:</strong> encierra el contenido recuperado en un bloque marcado y declara que ese bloque es <em>datos del usuario</em>, nunca instrucciones.</li><li><strong>Menor privilegio en las tools:</strong> el asistente de preguntas sobre documentos recibe solo tools de lectura. Si no puede escribir, la inyección no puede escribir.</li><li><strong>Aprobación humana</strong> para toda acción con efectos: marcar entregas, borrar, enviar correos. El agente propone; la persona confirma.</li><li><strong>Credenciales acotadas:</strong> el rol de base de datos del agente es de solo lectura sobre <code>documents</code> y <code>chunks</code>. Nada de un usuario con permisos amplios "por comodidad".</li><li><strong>Validar salidas:</strong> si la respuesta contiene el system prompt, enlaces a dominios externos o llamadas a tools fuera de la lista esperada, se bloquea y se registra.</li></ul></div>
+                      <div class="card"><p class="cardh">Cómo se mitiga</p><p>No hay parche de una línea. Hay capas:</p><ul><li><strong>Separar lo no confiable con delimitadores y decirlo en el system prompt:</strong> encierra el contenido recuperado en un bloque marcado y declara que ese bloque es <em>datos del usuario</em>, nunca instrucciones.</li><li><strong>Menor privilegio en las tools:</strong> el asistente de preguntas sobre documentos recibe solo tools de lectura. Si no puede escribir, la inyección no puede escribir.</li><li><strong>Aprobación humana</strong> para toda acción con efectos: marcar entregas, borrar, enviar correos. El agente propone; la persona confirma.</li><li><strong>Credenciales acotadas:</strong> el rol de base de datos del agente es de solo lectura sobre <code>documents</code> y <code>chunks</code>. Nada de un usuario con permisos amplios "por comodidad".</li><li><strong>Validar salidas:</strong> si la respuesta contiene el system prompt, enlaces a dominios externos o llamadas a tools fuera de la lista esperada, se bloquea y se registra.</li></ul></div>
                     </div>
                     
                     <pre class="code" data-lang="python"><code># app/services/rag.py   -- separación explícita de contenido no confiable
@@ -513,7 +513,7 @@
                     READ_ONLY_TOOLS = ["search_course_documents", "get_deliverable"]
                     # mark_deliverable_done NO está aquí: vive en otro agente, con confirmación humana.</code></pre>
                     
-                    <div class="box warn"><p class="boxh">Conexión con MCP</p><p>Esto es exactamente el riesgo que documenta la especificación de MCP: un servidor MCP que trae contenido externo te expone a prompt injection. El servidor no tiene que ser malicioso — basta con que traiga un issue de GitHub, una página web o un PDF que alguien más escribió. De ahí las dos reglas: conecta solo servidores en los que confías, y usa credenciales de solo lectura cuando puedas. Un servidor MCP con permisos de escritura sobre tu repo y acceso a contenido de terceros es una superficie de ataque, no una comodidad.</p></div>
+                    <div class="box warn"><p class="boxh">Conexión con MCP</p><p>Es el mismo riesgo que documenta la especificación de MCP: un servidor MCP que trae contenido externo te expone a prompt injection. El servidor no tiene que ser malicioso — basta con que traiga un issue de GitHub, una página web o un PDF que alguien más escribió. De ahí las dos reglas: conecta solo servidores en los que confías, y usa credenciales de solo lectura cuando puedas. Un servidor MCP con permisos de escritura sobre tu repo y acceso a contenido de terceros es una superficie de ataque, no una comodidad.</p></div>
                     
                     <p><strong>Checklist de seguridad para código generado por IA</strong></p>
                     
@@ -528,7 +528,7 @@
                       <li>Manejo de errores: nada de devolver el traceback al cliente; log estructurado del lado del servidor y un mensaje genérico afuera.</li>
                     </ol>
                     
-                    <h3 class="sub" id="cuando">4. ¿Cuándo usar qué?</h3>
+                    <h3 class="sub" id="cuando">¿Cuándo usar qué?</h3>
                     
                     <p>La tabla que hay que memorizar, con una tercera columna que casi nunca se enseña: cómo te das cuenta de que elegiste mal.</p>
                     
@@ -546,7 +546,7 @@
                     <p><strong>Las categorías se solapan.</strong> La tabla es un mapa de intención, no una taxonomía disjunta. En un sistema real las capas se apilan:</p>
                     
                     <div class="cols2">
-                      <div class="col"><p class="colh">Un Project que por dentro usa RAG</p><p>Cuando el knowledge de un Project se acerca al límite del context window, el Project activa modo RAG y amplía la capacidad hasta ~10x (planes pagos). El usuario no configuró embeddings, ni vector store, ni chunking: subió PDFs. RAG está ahí, como implementación, no como decisión de producto.</p><p>Consecuencia práctica: "usar un Project" y "usar RAG" no son alternativas excluyentes. Son la misma cosa vista a dos niveles de abstracción.</p></div>
+                      <div class="col"><p class="colh">Un Project que por dentro usa RAG</p><p>Cuando el knowledge de un Project se acerca al límite del context window, el Project activa modo RAG y amplía la capacidad hasta ~10x (planes pagos). El usuario no configuró embeddings, ni vector store, ni chunking: subió PDFs. RAG está ahí, como implementación, no como decisión de producto.</p><p>O sea que "usar un Project" y "usar RAG" no compiten. Son la misma cosa vista a dos niveles distintos.</p></div>
                       <div class="col"><p class="colh">Claude Code que además usa MCP</p><p>Claude Code es un agente de coding, y a la vez es un <em>cliente</em> MCP. Con <code>claude mcp add --transport http ...</code> le conectas un servidor y ese mismo agente pasa a leer issues y abrir PRs contra GitHub, o consultar Notion, sin que dejes de estar en el repo.</p><p>Consecuencia práctica: la fila "codebase" y la fila "herramientas externas" se ejecutan en el mismo proceso. Elegir Claude Code no cierra la puerta de MCP; la abre.</p></div>
                     </div>
                     
@@ -562,7 +562,7 @@
                     
                     <p class="ask">Si tu respuesta a la pregunta 5 es "todavía no", ¿quién decide cuándo sí, y qué pasa con el código que ya escribiste sin revisar?</p>
                     
-                    <h3 class="sub" id="comparacion">5. Comparación con otras herramientas</h3>
+                    <h3 class="sub" id="comparacion">Cómo se compara con lo demás</h3>
                     
                     <p>Comparación neutral, sin marketing y sin recomendación. Solo lo que está documentado. Lo que no pudimos verificar está marcado como tal, y marcado significa marcado: no lo cites como hecho.</p>
                     
@@ -633,7 +633,7 @@
                     
                     <p>Tres tendencias comunes, que importan más que cualquier fila de la tabla. Primera: el encuadre pasó de "autocompletado" a "agente". Segunda: la ejecución paralela, en background y asíncrona es hoy el diferenciador declarado. Tercera: MCP se está asentando como capa de extensibilidad común, con adopción desigual. Y casi todos ofrecen terminal + IDE + nube en vez de una sola superficie.</p>
                     
-                    <p>El cierre honesto: la elección de herramienta importa menos de lo que parece. Todas convergen hacia el mismo conjunto de capacidades, y la que hoy va adelante en una columna va atrás el trimestre siguiente. Lo que no converge solo es la disciplina de ingeniería — especificar bien, revisar los diffs, escribir los tests, entender el código antes de mergearlo, y responder por lo que sale a producción. Ninguna de esas cosas te la da la herramienta. Aprender a operar cualquiera de estas herramientas toma una tarde; aprender a no aceptar código que no entiendes toma toda la carrera.</p>
+                    <p>La elección de herramienta importa menos de lo que parece. Todas convergen hacia el mismo conjunto de capacidades, y la que hoy va adelante en una columna va atrás el trimestre siguiente. Lo que no converge solo es la disciplina de ingeniería — especificar bien, revisar los diffs, escribir los tests, entender el código antes de mergearlo, y responder por lo que sale a producción. Ninguna de esas cosas te la da la herramienta. Aprender a operar cualquiera de estas herramientas toma una tarde; aprender a no aceptar código que no entiendes toma toda la carrera.</p>
                     
                     <blockquote class="punch">La herramienta cambia cada seis meses. La responsabilidad sobre el resultado, no.</blockquote>
                 </div>

@@ -1,11 +1,5 @@
 # Recursos
 
-Parte XI
-
-## Recursos
-
-Lo que hay que leer para seguir después de la clase, con la razón por la que cada cosa vale el tiempo.
-
 ### Documentación oficial
 
 | Recurso                                                                                    | Qué encuentras ahí                                                                                                    | Por qué vale la pena                                                                                    |
@@ -13,7 +7,7 @@ Lo que hay que leer para seguir después de la clase, con la razón por la que c
 | [Models overview](https://platform.claude.com/docs/en/models/overview)                     | Modelos vigentes, IDs exactos, context window, max output, knowledge cutoff.                                          | Es la única fuente que no envejece mal: los IDs cambian y los deprecados rompen código en producción.   |
 | [Tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview)         | El ciclo `tool_use` / `tool_result`, client vs server tools, tool_choice, paralelismo.                                | Ese ciclo es literalmente el corazón de un agente. Sin esto, "agente" es una palabra de marketing.      |
 | [Agent Skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) | SKILL.md, scripts asociados y divulgación progresiva en tres niveles.                                                 | Es la forma de empaquetar un workflow tuyo para que sea reutilizable y no viva en un archivo de notas.  |
-| [Claude Code — overview](https://code.claude.com/docs/en/overview)                         | Todas las superficies: CLI, VS Code, JetBrains, escritorio, web y móvil, con el mismo motor y la misma configuración. | Aclara que no son productos distintos: son entradas distintas al mismo agente.                          |
+| [Claude Code — overview](https://code.claude.com/docs/en/overview)                         | Todas las superficies: CLI, VS Code, JetBrains, escritorio, web y móvil, con el mismo motor y la misma configuración. | No son productos distintos, son entradas distintas al mismo agente.                                     |
 | [MCP en Claude Code](https://code.claude.com/docs/en/mcp)                                  | Transportes, alcances local/project/user y las advertencias de seguridad.                                             | Es donde vas a configurar MCP de verdad, y donde está escrito el riesgo de prompt injection.            |
 | [CLAUDE.md y auto memory](https://code.claude.com/docs/en/memory)                          | Cómo se escribe el archivo que se lee al inicio de cada sesión y qué se guarda entre sesiones.                        | Es el mayor retorno por línea escrita: un buen CLAUDE.md ahorra contexto en cada prompt del semestre.   |
 | [Hooks](https://code.claude.com/docs/en/hooks)                                             | Comandos de shell antes o después de acciones del agente.                                                             | Convierte tu disciplina en automatización: formatear tras cada edición, pasar lint antes de commit.     |
@@ -49,7 +43,7 @@ Lo que hay que leer para seguir después de la clase, con la razón por la que c
 
 ### Qué hacer las dos semanas siguientes
 
-Plan realista: 4 a 6 horas por semana. No es una lista de deseos, es lo que cabe.
+Entre 4 y 6 horas por semana, que es lo que realmente cabe.
 
 | Semana                               | Leer (~2 h)                                                                                                                                                                                                                                                                        | Construir (~3 h)                                                                                                                                                                                                            | Verificar                                                                                                                                                   |
 |--------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|

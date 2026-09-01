@@ -1,18 +1,12 @@
 # Prompt Library
 
-Parte IV
-
-## Prompt Library
-
-Veintiséis prompts completos, listos para copiar y pegar, todos anclados en CampusFlow y todos con la misma estructura de siete secciones: la plantilla que el estudiante debe poder escribir de memoria al salir de clase.
-
-Esta biblioteca no es una colección de trucos. Es una sola plantilla aplicada veintiséis veces a siete roles distintos.
+Es una sola plantilla, aplicada veintiséis veces a siete roles distintos.
 
 Todos los prompts comparten el mismo esqueleto:
 
 ContextoRolObjetivoRestriccionesInputOutput esperadoValidación
 
-La repetición es intencional. Después de leer la misma estructura veintiséis veces, escribirla deja de ser un ejercicio y se vuelve un reflejo.
+La repetición es a propósito. Después de verla veintiséis veces, uno la escribe sin pensarla.
 
 Cómo se usan
 
@@ -24,7 +18,7 @@ La sección **Validación** no es decorativa. Es lo único que convierte una res
 
 ### Product Manager
 
-El error típico: pedirle al modelo "ideas para una app de estudiantes". El modelo devuelve veinte features y cero problemas.
+El error típico es pedirle "ideas para una app de estudiantes". Devuelve veinte features y cero problemas.
 
 La plantilla corrige eso obligando a separar el problema de la solución, a nombrar usuarios concretos y a escribir criterios de aceptación falsables antes de hablar de pantallas.
 

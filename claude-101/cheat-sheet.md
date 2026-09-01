@@ -1,12 +1,6 @@
 # Claude for Software Engineers — cheat sheet
 
-Parte X
-
-## Claude for Software Engineers
-
-Una página. Para imprimir y pegar al lado del monitor.
-
-1\. Prompting — las seis partes
+Prompting
 
 - **Context** — quién eres, qué producto es, qué stack, qué existe ya.
 - **Goal** — una sola tarea, en una frase, con el resultado esperado.
@@ -17,7 +11,7 @@ Una página. Para imprimir y pegar al lado del monitor.
 
 Si el prompt no dice cómo se valida, el modelo decide por ti qué significa "correcto".
 
-2\. Workflow — el ciclo
+El ciclo de trabajo
 
 Specify Generate Inspect Test Validate Iterate
 
@@ -39,7 +33,7 @@ Specify Generate Inspect Test Validate Iterate
 | MCP           | Quieres que el modelo hable con un sistema externo (tools, resources, prompts) por un estándar y no por un script pegado. |
 | Agents        | La tarea es multi-paso, con tool use en ciclo y verificación intermedia, no una sola respuesta.                           |
 
-4\. Golden Rules
+Golden Rules
 
 1.  **Give context.** — el modelo no adivina tu repo.
 2.  **Be specific.** — ambiguo entra, basura sale.
@@ -52,7 +46,7 @@ Specify Generate Inspect Test Validate Iterate
 9.  **Use AI to accelerate thinking, not replace it.** — piensa tú, acelera con IA.
 10. **You are responsible for the final product.** — la firma del PR es tuya.
 
-5\. Comandos
+Comandos
 
 ``` code
 # instalar el CLI
@@ -85,7 +79,7 @@ claude --teleport
 
 Alcances de MCP: local (`~/.claude.json`), project (`.mcp.json`, versionado y compartido con el equipo), user.
 
-6\. Señales de alarma
+Señales de alarma
 
 1.  Vas a hacer merge y no leíste el diff.
 2.  Tu prompt cabe en un tweet.
