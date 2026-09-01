@@ -1,10 +1,10 @@
 # Sin suscripción
 
-### La premisa
+### Tres rutas
 
-Usamos Claude en clase porque necesitábamos una herramienta concreta para mostrar el flujo completo, no porque sea la única. Todo lo que practicaron —escribir una especificación, dar contexto a un modelo, revisar un diff, escribir el caso borde que falta— se hace igual con cualquier herramienta.
+Escribir una especificación, dar contexto a un modelo, revisar un diff, agregar el caso borde que falta: todo eso se hace igual con cualquier herramienta.
 
-Hay tres rutas, y se pueden combinar. La tercera es la única que funciona sin internet.
+Estas tres rutas se pueden combinar. La tercera funciona sin internet.
 
 1\. Lo que ya tienen por ser estudiantes
 
@@ -29,11 +29,11 @@ Modelo abierto corriendo en su máquina. Cero costo, cero envío de datos, y men
 | ChatGPT Free               | Chat de texto, acceso limitado a Codex, contexto reducido                                                                                 | Cuenta                                                                                                                                             |
 | JetBrains para estudiantes | IDEs completos gratis (IntelliJ IDEA Ultimate, PyCharm, WebStorm), renovable cada año. No sirve para trabajo comercial.                   | Verificación con correo universitario                                                                                                              |
 
-La verificación de GitHub Education tarda unos días y a veces rebota: manden una foto legible del carné con la fecha visible, o el certificado de matrícula del semestre. Háganlo antes de necesitarlo.
+La verificación de GitHub Education tarda unos días y a veces rebota. Manden una foto legible del carné con la fecha visible, o el certificado de matrícula. Háganlo antes de necesitarlo.
 
 ### Ruta 2 — Agentes de código open source
 
-Todos estos son gratis y de código abierto. Lo que cuesta no es el agente, es el modelo al que lo conecten: con una capa gratuita o un modelo local, el costo es cero.
+Todos son gratis y de código abierto. Lo que cuesta es el modelo al que los conecten: con una capa gratuita o un modelo local, el costo queda en cero.
 
 | Herramienta | Licencia   | Dónde corre                            | Modelos locales          |
 |-------------|------------|----------------------------------------|--------------------------|
@@ -44,11 +44,11 @@ Todos estos son gratis y de código abierto. Lo que cuesta no es el agente, es e
 | Goose       | Apache 2.0 | Terminal y app de escritorio           | Sí, con soporte MCP      |
 | Gemini CLI  | Apache 2.0 | Terminal                               | No: usa modelos Gemini   |
 
-Dos avisos de estado, porque el ecosistema se mueve rápido y los tutoriales de 2025 ya envejecieron: **Roo Code se descontinuó** (su propio repositorio lo dice y recomienda Cline o el fork ZooCode), y **Goose cambió de organización** en abril de 2026, así que los enlaces a `block/goose` están obsoletos.
+Dos avisos, porque muchos tutoriales de 2025 mandan a enlaces muertos: **Roo Code se descontinuó** (su propio repositorio recomienda Cline o el fork ZooCode) y **Goose cambió de organización** en abril de 2026, así que `block/goose` ya no es la fuente.
 
 #### OpenCode, paso a paso
 
-Es el más parecido a lo que vieron en la demo: agente de terminal que trabaja sobre el repositorio, con modos de plan y de construcción, subagentes y soporte de MCP.
+Agente de terminal que trabaja sobre el repositorio, con modos de plan y de construcción, subagentes y soporte de MCP.
 
 Instalar y arrancar
 
@@ -59,7 +59,7 @@ Instalar y arrancar
 
 Soporta más de 75 proveedores de modelos. Para conectarlo a un modelo local basta apuntarlo a un endpoint compatible con la API de OpenAI —Ollama en `http://localhost:11434/v1`, LM Studio en `http://127.0.0.1:1234/v1`— y su documentación trae los ejemplos de configuración.
 
-El archivo de instrucciones del repositorio que escribieron para el taller sirve igual acá: cambia el nombre del archivo según la herramienta, no el contenido.
+El archivo de instrucciones del repositorio sirve igual acá. Cambia el nombre según la herramienta; el contenido es el mismo.
 
 ### Ruta 3 — Modelos corriendo en su máquina
 
@@ -100,13 +100,13 @@ Modelos de código que se pueden descargar hoy en el rango de un portátil: `qwe
 
 ### Lo que hay que saber antes de elegir
 
-- **Un modelo de 7B local no es un modelo frontera.** Sirve muy bien para explicar código, escribir funciones y autocompletar. En tareas agénticas de varios pasos —llamar herramientas correctamente, editar varios archivos de forma coherente, no perder el hilo— falla bastante más y a veces entra en bucles. Para trabajar sobre un repositorio real, una capa gratuita en la nube rinde mejor que un 7B local.
+- **Un 7B local rinde muy por debajo de un modelo frontera.** Sirve bien para explicar código, escribir funciones y autocompletar. En tareas agénticas de varios pasos (llamar herramientas, editar varios archivos, no perder el hilo) falla bastante y a veces entra en bucles. Para trabajar sobre un repositorio real, una capa gratuita en la nube rinde mejor.
 - **Privacidad.** Las capas gratuitas suelen usar lo que envías para mejorar el producto. Los términos de la API de Gemini, por ejemplo, dicen explícitamente que en los servicios no pagos Google usa el contenido enviado y las respuestas generadas para desarrollar sus productos, y que revisores humanos pueden leerlo. Cada proveedor tiene su política y hay que leerla. Regla simple: nada de código propietario de una práctica, datos personales de terceros ni trabajos confidenciales en una capa gratuita. Si eso les preocupa, la ruta local no envía nada.
 - **Los límites de tasa se agotan.** Un agente hace decenas de llamadas por tarea. Es normal quedarse sin cuota a mitad de una sesión larga: tengan un plan B configurado antes de necesitarlo.
 - **Batería y calor.** La inferencia local mantiene el procesador al máximo. En portátil eso es ventilador a fondo y batería que se va rápido: trabajen enchufados.
-- **La herramienta es gratis, el uso no siempre.** OpenCode, Aider, Cline, Continue y Goose son libres, pero necesitan una API key. Sin capa gratuita ni modelo local, generan costo.
+- **La herramienta es gratis; el uso no siempre.** OpenCode, Aider, Cline, Continue y Goose son libres, pero necesitan una API key. Sin capa gratuita ni modelo local, generan costo.
 
-### Qué montaría yo
+### Qué montar
 
 | Si...                                                   | Montaje                                                                          |
 |---------------------------------------------------------|----------------------------------------------------------------------------------|
@@ -115,6 +115,6 @@ Modelos de código que se pueden descargar hoy en el rango de un portátil: `qwe
 | Trabajan sin internet o con datos sensibles             | Ollama con un modelo de código + OpenCode o Continue apuntando al endpoint local |
 | Ya viven en VS Code                                     | Cline o Continue, con capa gratuita o con Ollama                                 |
 
-Cualquiera de esos montajes alcanza para el taller y para el proyecto del curso. Elijan uno y móntenlo antes de la próxima sesión, no durante.
+Cualquiera de esos montajes alcanza para el proyecto del curso. Móntenlo antes de la próxima sesión.
 
-Datos verificados en la documentación oficial de cada herramienta a septiembre de 2026. Este ecosistema cambia cada pocos meses: si un comando o un límite no cuadra, la fuente es la documentación del proyecto, no esta página.
+Datos verificados en la documentación oficial de cada herramienta a septiembre de 2026. Esto cambia cada pocos meses: si un comando o un límite no cuadra, revisen la documentación del proyecto.

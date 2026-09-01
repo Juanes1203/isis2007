@@ -161,11 +161,11 @@
             <div class="wrap">
                 <p><a class="backlink" href="claude-101.html">Volver a la clase</a></p>
                 <div class="doc">
-                    <h3 class="sub" id="ht-premisa">La premisa</h3>
+                    <h3 class="sub" id="ht-premisa">Tres rutas</h3>
                     
-                    <p>Usamos Claude en clase porque necesitábamos una herramienta concreta para mostrar el flujo completo, no porque sea la única. Todo lo que practicaron —escribir una especificación, dar contexto a un modelo, revisar un diff, escribir el caso borde que falta— se hace igual con cualquier herramienta.</p>
+                    <p>Escribir una especificación, dar contexto a un modelo, revisar un diff, agregar el caso borde que falta: todo eso se hace igual con cualquier herramienta.</p>
                     
-                    <p>Hay tres rutas, y se pueden combinar. La tercera es la única que funciona sin internet.</p>
+                    <p>Estas tres rutas se pueden combinar. La tercera funciona sin internet.</p>
                     
                     <div class="cards">
                       <div class="card">
@@ -220,11 +220,11 @@
                       </tbody>
                     </table></div>
                     
-                    <p>La verificación de GitHub Education tarda unos días y a veces rebota: manden una foto legible del carné con la fecha visible, o el certificado de matrícula del semestre. Háganlo antes de necesitarlo.</p>
+                    <p>La verificación de GitHub Education tarda unos días y a veces rebota. Manden una foto legible del carné con la fecha visible, o el certificado de matrícula. Háganlo antes de necesitarlo.</p>
                     
                     <h3 class="sub" id="ht-agentes">Ruta 2 — Agentes de código open source</h3>
                     
-                    <p>Todos estos son gratis y de código abierto. Lo que cuesta no es el agente, es el modelo al que lo conecten: con una capa gratuita o un modelo local, el costo es cero.</p>
+                    <p>Todos son gratis y de código abierto. Lo que cuesta es el modelo al que los conecten: con una capa gratuita o un modelo local, el costo queda en cero.</p>
                     
                     <div class="tw"><table class="tbl">
                       <thead><tr><th>Herramienta</th><th>Licencia</th><th>Dónde corre</th><th>Modelos locales</th></tr></thead>
@@ -238,11 +238,11 @@
                       </tbody>
                     </table></div>
                     
-                    <p>Dos avisos de estado, porque el ecosistema se mueve rápido y los tutoriales de 2025 ya envejecieron: <strong>Roo Code se descontinuó</strong> (su propio repositorio lo dice y recomienda Cline o el fork ZooCode), y <strong>Goose cambió de organización</strong> en abril de 2026, así que los enlaces a <code>block/goose</code> están obsoletos.</p>
+                    <p>Dos avisos, porque muchos tutoriales de 2025 mandan a enlaces muertos: <strong>Roo Code se descontinuó</strong> (su propio repositorio recomienda Cline o el fork ZooCode) y <strong>Goose cambió de organización</strong> en abril de 2026, así que <code>block/goose</code> ya no es la fuente.</p>
                     
                     <h4>OpenCode, paso a paso</h4>
                     
-                    <p>Es el más parecido a lo que vieron en la demo: agente de terminal que trabaja sobre el repositorio, con modos de plan y de construcción, subagentes y soporte de MCP.</p>
+                    <p>Agente de terminal que trabaja sobre el repositorio, con modos de plan y de construcción, subagentes y soporte de MCP.</p>
                     
                     <div class="prompt"><p class="prompt-h">Instalar y arrancar</p><pre><code>curl -fsSL https://opencode.ai/install | bash
                     
@@ -251,7 +251,7 @@
                     
                     <p>Soporta más de 75 proveedores de modelos. Para conectarlo a un modelo local basta apuntarlo a un endpoint compatible con la API de OpenAI —Ollama en <code>http://localhost:11434/v1</code>, LM Studio en <code>http://127.0.0.1:1234/v1</code>— y su documentación trae los ejemplos de configuración.</p>
                     
-                    <p>El archivo de instrucciones del repositorio que escribieron para el taller sirve igual acá: cambia el nombre del archivo según la herramienta, no el contenido.</p>
+                    <p>El archivo de instrucciones del repositorio sirve igual acá. Cambia el nombre según la herramienta; el contenido es el mismo.</p>
                     
                     <h3 class="sub" id="ht-local">Ruta 3 — Modelos corriendo en su máquina</h3>
                     
@@ -309,14 +309,14 @@
                     <h3 class="sub" id="ht-honesto">Lo que hay que saber antes de elegir</h3>
                     
                     <ul>
-                      <li><strong>Un modelo de 7B local no es un modelo frontera.</strong> Sirve muy bien para explicar código, escribir funciones y autocompletar. En tareas agénticas de varios pasos —llamar herramientas correctamente, editar varios archivos de forma coherente, no perder el hilo— falla bastante más y a veces entra en bucles. Para trabajar sobre un repositorio real, una capa gratuita en la nube rinde mejor que un 7B local.</li>
+                      <li><strong>Un 7B local rinde muy por debajo de un modelo frontera.</strong> Sirve bien para explicar código, escribir funciones y autocompletar. En tareas agénticas de varios pasos (llamar herramientas, editar varios archivos, no perder el hilo) falla bastante y a veces entra en bucles. Para trabajar sobre un repositorio real, una capa gratuita en la nube rinde mejor.</li>
                       <li><strong>Privacidad.</strong> Las capas gratuitas suelen usar lo que envías para mejorar el producto. Los términos de la API de Gemini, por ejemplo, dicen explícitamente que en los servicios no pagos Google usa el contenido enviado y las respuestas generadas para desarrollar sus productos, y que revisores humanos pueden leerlo. Cada proveedor tiene su política y hay que leerla. Regla simple: nada de código propietario de una práctica, datos personales de terceros ni trabajos confidenciales en una capa gratuita. Si eso les preocupa, la ruta local no envía nada.</li>
                       <li><strong>Los límites de tasa se agotan.</strong> Un agente hace decenas de llamadas por tarea. Es normal quedarse sin cuota a mitad de una sesión larga: tengan un plan B configurado antes de necesitarlo.</li>
                       <li><strong>Batería y calor.</strong> La inferencia local mantiene el procesador al máximo. En portátil eso es ventilador a fondo y batería que se va rápido: trabajen enchufados.</li>
-                      <li><strong>La herramienta es gratis, el uso no siempre.</strong> OpenCode, Aider, Cline, Continue y Goose son libres, pero necesitan una API key. Sin capa gratuita ni modelo local, generan costo.</li>
+                      <li><strong>La herramienta es gratis; el uso no siempre.</strong> OpenCode, Aider, Cline, Continue y Goose son libres, pero necesitan una API key. Sin capa gratuita ni modelo local, generan costo.</li>
                     </ul>
                     
-                    <h3 class="sub" id="ht-recomendacion">Qué montaría yo</h3>
+                    <h3 class="sub" id="ht-recomendacion">Qué montar</h3>
                     
                     <div class="tw"><table class="tbl">
                       <thead><tr><th>Si...</th><th>Montaje</th></tr></thead>
@@ -328,9 +328,9 @@
                       </tbody>
                     </table></div>
                     
-                    <p>Cualquiera de esos montajes alcanza para el taller y para el proyecto del curso. Elijan uno y móntenlo antes de la próxima sesión, no durante.</p>
+                    <p>Cualquiera de esos montajes alcanza para el proyecto del curso. Móntenlo antes de la próxima sesión.</p>
                     
-                    <p class="note">Datos verificados en la documentación oficial de cada herramienta a septiembre de 2026. Este ecosistema cambia cada pocos meses: si un comando o un límite no cuadra, la fuente es la documentación del proyecto, no esta página.</p>
+                    <p class="note">Datos verificados en la documentación oficial de cada herramienta a septiembre de 2026. Esto cambia cada pocos meses: si un comando o un límite no cuadra, revisen la documentación del proyecto.</p>
                 </div>
             </div>
         </section>

@@ -161,44 +161,42 @@
             <div class="wrap">
                 <p><a class="backlink" href="claude-101.html">Volver a la clase</a></p>
                 <div class="doc">
-                    <h3 class="sub" id="lab-punto-partida">De dónde parten</h3>
+                    <h3 class="sub" id="lab-arranque">Antes de abrir cualquier herramienta</h3>
                     
-                    <p>Cada equipo llega con un proyecto ya elegido. Eso cambia el ejercicio: no se trata de inventar un producto en 45 minutos, sino de <strong>avanzarlo con criterio de ingeniería</strong> apoyándose en IA.</p>
+                    <p>Pónganse de acuerdo en una frase:</p>
                     
-                    <p>Lo que hicimos con CampusFlow durante la clase — problema, usuario, MVP, historias, diseño técnico, código, tests — es exactamente lo que van a hacer con su propia idea. La diferencia es que CampusFlow era un ejemplo y esto es su proyecto.</p>
+                    <blockquote class="punch">Nuestro producto le permite a ___ hacer ___ para que ___.</blockquote>
                     
-                    <p>Antes de abrir cualquier herramienta, pónganse de acuerdo en una frase: <em>"nuestro producto le permite a ___ hacer ___ para que ___"</em>. Si todavía no la tienen, ahí está el primer frente de trabajo.</p>
+                    <p>Si todavía no la tienen, empiecen por el frente 1.</p>
                     
                     <h3 class="sub" id="lab-frentes">Los seis frentes</h3>
-                    
-                    <p>Escojan dónde está su proyecto hoy y avancen desde ahí. Muchos equipos van a necesitar el frente 1 aunque crean que ya lo tienen resuelto.</p>
                     
                     <ol class="steps">
                       <li>
                         <p class="steph">Afilar el problema y el usuario</p>
-                        <p><strong>Les sirve si</strong> su usuario es "los estudiantes" en general, o si no saben cómo resuelve hoy ese problema sin ustedes.</p>
-                        <p><strong>Qué pedir:</strong> que actúe como product researcher, que a partir de su descripción liste usuarios candidatos, hipótesis y riesgos, y que marque explícitamente qué está asumiendo.</p>
-                        <p><strong>Cómo saben que quedó:</strong> pueden nombrar una persona concreta, con qué frecuencia le pasa el problema y qué usa hoy en su lugar. Y tienen escrita al menos una hipótesis que podría resultar falsa.</p>
-                        <p>Un modelo genera hipótesis; validarlas es otra cosa y se hace hablando con usuarios.</p>
+                        <p><strong>Empiecen aquí si</strong> su usuario es "los estudiantes" en general, o si no saben cómo resuelve hoy el problema sin ustedes.</p>
+                        <p><strong>Qué pedir:</strong> que actúe como product researcher, que a partir de su descripción liste usuarios candidatos, hipótesis y riesgos, y que marque qué está asumiendo.</p>
+                        <p><strong>Quedó cuando</strong> pueden nombrar una persona concreta, con qué frecuencia le pasa el problema y qué usa hoy en su lugar. Y tienen escrita una hipótesis que podría resultar falsa.</p>
+                        <p>Un modelo genera hipótesis. Validarlas se hace hablando con usuarios.</p>
                       </li>
                       <li>
                         <p class="steph">Recortar el MVP</p>
-                        <p><strong>Les sirve si</strong> su lista de funcionalidades tiene más de cinco cosas, o si no hay nada explícitamente fuera de alcance.</p>
-                        <p><strong>Qué pedir:</strong> que ordene las funcionalidades por valor para el usuario contra esfuerzo, que proponga el corte mínimo que ya resuelve el problema, y que justifique cada exclusión.</p>
-                        <p><strong>Cómo saben que quedó:</strong> tienen una tabla de lo que entra y lo que <em>no</em> entra en v0. La segunda columna es la que demuestra que hubo decisión.</p>
+                        <p><strong>Empiecen aquí si</strong> su lista de funcionalidades tiene más de cinco cosas, o si nada quedó fuera de alcance.</p>
+                        <p><strong>Qué pedir:</strong> que ordene las funcionalidades por valor contra esfuerzo, proponga el corte mínimo que ya resuelve el problema, y justifique cada exclusión.</p>
+                        <p><strong>Quedó cuando</strong> tienen la tabla de lo que entra y lo que queda fuera de v0. La segunda columna es la que demuestra que hubo decisión.</p>
                         <div class="tw"><table class="tbl">
                           <thead><tr><th>Entra en v0</th><th>Queda fuera</th><th>Por qué</th></tr></thead>
                           <tbody>
                             <tr><td>La capacidad que resuelve el dolor central</td><td>Todo lo que sea "y además…"</td><td>Sin esto el producto no existe</td></tr>
-                            <tr><td>El flujo mínimo de punta a punta</td><td>Perfiles, ajustes, personalización</td><td>No cambian si la hipótesis es cierta o falsa</td></tr>
+                            <tr><td>El flujo mínimo de punta a punta</td><td>Perfiles, ajustes, personalización</td><td>No cambian si la hipótesis resulta cierta o falsa</td></tr>
                           </tbody>
                         </table></div>
                       </li>
                       <li>
                         <p class="steph">User stories y criterios de aceptación</p>
-                        <p><strong>Les sirve si</strong> van a empezar a programar. Sin criterios de aceptación no pueden evaluar lo que salga generado.</p>
+                        <p><strong>Empiecen aquí si</strong> van a programar. Sin criterios de aceptación no pueden evaluar lo que salga generado.</p>
                         <p><strong>Qué pedir:</strong> que convierta cada capacidad del MVP en historias con criterios en formato Dado / Cuando / Entonces, y que agregue los casos borde que ustedes no pensaron.</p>
-                        <p><strong>Cómo saben que quedó:</strong> cada historia tiene al menos un criterio que puede fallar. "El sistema funciona correctamente" no es un criterio.</p>
+                        <p><strong>Quedó cuando</strong> cada historia tiene al menos un criterio que puede fallar. "El sistema funciona correctamente" no sirve como criterio.</p>
                         <div class="prompt"><p class="prompt-h">Plantilla de historia</p><pre><code>Como {{TIPO_DE_USUARIO}}
                     quiero {{CAPACIDAD}}
                     para {{RESULTADO}}
@@ -209,20 +207,20 @@
                       </li>
                       <li>
                         <p class="steph">Diseño técnico</p>
-                        <p><strong>Les sirve si</strong> ya saben qué construir pero no cómo, o si cada integrante tiene un stack distinto en la cabeza.</p>
-                        <p><strong>Qué pedir:</strong> que proponga dos o tres arquitecturas alternativas para su caso con sus contras, no una sola. Ustedes eligen y escriben por qué.</p>
-                        <p><strong>Cómo saben que quedó:</strong> tienen el stack cerrado, las entidades principales y los endpoints o pantallas del MVP. Y una decisión que tomaron <em>en contra</em> de lo que propuso el modelo, con su razón.</p>
+                        <p><strong>Empiecen aquí si</strong> ya saben qué construir pero no cómo, o si cada integrante tiene un stack distinto en la cabeza.</p>
+                        <p><strong>Qué pedir:</strong> dos o tres arquitecturas alternativas con sus contras, no una sola. Ustedes eligen y escriben por qué.</p>
+                        <p><strong>Quedó cuando</strong> tienen el stack cerrado, las entidades principales y los endpoints o pantallas del MVP. Más una decisión que tomaron en contra de lo que propuso el modelo, con su razón.</p>
                         <div class="box engineers">
                           <p class="boxh">Para ingenieros</p>
-                          <p>Hay decisiones que un modelo no debería cerrar solo: el modelo de datos que define el negocio, los límites de consistencia, qué se guarda de los usuarios y por cuánto tiempo, y cualquier cosa que cueste plata. Esas se discuten en el equipo y se dejan escritas.</p>
+                          <p>Discutan en equipo y dejen escritas las decisiones que un modelo no debería cerrar solo: el modelo de datos que define el negocio, los límites de consistencia, qué se guarda de los usuarios y por cuánto tiempo, y cualquier cosa que cueste plata.</p>
                         </div>
                       </li>
                       <li>
                         <p class="steph">Construir con un agente de código</p>
-                        <p><strong>Les sirve si</strong> ya tienen repositorio y algo que implementar.</p>
-                        <p><strong>El orden que funciona:</strong> escribir un archivo de instrucciones del repo antes del primer prompt, trabajar en rama, pedir cambios pequeños, leer el diff, correr los tests, hacer commit. Repetir.</p>
-                        <p>Ese archivo se llama <code>CLAUDE.md</code> en Claude Code; otros agentes leen su equivalente. El contenido es el mismo:</p>
-                        <div class="prompt"><p class="prompt-h">Archivo de instrucciones mínimo para su repo</p><pre><code># {{NOMBRE DEL PROYECTO}}
+                        <p><strong>Empiecen aquí si</strong> ya tienen repositorio y algo que implementar.</p>
+                        <p><strong>El orden que funciona:</strong> escriban el archivo de instrucciones del repo antes del primer prompt, trabajen en rama, pidan cambios pequeños, lean el diff, corran los tests, hagan commit. Repitan.</p>
+                        <p>Ese archivo se llama <code>CLAUDE.md</code> en Claude Code y otros agentes leen su equivalente. El contenido es el mismo:</p>
+                        <div class="prompt"><p class="prompt-h">Archivo de instrucciones mínimo</p><pre><code># {{NOMBRE DEL PROYECTO}}
                     
                     Qué es: {{UNA FRASE}}
                     Stack: {{LENGUAJE, FRAMEWORK, BASE DE DATOS}}
@@ -242,15 +240,15 @@
                     Antes de dar algo por terminado
                     - Los tests pasan y hay al menos un caso borde cubierto.
                     - El diff se revisó línea por línea.</code></pre></div>
-                        <p><strong>Cómo saben que quedó:</strong> el código corre, y cualquier integrante puede explicar qué hace la función que acaba de entrar.</p>
+                        <p><strong>Quedó cuando</strong> el código corre y cualquier integrante puede explicar la función que acaba de entrar.</p>
                       </li>
                       <li>
                         <p class="steph">Verificar</p>
-                        <p><strong>Les sirve siempre.</strong> Es el frente que más se salta y el que más pesa en la evaluación.</p>
+                        <p>Es el frente que más se salta y el que más pesa en la evaluación.</p>
                         <ul>
-                          <li><strong>Tests:</strong> pidan explícitamente los casos borde. El happy path lo escribe cualquiera.</li>
-                          <li><strong>Diff:</strong> revisen alcance inesperado, archivos que no debía tocar, dependencias nuevas, secretos, y tests que "pasan" porque bajaron la exigencia.</li>
-                          <li><strong>Seguridad:</strong> consultas parametrizadas, validación de entradas, nada de llaves en el repositorio.</li>
+                          <li><strong>Tests:</strong> pidan los casos borde explícitamente. El happy path lo escribe cualquiera.</li>
+                          <li><strong>Diff:</strong> revisen alcance inesperado, archivos que no debía tocar, dependencias nuevas, secretos, y tests que pasan porque bajaron la exigencia.</li>
+                          <li><strong>Seguridad:</strong> consultas parametrizadas, validación de entradas, cero llaves en el repositorio.</li>
                         </ul>
                         <blockquote class="punch">Nunca hagan merge de un diff que no entienden.</blockquote>
                       </li>
@@ -258,57 +256,55 @@
                     
                     <h3 class="sub" id="lab-evidencia">Evidencia de uso de IA</h3>
                     
-                    <p>Es la parte que más pesa de la evaluación, porque es donde se ve el criterio del equipo.</p>
-                    
-                    <p>Guarden en una carpeta <code>ai-evidence/</code> mientras trabajan, no al final:</p>
+                    <p>Guarden esto en una carpeta <code>ai-evidence/</code> mientras trabajan, no al final. Es la parte que más pesa en la evaluación.</p>
                     
                     <div class="tw"><table class="tbl">
                       <thead><tr><th>Qué guardar</th><th>Mínimo</th><th>Qué demuestra</th></tr></thead>
                       <tbody>
-                        <tr><td>Cadenas de iteración</td><td>Dos casos: prompt inicial, qué salió mal, prompt corregido</td><td>Que saben diagnosticar por qué falló, no solo reintentar</td></tr>
+                        <tr><td>Cadenas de iteración</td><td>Dos: prompt inicial, qué salió mal, prompt corregido</td><td>Que saben diagnosticar por qué falló</td></tr>
                         <tr><td>Un diff comentado</td><td>Uno, con sus notas de revisión</td><td>Que leyeron lo que entró al repositorio</td></tr>
                         <tr><td>Una decisión en contra del modelo</td><td>Una, con la razón</td><td>Que hay criterio propio</td></tr>
                         <tr><td>Un error encontrado en código generado</td><td>Uno, con cómo lo detectaron</td><td>Que verifican en vez de confiar</td></tr>
                       </tbody>
                     </table></div>
                     
+                    <p>Al final, respondan en un párrafo:</p>
+                    
                     <p class="ask">¿Qué hizo la IA y qué decisiones tomó el equipo?</p>
                     
-                    <p>Se responde en un párrafo al final.</p>
+                    <h3 class="sub" id="lab-sustentacion">La sustentación</h3>
                     
-                    <h3 class="sub" id="lab-regla">La regla</h3>
+                    <p>Se le pide a un integrante al azar que explique una función específica, que justifique una decisión de diseño, o que haga un cambio en vivo. Tres preguntas típicas:</p>
+                    
+                    <ol>
+                      <li>Expliquen esta función: qué recibe, qué devuelve, qué pasa si le llega vacío.</li>
+                      <li>¿Por qué eligieron este diseño? ¿Qué propuso el modelo que descartaron?</li>
+                      <li>Agreguen aquí un caso borde y háganlo pasar.</li>
+                    </ol>
                     
                     <div class="cols2">
                       <div class="col">
-                        <p class="colh">Esto NO es falta</p>
+                        <p class="colh">No penaliza</p>
                         <ul>
                           <li>Que la IA haya escrito el 100% del código.</li>
                           <li>Que la arquitectura la haya propuesto el modelo y ustedes la hayan adoptado.</li>
-                          <li>Usar IA en todas las etapas del proyecto.</li>
+                          <li>Usar IA en todas las etapas.</li>
                         </ul>
                       </div>
                       <div class="col">
-                        <p class="colh">Esto sí</p>
+                        <p class="colh">Sí penaliza</p>
                         <ul>
                           <li>Entregar código que el equipo no puede explicar.</li>
-                          <li>No haber verificado nada de lo que se generó.</li>
-                          <li>No tener una sola decisión propia en todo el proyecto.</li>
+                          <li>No haber verificado nada de lo generado.</li>
+                          <li>Cero decisiones propias en todo el proyecto.</li>
                           <li>Tests que solo cubren el happy path.</li>
                         </ul>
                       </div>
                     </div>
                     
-                    <p>En la sustentación se le pide a un integrante al azar que explique una función específica, que justifique una decisión de diseño, o que haga un cambio pequeño en vivo. Tres preguntas típicas:</p>
-                    
-                    <ol>
-                      <li>Señalen esta función y explíquenla: qué recibe, qué devuelve, qué pasa si le llega vacío.</li>
-                      <li>¿Por qué eligieron este diseño y no el otro? ¿Qué propuso Claude que descartaron?</li>
-                      <li>Agreguen aquí un caso borde y háganlo pasar.</li>
-                    </ol>
-                    
                     <h3 class="sub" id="lab-criterios">Criterios de evaluación</h3>
                     
-                    <p>Referencia de en qué se fija la evaluación del proyecto. Los pesos exactos los define el curso; lo que importa aquí es dónde poner el esfuerzo.</p>
+                    <p>Dónde poner el esfuerzo. Los pesos exactos los define el curso.</p>
                     
                     <div class="tw"><table class="tbl">
                       <thead><tr><th>Criterio</th><th>Insuficiente</th><th>Bueno</th><th>Excelente</th></tr></thead>
@@ -317,7 +313,7 @@
                           <td>Problema y usuario</td>
                           <td>Usuario genérico, problema sin evidencia</td>
                           <td>Persona concreta con su alternativa actual</td>
-                          <td>Además, hipótesis explícitas y al menos una contrastada con alguien real</td>
+                          <td>Además, hipótesis explícitas y una contrastada con alguien real</td>
                         </tr>
                         <tr>
                           <td>Alcance del MVP</td>
@@ -327,9 +323,9 @@
                         </tr>
                         <tr>
                           <td>Diseño técnico</td>
-                          <td>Es lo que salió del primer prompt, sin comparar alternativas</td>
+                          <td>Salió del primer prompt, sin comparar alternativas</td>
                           <td>Stack y entidades justificados</td>
-                          <td>Se compararon alternativas y se documentó la decisión</td>
+                          <td>Alternativas comparadas y decisión documentada</td>
                         </tr>
                         <tr>
                           <td>Código y tests</td>
@@ -341,52 +337,51 @@
                           <td>Uso de IA con evidencia</td>
                           <td>Prompts sueltos o ninguno</td>
                           <td>Iteraciones documentadas</td>
-                          <td>Iteraciones, diffs revisados y decisiones propias contra lo sugerido</td>
+                          <td>Iteraciones, diffs revisados y decisiones propias</td>
                         </tr>
                         <tr>
                           <td>Comprensión</td>
-                          <td>El equipo no puede explicar el código entregado</td>
+                          <td>El equipo no puede explicar lo entregado</td>
                           <td>El equipo explica lo esencial</td>
                           <td>Cualquiera explica cualquier parte y la modifica en vivo</td>
                         </tr>
                       </tbody>
                     </table></div>
                     
-                    <h3 class="sub" id="lab-niveles">Tres niveles, según dónde esté el equipo</h3>
+                    <h3 class="sub" id="lab-niveles">Tres niveles</h3>
+                    
+                    <p>El nivel es un reto adicional sobre el proyecto base, no un reemplazo.</p>
                     
                     <div class="cards">
                       <div class="card">
                         <p class="cardh">Nivel 1 — Prompting</p>
-                        <p>Trabajan con un modelo en el chat, o en un Project si usan Claude.</p>
+                        <p>Trabajan con un modelo en el chat.</p>
                         <p><strong>Reto:</strong> armen el espacio de trabajo de su producto con su propio contexto (brief, requisitos, decisiones técnicas) y muestren la misma pregunta respondida con y sin ese contexto.</p>
                       </div>
                       <div class="card">
                         <p class="cardh">Nivel 2 — Engineer</p>
                         <p>Trabajan con un agente de código sobre su repositorio.</p>
-                        <p><strong>Reto:</strong> un archivo de instrucciones propio, una feature implementada en rama con su test de caso borde, y el diff revisado con comentarios antes del merge.</p>
+                        <p><strong>Reto:</strong> archivo de instrucciones propio, una feature implementada en rama con su test de caso borde, y el diff revisado con comentarios antes del merge.</p>
                       </div>
                       <div class="card">
                         <p class="cardh">Nivel 3 — AI Engineer</p>
-                        <p>La IA es parte del producto, no solo de cómo lo construyen.</p>
-                        <p><strong>Reto:</strong> un endpoint que responda preguntas sobre tres documentos propios citando la fuente y respondiendo "no está en los documentos" cuando no esté; o conectar un servidor MCP existente a su flujo de trabajo dejando evidencia.</p>
+                        <p>La IA es parte del producto.</p>
+                        <p><strong>Reto:</strong> un endpoint que responda preguntas sobre tres documentos propios citando la fuente y respondiendo "no está en los documentos" cuando no esté. O conecten un servidor MCP existente a su flujo y dejen evidencia.</p>
                       </div>
                     </div>
                     
-                    <p>El nivel es el reto adicional, no el proyecto base. Un nivel 3 brillante sobre un producto sin problema definido no compensa el frente 1.</p>
-                    
-                    <h3 class="sub" id="lab-materiales">Antes de empezar</h3>
+                    <h3 class="sub" id="lab-materiales">Checklist previo</h3>
                     
                     <div class="tw"><table class="tbl">
                       <thead><tr><th>Qué</th><th>Cómo</th></tr></thead>
                       <tbody>
-                        <tr><td>Repositorio del equipo</td><td>Creado, con todos con acceso, y una rama por persona</td></tr>
-                        <tr><td>Un agente de código</td><td>Claude Code si tienen plan pago; si no, cualquiera de las opciones gratuitas de la guía de herramientas</td></tr>
-                        <tr><td>Carpeta de evidencia</td><td><code>ai-evidence/</code> en el repositorio, desde el primer commit</td></tr>
-                        <tr><td>Si nadie del equipo tiene plan pago</td><td>Hay opciones gratuitas que sirven igual para este taller. Ver la guía de herramientas.</td></tr>
+                        <tr><td>Repositorio del equipo</td><td>Creado, con todos con acceso y una rama por persona</td></tr>
+                        <tr><td>Un agente de código</td><td>Claude Code si tienen plan pago. Si no, revisen la guía de herramientas gratuitas</td></tr>
+                        <tr><td>Carpeta de evidencia</td><td><code>ai-evidence/</code> desde el primer commit</td></tr>
                       </tbody>
                     </table></div>
                     
-                    <p>La biblioteca de prompts tiene 26 plantillas por rol. Funcionan con cualquier modelo: empiecen por la del frente en el que están y reemplacen los marcadores con los datos de su producto.</p>
+                    <p>La biblioteca de prompts tiene 26 plantillas por rol y funcionan con cualquier modelo. Busquen la del frente en el que están y reemplacen los marcadores con los datos de su producto.</p>
                 </div>
             </div>
         </section>

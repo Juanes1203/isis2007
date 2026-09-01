@@ -217,7 +217,7 @@ body.on-dark .bar{background:#33343a}
     <p class="eyebrow">01 · El cambio de paradigma</p>
     <h2>Hoy no vamos a aprender qué es Claude.</h2>
     <p class="big">Vamos a aprender a trabajar como ingenieros de software en la era de los agentes de código.</p>
-    <p class="note">La diferencia importa: lo primero se aprende en diez minutos de documentación. Lo segundo es lo que va a definir cómo trabajan los próximos años.</p>
+    <p class="note">Qué es Claude se aprende leyendo la documentación en diez minutos. Lo otro toma la carrera entera.</p>
   </div>
 </section>
 
@@ -254,7 +254,7 @@ body.on-dark .bar{background:#33343a}
     <ul class="pts">
       <li><b>Predice el siguiente token.</b><span>Una y otra vez, sobre todo lo que lleva escrito. Eso es la inferencia completa.</span></li>
       <li><b>No consulta una base de datos de hechos.</b><span>No hay una tabla adentro con la verdad. Hay parámetros que modelan qué texto es probable.</span></li>
-      <li><b>Es probabilístico.</b><span>La misma pregunta puede dar respuestas distintas. No es un bug, es cómo funciona.</span></li>
+      <li><b>Es probabilístico.</b><span>La misma pregunta puede dar respuestas distintas. Así funciona.</span></li>
       <li><b>Optimiza plausibilidad, no verdad.</b><span>Por eso una respuesta falsa suena exactamente igual de segura que una correcta.</span></li>
     </ul>
     <div class="flow" style="margin-top:22px">
@@ -277,8 +277,8 @@ body.on-dark .bar{background:#33343a}
         <tr><td>Claude Fable 5</td><td>1M tokens</td><td>Agentes de larga duración</td></tr>
       </tbody>
     </table>
-    <p class="punch">Llenar la ventana no es lo mismo que usarla bien.</p>
-    <p class="note">Contexto irrelevante degrada la respuesta. Elegir qué entra y qué no entra tiene nombre propio: context engineering. Datos de la documentación oficial de Anthropic, agosto 2026.</p>
+    <p class="punch">Una ventana grande no arregla un contexto malo.</p>
+    <p class="note">El contexto irrelevante degrada la respuesta. Elegir qué entra tiene nombre propio: context engineering. Datos de la documentación oficial de Anthropic, agosto 2026.</p>
   </div>
 </section>
 
@@ -308,7 +308,7 @@ body.on-dark .bar{background:#33343a}
       <button class="opt" data-ok="0"><span class="k">C</span><span>El prompt tenía errores de redacción.</span></button>
       <button class="opt" data-ok="0"><span class="k">D</span><span>Se agotó la ventana de contexto.</span></button>
     </div>
-    <p class="why" data-why>Casi siempre es <b>B</b>. Antes de cambiar de modelo o de reescribir el prompt más bonito, revisa qué información tenía enfrente: ¿le diste el esquema de la base?, ¿le dijiste qué stack usar?, ¿le pegaste 200 líneas que no tenían nada que ver? Cambiar de modelo es lo último que se prueba, no lo primero.</p>
+    <p class="why" data-why>Casi siempre es <b>B</b>. Antes de cambiar de modelo, revisa qué información tenía enfrente: ¿le diste el esquema de la base?, ¿le dijiste qué stack usar?, ¿le pegaste 200 líneas que no venían al caso? Cambiar de modelo se prueba de último.</p>
   </div>
 </section>
 
@@ -342,7 +342,7 @@ body.on-dark .bar{background:#33343a}
       <div class="card on"><h3>Criterios de aceptación</h3><p>Cómo se sabe que quedó bien.</p></div>
       <div class="card on"><h3>Validación</h3><p>Que liste supuestos y diga qué no pudo determinar.</p></div>
     </div>
-    <p class="note">Las dos últimas son las que casi nadie escribe, y son las que convierten una respuesta en algo auditable.</p>
+    <p class="note">Las dos últimas casi nadie las escribe. Sin ellas no hay cómo auditar la respuesta.</p>
   </div>
 </section>
 
@@ -359,7 +359,7 @@ body.on-dark .bar{background:#33343a}
       <li><b>Evaluar es el paso que se salta todo el mundo.</b><span>¿Cumple los criterios de aceptación que escribiste? Si no los escribiste, no puedes evaluar.</span></li>
       <li><b>Refinar es corregir el contexto, no la redacción.</b><span>Cuando un prompt falla, el arreglo casi nunca está en el objetivo: está en contexto, restricciones o validación.</span></li>
     </ul>
-    <p class="punch">Iterar no es fracasar. Es el trabajo.</p>
+    <p class="punch">Iterar es el trabajo.</p>
   </div>
 </section>
 
@@ -375,7 +375,7 @@ body.on-dark .bar{background:#33343a}
       <button class="opt" data-ok="0"><span class="k">C</span><span>Pedirle amablemente que se esfuerce.</span></button>
       <button class="opt" data-ok="1"><span class="k">D</span><span>Una instrucción de validación: que liste supuestos y diga qué no pudo determinar.</span></button>
     </div>
-    <p class="why" data-why><b>B</b> y <b>D</b>. La longitud no es una virtud: un prompt largo lleno de relleno es peor que uno corto y preciso. Lo que sube de nivel es que la respuesta se pueda <b>auditar</b>: si no hay criterios de aceptación, "quedó bien" es una opinión; si no hay validación, el modelo entrega supuestos disfrazados de hechos.</p>
+    <p class="why" data-why><b>B</b> y <b>D</b>. Un prompt largo lleno de relleno rinde peor que uno corto y preciso. Lo que sube de nivel es poder <b>auditar</b> la respuesta: sin criterios de aceptación, "quedó bien" es una opinión; sin validación, los supuestos llegan disfrazados de hechos.</p>
   </div>
 </section>
 
@@ -393,7 +393,7 @@ body.on-dark .bar{background:#33343a}
         <tr><td>Prompt aislado</td><td>Instrucciones del Project + contexto</td></tr>
       </tbody>
     </table>
-    <p class="big">Si llevas tres chats explicando lo mismo, el problema no es el prompt: es que no tienes un espacio de trabajo.</p>
+    <p class="big">Si llevas tres chats explicando lo mismo, te falta un espacio de trabajo.</p>
     <p class="note">En planes pagos, cuando el knowledge supera la ventana de contexto el Project activa modo RAG y amplía la capacidad. En Free hay un tope de cinco projects.</p>
   </div>
 </section>
@@ -412,7 +412,7 @@ body.on-dark .bar{background:#33343a}
     <div class="flow" style="margin-top:18px">
       <span>Discovery</span><i>&#8594;</i><span>Definición</span><i>&#8594;</i><span>Diseño técnico</span><i>&#8594;</i><span>Código</span><i>&#8594;</i><span>Tests</span>
     </div>
-    <p class="note">Un modelo puede acompañar todo ese ciclo. Lo que no hace es validar la hipótesis: eso se hace hablando con usuarios.</p>
+    <p class="note">Un modelo puede acompañar todo ese ciclo. La hipótesis se valida hablando con usuarios.</p>
   </div>
 </section>
 
@@ -428,7 +428,7 @@ body.on-dark .bar{background:#33343a}
       <button class="opt" data-ok="0"><span class="k">C</span><span>En las instrucciones del Project, junto con el rol.</span></button>
       <button class="opt" data-ok="0"><span class="k">D</span><span>En ningún lado: el modelo lo deduce del código.</span></button>
     </div>
-    <p class="why" data-why><b>B</b>. El knowledge es para los documentos del producto que cambian poco y que toda conversación necesita: esquema, requisitos, arquitectura, estándares. Las <b>instructions</b> son otra cosa: el rol, las reglas de respuesta, el formato. Y meterlo en cada chat a mano (A) es exactamente el costo que un Project existe para eliminar.</p>
+    <p class="why" data-why><b>B</b>. El knowledge guarda los documentos del producto que cambian poco y que toda conversación necesita: esquema, requisitos, arquitectura, estándares. Las <b>instructions</b> guardan el rol, las reglas de respuesta y el formato. Pegarlo a mano en cada chat (A) es justo el costo que un Project elimina.</p>
   </div>
 </section>
 
@@ -441,7 +441,7 @@ body.on-dark .bar{background:#33343a}
       <div class="card bad"><span class="tag">Chat web</span><h3>Hablamos sobre el código</h3><p>Pegas un archivo, te devuelve texto, copias y pegas de vuelta. El contexto se pierde en cada vuelta y nadie ejecuta nada.</p></div>
       <div class="card good"><span class="tag">Claude Code</span><h3>Trabaja con el repositorio</h3><p>Lee el codebase, edita varios archivos, corre los comandos, ve fallar los tests, arregla y hace el commit.</p></div>
     </div>
-    <p class="punch">La diferencia no es el modelo. Es el acceso a herramientas y al sistema de archivos.</p>
+    <p class="punch">Lo que cambia es el acceso al sistema de archivos y a las herramientas.</p>
     <p class="note">Corre en terminal, VS Code, JetBrains, app de escritorio, web y móvil. Los mismos CLAUDE.md, settings y servidores MCP funcionan en todas.</p>
   </div>
 </section>
@@ -493,7 +493,7 @@ msgs += [assistant(resp.content), user(tool_result(resp.tool_use.id, result))]</
       <button class="opt" data-ok="1"><span class="k">C</span><span>Describir el síntoma, cómo reproducirlo y pedir el diagnóstico antes de cualquier cambio.</span></button>
       <button class="opt" data-ok="0"><span class="k">D</span><span>"Reescribe el módulo de agenda, creo que el problema está ahí."</span></button>
     </div>
-    <p class="why" data-why><b>C</b>. Un agente con acceso al repo <b>busca solo</b>: no necesita que le pegues los archivos, necesita saber qué está roto y cómo verlo fallar. Pedir el diagnóstico antes del arreglo te deja revisar el razonamiento cuando todavía es barato cambiarlo. Y ojo con D: "creo que está ahí" convierte tu corazonada en la restricción del agente, que va a buscar donde le dijiste aunque el bug esté en otro lado.</p>
+    <p class="why" data-why><b>C</b>. Un agente con acceso al repo <b>busca solo</b>. Lo que necesita es saber qué está roto y cómo verlo fallar. Pedir el diagnóstico antes del arreglo te deja revisar el razonamiento mientras todavía es barato cambiarlo. Ojo con D: "creo que está ahí" convierte tu corazonada en una restricción, y el agente va a buscar donde le dijiste.</p>
   </div>
 </section>
 
@@ -507,7 +507,7 @@ msgs += [assistant(resp.content), user(tool_result(resp.tool_use.id, result))]</
       <div class="card good"><span class="tag">Funciona</span><h3>Prototipo, spike, script de una vez</h3><p>Cuando el código es desechable y la velocidad vale más que la calidad. Explorar una API nueva. Una demo para mañana.</p></div>
       <div class="card bad"><span class="tag">No funciona</span><h3>Cualquier cosa que alguien tenga que mantener</h3><p>Código que va a producción, que otro va a modificar, o que toca datos de usuarios reales.</p></div>
     </div>
-    <p class="note">No es una mala palabra. Es una herramienta con un rango de uso muy específico, y el problema empieza cuando se sale de ese rango sin que nadie lo note.</p>
+    <p class="note">Tiene un rango de uso estrecho. El problema empieza cuando se sale de ese rango sin que nadie lo note.</p>
   </div>
 </section>
 
@@ -522,7 +522,7 @@ msgs += [assistant(resp.content), user(tool_result(resp.tool_use.id, result))]</
       <li><b>Comprensión.</b><span>Nadie en el equipo sabe qué hace ese módulo. Cuando falle a las 2 a. m., tampoco lo va a saber.</span></li>
     </ul>
     <p class="punch">Y la velocidad tampoco está garantizada.</p>
-    <p class="note">METR (2025), experimento controlado con desarrolladores open source expertos en sus propios repos: con IA fueron <b>~19% más lentos</b>, y creían que iban ~20% más rápido. Un solo estudio, con herramientas de principios de 2025 — pero es el dato más honesto que hay sobre la brecha percepción/realidad. arXiv:2507.09089</p>
+    <p class="note">METR (2025), experimento controlado con desarrolladores open source expertos en sus propios repos: con IA fueron <b>~19% más lentos</b>, y creían que iban ~20% más rápido. Es un solo estudio, con herramientas de principios de 2025. Sigue siendo el dato más honesto que hay sobre la brecha entre percepción y realidad. arXiv:2507.09089</p>
   </div>
 </section>
 
@@ -559,7 +559,7 @@ msgs += [assistant(resp.content), user(tool_result(resp.tool_use.id, result))]</
       <button class="opt" data-ok="1"><span class="k">C</span><span>Quien hizo el merge. Y el equipo que definió qué revisa un code review.</span></button>
       <button class="opt" data-ok="0"><span class="k">D</span><span>El profesor, por enseñarnos a usar esto.</span></button>
     </div>
-    <p class="why" data-why><b>C</b>. Esto no es filosofía: es cómo funciona la responsabilidad profesional en ingeniería. El modelo no firma commits ni responde ante un incidente. Y fíjense en el detalle de la pregunta: <b>los tests pasaron</b>. Una suite verde no dice nada sobre seguridad — los tests comprueban lo que alguien pensó en comprobar, y nadie escribió el test de la inyección.</p>
+    <p class="why" data-why><b>C</b>. Así funciona la responsabilidad profesional en ingeniería: el modelo no firma commits ni responde ante un incidente. Y fíjense en el detalle de la pregunta: <b>los tests pasaron</b>. Una suite verde solo comprueba lo que alguien pensó en comprobar, y nadie escribió el test de la inyección.</p>
   </div>
 </section>
 
@@ -568,7 +568,7 @@ msgs += [assistant(resp.content), user(tool_result(resp.tool_use.id, result))]</
   <div class="inner">
     <p class="eyebrow">08 · RAG</p>
     <h2>RAG: examen a libro abierto</h2>
-    <p class="sub">El modelo no se sabe tu reglamento. Lo que hacemos es buscar las páginas correctas y ponérselas al frente antes de que responda.</p>
+    <p class="sub">El modelo no se sabe tu reglamento. Le buscamos las páginas correctas y se las ponemos al frente antes de que responda.</p>
     <div class="flow">
       <span>Documentos</span><i>→</i><span>Chunking</span><i>→</i><span>Embeddings</span><i>→</i><span class="hi">Vector DB</span><i>→</i><span class="hi">Retrieval</span><i>→</i><span>Contexto</span><i>→</i><span>LLM</span><i>→</i><span>Respuesta</span>
     </div>
@@ -617,7 +617,7 @@ msgs += [assistant(resp.content), user(tool_result(resp.tool_use.id, result))]</
         <tr><td>Agent</td><td>Actúa: usa tools en un loop hasta cumplir un objetivo</td><td>El modelo, dentro de los límites que le pusiste</td></tr>
       </tbody>
     </table>
-    <p class="note">Cuidado: un servidor MCP que trae contenido externo te expone a prompt injection. Conecta solo servidores en los que confías y usa credenciales de solo lectura cuando puedas.</p>
+    <p class="note">Un servidor MCP que trae contenido externo te expone a prompt injection. Conecta solo servidores en los que confíes y usa credenciales de solo lectura cuando puedas.</p>
   </div>
 </section>
 
@@ -633,7 +633,7 @@ msgs += [assistant(resp.content), user(tool_result(resp.tool_use.id, result))]</
       <button class="opt" data-ok="1"><span class="k">C</span><span>Si el agente tiene permisos de escritura sobre las entregas, puede ejecutarlo.</span></button>
       <button class="opt" data-ok="0"><span class="k">D</span><span>Los embeddings guardan el texto malicioso de forma permanente.</span></button>
     </div>
-    <p class="why" data-why><b>A</b> y <b>C</b>. Eso es prompt injection: el modelo no tiene una frontera dura entre "contenido que debo analizar" y "orden que debo obedecer". Las mitigaciones son de ingeniería, no de prompt: delimitar el contenido no confiable, <b>menor privilegio</b> en las tools y aprobación humana para acciones con efectos.</p>
+    <p class="why" data-why><b>A</b> y <b>C</b>. Eso es prompt injection: el modelo no tiene una frontera dura entre "contenido que debo analizar" y "orden que debo obedecer". Las mitigaciones son de ingeniería: delimitar el contenido no confiable, <b>menor privilegio</b> en las tools y aprobación humana para acciones con efectos.</p>
   </div>
 </section>
 
@@ -642,13 +642,13 @@ msgs += [assistant(resp.content), user(tool_result(resp.tool_use.id, result))]</
   <div class="inner">
     <p class="eyebrow">10 · Antes de cerrar</p>
     <h2>Nada de esto necesita un plan pago</h2>
-    <p class="sub">Usamos una herramienta concreta para poder mostrar el flujo completo. Los conceptos no son de una marca.</p>
+    <p class="sub">Usamos una herramienta concreta para mostrar el flujo completo. Los conceptos aplican a cualquiera.</p>
     <div class="grid">
       <div class="card"><span class="tag">Ruta 1</span><h3>Lo que ya tienen</h3><p>GitHub Education da Copilot a estudiantes verificados. Gemini CLI tiene capa gratuita. JetBrains regala sus IDEs.</p></div>
       <div class="card"><span class="tag">Ruta 2</span><h3>Agente open source</h3><p>OpenCode, Aider, Cline, Continue, Goose. Gratis y de código abierto; se conectan a cualquier proveedor.</p></div>
       <div class="card"><span class="tag">Ruta 3</span><h3>Todo local</h3><p>Ollama o LM Studio con un modelo de código. Cero costo, cero datos enviados, y menos capacidad.</p></div>
     </div>
-    <p class="note">La guía completa —comandos, qué modelo corre en su portátil, límites y privacidad— está en el sitio del curso.</p>
+    <p class="note">La guía completa está en el sitio del curso: comandos, qué modelo corre en su portátil, límites y privacidad.</p>
   </div>
 </section>
 
