@@ -2,129 +2,111 @@
 
 ### Antes de abrir cualquier herramienta
 
-Pónganse de acuerdo en una frase:
+Pónganse de acuerdo en una sola frase:
 
 > Nuestro producto le permite a \_\_\_ hacer \_\_\_ para que \_\_\_.
 
-Si todavía no la tienen, empiecen por el frente 1.
+Si no les sale, ese es el trabajo de hoy.
 
-### Los seis frentes
+### Por dónde seguir
 
-1.  Afilar el problema y el usuario
+#### Afinar el problema y el usuario
 
-    **Empiecen aquí si** su usuario es "los estudiantes" en general, o si no saben cómo resuelve hoy el problema sin ustedes.
+¿Su usuario sigue siendo "los estudiantes"? Toca afinarlo. Lo mismo si no saben qué hace esa persona hoy para resolver el problema sin ustedes.
 
-    **Qué pedir:** que actúe como product researcher, que a partir de su descripción liste usuarios candidatos, hipótesis y riesgos, y que marque qué está asumiendo.
+Pídanle al modelo que haga de investigador: que proponga usuarios posibles, que diga qué está asumiendo y qué podría salir mal.
 
-    **Quedó cuando** pueden nombrar una persona concreta, con qué frecuencia le pasa el problema y qué usa hoy en su lugar. Y tienen escrita una hipótesis que podría resultar falsa.
+Ya está cuando pueden decir el nombre de una persona, cada cuánto le pasa esto y qué hace hoy en su lugar. Ojo con una cosa: el modelo propone hipótesis, no las comprueba. Eso toca hablando con gente.
 
-    Un modelo genera hipótesis. Validarlas se hace hablando con usuarios.
+#### Recortar el MVP
 
-2.  Recortar el MVP
+Si la lista pasa de cinco funcionalidades, o si no dejaron nada por fuera, falta recortar.
 
-    **Empiecen aquí si** su lista de funcionalidades tiene más de cinco cosas, o si nada quedó fuera de alcance.
+Pídanle que ordene por valor contra esfuerzo y que proponga el corte más chiquito que ya resuelve el problema. Que justifique cada cosa que saca.
 
-    **Qué pedir:** que ordene las funcionalidades por valor contra esfuerzo, proponga el corte mínimo que ya resuelve el problema, y justifique cada exclusión.
+Lo que dejaron por fuera es lo que muestra que decidieron:
 
-    **Quedó cuando** tienen la tabla de lo que entra y lo que queda fuera de v0. La segunda columna es la que demuestra que hubo decisión.
+| Entra en v0                                | Queda fuera                        | Por qué                                           |
+|--------------------------------------------|------------------------------------|---------------------------------------------------|
+| La capacidad que resuelve el dolor central | Todo lo que sea "y además…"        | Sin esto el producto no existe                    |
+| El flujo mínimo de punta a punta           | Perfiles, ajustes, personalización | No cambian si la hipótesis resulta cierta o falsa |
 
-    
+#### User stories y criterios de aceptación
 
-    | Entra en v0                                | Queda fuera                        | Por qué                                           |
-    |--------------------------------------------|------------------------------------|---------------------------------------------------|
-    | La capacidad que resuelve el dolor central | Todo lo que sea "y además…"        | Sin esto el producto no existe                    |
-    | El flujo mínimo de punta a punta           | Perfiles, ajustes, personalización | No cambian si la hipótesis resulta cierta o falsa |
+Esto va antes de programar. Sin criterios no tienen contra qué comparar lo que salga generado.
 
-    
+Pidan que cada capacidad del MVP quede como historia con criterios en Dado / Cuando / Entonces, y que agregue los casos raros que ustedes no pensaron.
 
-3.  User stories y criterios de aceptación
+Cada historia necesita al menos un criterio que pueda fallar. "El sistema funciona correctamente" no sirve.
 
-    **Empiecen aquí si** van a programar. Sin criterios de aceptación no pueden evaluar lo que salga generado.
+Plantilla de historia
 
-    **Qué pedir:** que convierta cada capacidad del MVP en historias con criterios en formato Dado / Cuando / Entonces, y que agregue los casos borde que ustedes no pensaron.
+    Como {{TIPO_DE_USUARIO}}
+    quiero {{CAPACIDAD}}
+    para {{RESULTADO}}
 
-    **Quedó cuando** cada historia tiene al menos un criterio que puede fallar. "El sistema funciona correctamente" no sirve como criterio.
+    Criterios de aceptación
+    - Dado {{CONTEXTO}}, cuando {{ACCIÓN}}, entonces {{RESULTADO OBSERVABLE}}
+    - Caso borde: dado {{SITUACIÓN RARA}}, entonces {{COMPORTAMIENTO ESPERADO}}
 
-    
+#### Diseño técnico
 
-    Plantilla de historia
+Ya saben qué construir pero no cómo. O cada uno tiene un stack distinto en la cabeza.
 
-        Como {{TIPO_DE_USUARIO}}
-        quiero {{CAPACIDAD}}
-        para {{RESULTADO}}
+Pidan dos o tres arquitecturas con sus contras, no una. Con una sola no hay contra qué compararla. Ustedes escogen y escriben por qué.
 
-        Criterios de aceptación
-        - Dado {{CONTEXTO}}, cuando {{ACCIÓN}}, entonces {{RESULTADO OBSERVABLE}}
-        - Caso borde: dado {{SITUACIÓN RARA}}, entonces {{COMPORTAMIENTO ESPERADO}}
+Ya está cuando tienen el stack cerrado, las entidades y los endpoints o pantallas del MVP. Guarden también una decisión donde le llevaron la contraria al modelo, con la razón.
 
-    
+Para ingenieros
 
-4.  Diseño técnico
+Hay decisiones que no las cierra un modelo solo. El modelo de datos que define el negocio, los límites de consistencia, qué guardan de los usuarios y por cuánto tiempo, y cualquier cosa que cueste plata. Esas se hablan en equipo y quedan escritas.
 
-    **Empiecen aquí si** ya saben qué construir pero no cómo, o si cada integrante tiene un stack distinto en la cabeza.
+#### Construir con un agente de código
 
-    **Qué pedir:** dos o tres arquitecturas alternativas con sus contras, no una sola. Ustedes eligen y escriben por qué.
+Ya tienen repositorio y algo que implementar. El orden que sirve es este: escriban el archivo de instrucciones del repo antes de pedir nada, trabajen en rama, pidan cambios chiquitos, lean el diff, corran los tests, hagan commit. Y otra vez.
 
-    **Quedó cuando** tienen el stack cerrado, las entidades principales y los endpoints o pantallas del MVP. Más una decisión que tomaron en contra de lo que propuso el modelo, con su razón.
+Ese archivo se llama `CLAUDE.md` en Claude Code. Otros agentes leen el suyo con otro nombre y el contenido es igual:
 
-    
+Archivo de instrucciones mínimo
 
-    Para ingenieros
+    # {{NOMBRE DEL PROYECTO}}
 
-    Discutan en equipo y dejen escritas las decisiones que un modelo no debería cerrar solo: el modelo de datos que define el negocio, los límites de consistencia, qué se guarda de los usuarios y por cuánto tiempo, y cualquier cosa que cueste plata.
+    Qué es: {{UNA FRASE}}
+    Stack: {{LENGUAJE, FRAMEWORK, BASE DE DATOS}}
 
-    
+    Comandos
+    - Tests: {{COMANDO}}
+    - Correr en local: {{COMANDO}}
 
-5.  Construir con un agente de código
+    Estándares
+    - {{CONVENCIÓN DE NOMBRES, ESTILO, ESTRUCTURA DE CARPETAS}}
+    - Nada de SQL construido por concatenación de strings.
+    - Ningún secreto en el código: van en variables de entorno.
 
-    **Empiecen aquí si** ya tienen repositorio y algo que implementar.
+    Qué no tocar
+    - {{ARCHIVOS O CARPETAS QUE NO SE MODIFICAN}}
 
-    **El orden que funciona:** escriban el archivo de instrucciones del repo antes del primer prompt, trabajen en rama, pidan cambios pequeños, lean el diff, corran los tests, hagan commit. Repitan.
+    Antes de dar algo por terminado
+    - Los tests pasan y hay al menos un caso borde cubierto.
+    - El diff se revisó línea por línea.
 
-    Ese archivo se llama `CLAUDE.md` en Claude Code y otros agentes leen su equivalente. El contenido es el mismo:
+Ya está cuando el código corre y cualquiera del equipo puede explicar la función que acaba de entrar.
 
-    
+#### Verificar
 
-    Archivo de instrucciones mínimo
+Es lo que todo el mundo se salta y lo que más pesa en la nota.
 
-        # {{NOMBRE DEL PROYECTO}}
+Con los tests, pidan los casos raros de una vez. El happy path lo saca cualquiera.
 
-        Qué es: {{UNA FRASE}}
-        Stack: {{LENGUAJE, FRAMEWORK, BASE DE DATOS}}
+Con el diff, miren si tocó archivos que no tenía que tocar, si metió dependencias nuevas, si dejó alguna llave por ahí, y si los tests pasan porque les bajaron la exigencia.
 
-        Comandos
-        - Tests: {{COMANDO}}
-        - Correr en local: {{COMANDO}}
+Y revisen lo de siempre en seguridad: consultas parametrizadas, validación de lo que entra, cero llaves en el repositorio.
 
-        Estándares
-        - {{CONVENCIÓN DE NOMBRES, ESTILO, ESTRUCTURA DE CARPETAS}}
-        - Nada de SQL construido por concatenación de strings.
-        - Ningún secreto en el código: van en variables de entorno.
-
-        Qué no tocar
-        - {{ARCHIVOS O CARPETAS QUE NO SE MODIFICAN}}
-
-        Antes de dar algo por terminado
-        - Los tests pasan y hay al menos un caso borde cubierto.
-        - El diff se revisó línea por línea.
-
-    
-
-    **Quedó cuando** el código corre y cualquier integrante puede explicar la función que acaba de entrar.
-
-6.  Verificar
-
-    Es el frente que más se salta y el que más pesa en la evaluación.
-
-    - **Tests:** pidan los casos borde explícitamente. El happy path lo escribe cualquiera.
-    - **Diff:** revisen alcance inesperado, archivos que no debía tocar, dependencias nuevas, secretos, y tests que pasan porque bajaron la exigencia.
-    - **Seguridad:** consultas parametrizadas, validación de entradas, cero llaves en el repositorio.
-
-    > Nunca hagan merge de un diff que no entienden.
+> Nunca hagan merge de un diff que no entienden.
 
 ### Evidencia de uso de IA
 
-Guarden esto en una carpeta `ai-evidence/` mientras trabajan, no al final. Es la parte que más pesa en la evaluación.
+Vayan guardando esto en una carpeta `ai-evidence/` mientras trabajan. Dejarlo para el final nunca funciona, y es de lo que más pesa en la nota.
 
 | Qué guardar                            | Mínimo                                               | Qué demuestra                           |
 |----------------------------------------|------------------------------------------------------|-----------------------------------------|
@@ -133,13 +115,13 @@ Guarden esto en una carpeta `ai-evidence/` mientras trabajan, no al final. Es la
 | Una decisión en contra del modelo      | Una, con la razón                                    | Que hay criterio propio                 |
 | Un error encontrado en código generado | Uno, con cómo lo detectaron                          | Que verifican en vez de confiar         |
 
-Al final, respondan en un párrafo:
+Y al final contesten en un párrafo:
 
 ¿Qué hizo la IA y qué decisiones tomó el equipo?
 
 ### La sustentación
 
-Se le pide a un integrante al azar que explique una función específica, que justifique una decisión de diseño, o que haga un cambio en vivo. Tres preguntas típicas:
+Se escoge a alguien del equipo al azar y se le pide que explique una función, que defienda una decisión de diseño o que haga un cambio ahí mismo. Las preguntas suelen ser de este estilo:
 
 1.  Expliquen esta función: qué recibe, qué devuelve, qué pasa si le llega vacío.
 2.  ¿Por qué eligieron este diseño? ¿Qué propuso el modelo que descartaron?
@@ -160,7 +142,7 @@ Sí penaliza
 
 ### Criterios de evaluación
 
-Dónde poner el esfuerzo. Los pesos exactos los define el curso.
+Para que sepan dónde poner el esfuerzo. Los pesos exactos los pone el curso.
 
 | Criterio                | Insuficiente                                       | Bueno                                      | Excelente                                                            |
 |-------------------------|----------------------------------------------------|--------------------------------------------|----------------------------------------------------------------------|
@@ -171,23 +153,23 @@ Dónde poner el esfuerzo. Los pesos exactos los define el curso.
 | Uso de IA con evidencia | Prompts sueltos o ninguno                          | Iteraciones documentadas                   | Iteraciones, diffs revisados y decisiones propias                    |
 | Comprensión             | El equipo no puede explicar lo entregado           | El equipo explica lo esencial              | Cualquiera explica cualquier parte y la modifica en vivo             |
 
-### Tres niveles
+### Si quieren ir más allá
 
-El nivel es un reto adicional sobre el proyecto base, no un reemplazo.
+Tres retos extra, según qué tan lejos quieran llevarlo. Van encima del proyecto, no en vez de.
 
-Nivel 1 — Prompting
+Prompting
 
 Trabajan con un modelo en el chat.
 
 **Reto:** armen el espacio de trabajo de su producto con su propio contexto (brief, requisitos, decisiones técnicas) y muestren la misma pregunta respondida con y sin ese contexto.
 
-Nivel 2 — Engineer
+Con un agente de código
 
 Trabajan con un agente de código sobre su repositorio.
 
 **Reto:** archivo de instrucciones propio, una feature implementada en rama con su test de caso borde, y el diff revisado con comentarios antes del merge.
 
-Nivel 3 — AI Engineer
+Con IA dentro del producto
 
 La IA es parte del producto.
 
@@ -201,4 +183,4 @@ La IA es parte del producto.
 | Un agente de código    | Claude Code si tienen plan pago. Si no, revisen la guía de herramientas gratuitas |
 | Carpeta de evidencia   | `ai-evidence/` desde el primer commit                                             |
 
-La biblioteca de prompts tiene 26 plantillas por rol y funcionan con cualquier modelo. Busquen la del frente en el que están y reemplacen los marcadores con los datos de su producto.
+En la biblioteca hay 26 prompts por rol y sirven con cualquier modelo. Busquen el que corresponde a lo que están haciendo y cambien los marcadores por los datos de su producto.

@@ -161,28 +161,11 @@
             <div class="wrap">
                 <p><a class="backlink" href="claude-101.html">Volver a la clase</a></p>
                 <div class="doc">
-                    <h3 class="sub" id="ht-premisa">Tres rutas</h3>
+                    <p>Escribir una especificación, darle contexto al modelo, revisar un diff, agregar el caso que falta: eso se hace igual en cualquier herramienta. Lo que cambia es cuánto acierta el modelo y qué tan cómodo se trabaja.</p>
                     
-                    <p>Escribir una especificación, dar contexto a un modelo, revisar un diff, agregar el caso borde que falta: todo eso se hace igual con cualquier herramienta.</p>
+                    <p>Lo más rápido es usar lo que ya tienes por estar matriculado. Si no alcanza, un agente libre con una capa gratuita cubre casi todo. Y si no quieres mandar tu código a ningún servidor, puedes correr un modelo en tu máquina.</p>
                     
-                    <p>Estas tres rutas se pueden combinar. La tercera funciona sin internet.</p>
-                    
-                    <div class="cards">
-                      <div class="card">
-                        <p class="cardh">1. Lo que ya tienen por ser estudiantes</p>
-                        <p>Programas educativos y planes gratuitos. Lo más rápido de montar.</p>
-                      </div>
-                      <div class="card">
-                        <p class="cardh">2. Agente open source + API gratuita</p>
-                        <p>Un agente de código libre conectado a un proveedor con capa gratuita. La ruta más práctica para trabajar sobre un repositorio.</p>
-                      </div>
-                      <div class="card">
-                        <p class="cardh">3. Todo local</p>
-                        <p>Modelo abierto corriendo en su máquina. Cero costo, cero envío de datos, y menos capacidad.</p>
-                      </div>
-                    </div>
-                    
-                    <h3 class="sub" id="ht-estudiante">Ruta 1 — Lo que ya tienen</h3>
+                    <h3 class="sub" id="ht-estudiante">Empieza por lo que ya tienes</h3>
                     
                     <div class="tw"><table class="tbl">
                       <thead><tr><th>Programa</th><th>Qué da</th><th>Qué pide</th></tr></thead>
@@ -220,11 +203,11 @@
                       </tbody>
                     </table></div>
                     
-                    <p>La verificación de GitHub Education tarda unos días y a veces rebota. Manden una foto legible del carné con la fecha visible, o el certificado de matrícula. Háganlo antes de necesitarlo.</p>
+                    <p>La verificación de GitHub Education tarda unos días y a veces la rebotan. Manda una foto del carné donde se vea la fecha, o el certificado de matrícula. Hazlo antes de que lo necesites.</p>
                     
-                    <h3 class="sub" id="ht-agentes">Ruta 2 — Agentes de código open source</h3>
+                    <h3 class="sub" id="ht-agentes">Agentes de código libres</h3>
                     
-                    <p>Todos son gratis y de código abierto. Lo que cuesta es el modelo al que los conecten: con una capa gratuita o un modelo local, el costo queda en cero.</p>
+                    <p>Estos trabajan sobre el repositorio, igual que Claude Code. Todos son gratis y de código abierto. Lo que cuesta es el modelo al que los conectes, así que con una capa gratuita o uno local no pagas nada.</p>
                     
                     <div class="tw"><table class="tbl">
                       <thead><tr><th>Herramienta</th><th>Licencia</th><th>Dónde corre</th><th>Modelos locales</th></tr></thead>
@@ -238,24 +221,22 @@
                       </tbody>
                     </table></div>
                     
-                    <p>Dos avisos, porque muchos tutoriales de 2025 mandan a enlaces muertos: <strong>Roo Code se descontinuó</strong> (su propio repositorio recomienda Cline o el fork ZooCode) y <strong>Goose cambió de organización</strong> en abril de 2026, así que <code>block/goose</code> ya no es la fuente.</p>
+                    <p>Dos avisos, porque hay tutoriales de 2025 que mandan a enlaces muertos. <strong>Roo Code se descontinuó</strong> y su propio repositorio recomienda Cline o el fork ZooCode. Y <strong>Goose cambió de organización</strong> en abril de 2026, así que <code>block/goose</code> ya no es la fuente.</p>
                     
-                    <h4>OpenCode, paso a paso</h4>
+                    <p>El más parecido a lo de la demo es OpenCode. Va en la terminal, trabaja sobre el repositorio, tiene modo de plan y de construcción, subagentes y MCP.</p>
                     
-                    <p>Agente de terminal que trabaja sobre el repositorio, con modos de plan y de construcción, subagentes y soporte de MCP.</p>
+                    <div class="prompt"><p class="prompt-h">Instalar y arrancar OpenCode</p><pre><code>curl -fsSL https://opencode.ai/install | bash
                     
-                    <div class="prompt"><p class="prompt-h">Instalar y arrancar</p><pre><code>curl -fsSL https://opencode.ai/install | bash
-                    
-                    cd su-proyecto
+                    cd tu-proyecto
                     opencode</code></pre></div>
                     
-                    <p>Soporta más de 75 proveedores de modelos. Para conectarlo a un modelo local basta apuntarlo a un endpoint compatible con la API de OpenAI —Ollama en <code>http://localhost:11434/v1</code>, LM Studio en <code>http://127.0.0.1:1234/v1</code>— y su documentación trae los ejemplos de configuración.</p>
+                    <p>Sirve con más de 75 proveedores. Para uno local lo apuntas a un endpoint compatible con la API de OpenAI, y en su documentación están los ejemplos para Ollama y LM Studio.</p>
                     
-                    <p>El archivo de instrucciones del repositorio sirve igual acá. Cambia el nombre según la herramienta; el contenido es el mismo.</p>
+                    <p>El archivo de instrucciones del repo sirve igual acá. Cambia el nombre según la herramienta, el contenido es el mismo.</p>
                     
-                    <h3 class="sub" id="ht-local">Ruta 3 — Modelos corriendo en su máquina</h3>
+                    <h3 class="sub" id="ht-local">Correr un modelo en tu máquina</h3>
                     
-                    <p>Dos formas de levantar un modelo local. Ambas exponen un endpoint compatible con la API de OpenAI, que es lo que permite conectarlas a cualquiera de los agentes de arriba.</p>
+                    <p>Hay dos formas. Las dos levantan un endpoint compatible con la API de OpenAI, y por ahí se conecta cualquiera de los agentes de arriba.</p>
                     
                     <div class="cols2">
                       <div class="col">
@@ -264,22 +245,20 @@
                     
                     ollama pull qwen2.5-coder:7b
                     ollama run qwen2.5-coder:7b</code></pre>
-                        <p>Endpoint: <code>http://localhost:11434/v1</code>. Pide una API key que ignora: pongan literalmente <code>ollama</code>.</p>
+                        <p>Endpoint: <code>http://localhost:11434/v1</code>. Pide una API key que ignora: pon literalmente <code>ollama</code>.</p>
                       </div>
                       <div class="col">
                         <p class="colh">LM Studio · interfaz gráfica</p>
                         <pre class="code" data-lang="bash"><code>lms get
                     lms server start</code></pre>
-                        <p>Se descarga la aplicación de <code>lmstudio.ai</code> y el CLI <code>lms</code> viene incluido. Endpoint: <code>http://127.0.0.1:1234/v1</code>.</p>
+                        <p>Descarga la aplicación de <code>lmstudio.ai</code> y el CLI <code>lms</code> viene incluido. Endpoint: <code>http://127.0.0.1:1234/v1</code>.</p>
                       </div>
                     </div>
                     
-                    <h4>Qué modelo corre en su portátil</h4>
-                    
-                    <p>Regla práctica con cuantización de 4 bits: cuenten unos 0,6 GB de memoria por cada mil millones de parámetros, más lo que ocupe el contexto. No es una cifra oficial, es una aproximación para calcular antes de descargar 14 GB.</p>
+                    <p>Antes de bajar 14 GB, calcula si te cabe. Con cuantización de 4 bits cuenta como 0,6 GB de memoria por cada mil millones de parámetros, más lo del contexto. Es cálculo de servilleta, no cifra oficial.</p>
                     
                     <div class="tw"><table class="tbl">
-                      <thead><tr><th>Su máquina</th><th>Qué corre de verdad</th><th>Para qué sirve</th></tr></thead>
+                      <thead><tr><th>Tu máquina</th><th>Qué corre de verdad</th><th>Para qué sirve</th></tr></thead>
                       <tbody>
                         <tr>
                           <td>8 GB de RAM</td>
@@ -304,16 +283,16 @@
                       </tbody>
                     </table></div>
                     
-                    <p>Modelos de código que se pueden descargar hoy en el rango de un portátil: <code>qwen2.5-coder</code> (0.5B a 14B), <code>deepseek-coder</code> (1.3B y 6.7B), <code>starcoder2</code>, <code>codegemma</code>, <code>yi-coder</code>, <code>opencoder</code>. Ya en el límite superior: <code>devstral:24b</code> (14 GB de descarga, pensado explícitamente para agentes) y <code>qwen3-coder:30b</code> (19 GB).</p>
+                    <p>Modelos de código que caben en un portátil: <code>qwen2.5-coder</code> (0.5B a 14B), <code>deepseek-coder</code> (1.3B y 6.7B), <code>starcoder2</code>, <code>codegemma</code>, <code>yi-coder</code>, <code>opencoder</code>. Ya en el límite: <code>devstral:24b</code> (14 GB de descarga, pensado para agentes) y <code>qwen3-coder:30b</code> (19 GB).</p>
                     
-                    <h3 class="sub" id="ht-honesto">Lo que hay que saber antes de elegir</h3>
+                    <h3 class="sub" id="ht-honesto">Antes de decidir</h3>
                     
                     <ul>
-                      <li><strong>Un 7B local rinde muy por debajo de un modelo frontera.</strong> Sirve bien para explicar código, escribir funciones y autocompletar. En tareas agénticas de varios pasos (llamar herramientas, editar varios archivos, no perder el hilo) falla bastante y a veces entra en bucles. Para trabajar sobre un repositorio real, una capa gratuita en la nube rinde mejor.</li>
-                      <li><strong>Privacidad.</strong> Las capas gratuitas suelen usar lo que envías para mejorar el producto. Los términos de la API de Gemini, por ejemplo, dicen explícitamente que en los servicios no pagos Google usa el contenido enviado y las respuestas generadas para desarrollar sus productos, y que revisores humanos pueden leerlo. Cada proveedor tiene su política y hay que leerla. Regla simple: nada de código propietario de una práctica, datos personales de terceros ni trabajos confidenciales en una capa gratuita. Si eso les preocupa, la ruta local no envía nada.</li>
-                      <li><strong>Los límites de tasa se agotan.</strong> Un agente hace decenas de llamadas por tarea. Es normal quedarse sin cuota a mitad de una sesión larga: tengan un plan B configurado antes de necesitarlo.</li>
-                      <li><strong>Batería y calor.</strong> La inferencia local mantiene el procesador al máximo. En portátil eso es ventilador a fondo y batería que se va rápido: trabajen enchufados.</li>
-                      <li><strong>La herramienta es gratis; el uso no siempre.</strong> OpenCode, Aider, Cline, Continue y Goose son libres, pero necesitan una API key. Sin capa gratuita ni modelo local, generan costo.</li>
+                      <li>Un 7B local queda muy por debajo de un modelo grande. Para explicar código, escribir funciones y autocompletar va bien. En tareas de varios pasos falla harto y a veces se queda dando vueltas. Si van a trabajar sobre un repo de verdad, una capa gratuita en la nube les va a rendir más.</li>
+                      <li>Las capas gratuitas suelen usar lo que mandas. Los términos de la API de Gemini dicen que en los servicios no pagos Google usa lo que envías y lo que responde para desarrollar sus productos, y que hay revisores humanos que pueden leerlo. Cada proveedor tiene su política. Así que nada de código de la práctica, datos de otras personas ni trabajos confidenciales por ahí. Si eso te preocupa, lo local no manda nada.</li>
+                      <li>La cuota se acaba. Un agente hace decenas de llamadas por tarea, así que es normal quedarse sin nada a mitad de una sesión. Ten el plan B ya configurado.</li>
+                      <li>Correr el modelo localmente deja el procesador al máximo. Ventilador a fondo y la batería se va rapidísimo. Trabaja enchufado.</li>
+                      <li>Que la herramienta sea gratis no significa que el uso lo sea. OpenCode, Aider, Cline, Continue y Goose son libres, pero necesitan una API key. Sin capa gratuita ni modelo local, eso cuesta.</li>
                     </ul>
                     
                     <h3 class="sub" id="ht-recomendacion">Qué montar</h3>
@@ -321,16 +300,14 @@
                     <div class="tw"><table class="tbl">
                       <thead><tr><th>Si...</th><th>Montaje</th></tr></thead>
                       <tbody>
-                        <tr><td>Quieren empezar en cinco minutos</td><td>Verifiquen GitHub Education y usen Copilot en su IDE de siempre</td></tr>
-                        <tr><td>Quieren un agente sobre el repositorio, como en la demo</td><td>OpenCode conectado a una capa gratuita de API</td></tr>
-                        <tr><td>Trabajan sin internet o con datos sensibles</td><td>Ollama con un modelo de código + OpenCode o Continue apuntando al endpoint local</td></tr>
-                        <tr><td>Ya viven en VS Code</td><td>Cline o Continue, con capa gratuita o con Ollama</td></tr>
+                        <tr><td>Quieres empezar en cinco minutos</td><td>Verifica GitHub Education y usa Copilot en el IDE de siempre</td></tr>
+                        <tr><td>Quieres un agente sobre el repositorio, como en la demo</td><td>OpenCode conectado a una capa gratuita de API</td></tr>
+                        <tr><td>Trabajas sin internet o con datos sensibles</td><td>Ollama con un modelo de código, y OpenCode o Continue apuntando al endpoint local</td></tr>
+                        <tr><td>Ya vives en VS Code</td><td>Cline o Continue, con capa gratuita o con Ollama</td></tr>
                       </tbody>
                     </table></div>
                     
-                    <p>Cualquiera de esos montajes alcanza para el proyecto del curso. Móntenlo antes de la próxima sesión.</p>
-                    
-                    <p class="note">Datos verificados en la documentación oficial de cada herramienta a septiembre de 2026. Esto cambia cada pocos meses: si un comando o un límite no cuadra, revisen la documentación del proyecto.</p>
+                    <p>Cualquiera de esos sirve para el proyecto del curso. Móntalo antes de la próxima sesión, no durante.</p>
                 </div>
             </div>
         </section>

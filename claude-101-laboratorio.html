@@ -163,64 +163,74 @@
                 <div class="doc">
                     <h3 class="sub" id="lab-arranque">Antes de abrir cualquier herramienta</h3>
                     
-                    <p>Pónganse de acuerdo en una frase:</p>
+                    <p>Pónganse de acuerdo en una sola frase:</p>
                     
                     <blockquote class="punch">Nuestro producto le permite a ___ hacer ___ para que ___.</blockquote>
                     
-                    <p>Si todavía no la tienen, empiecen por el frente 1.</p>
+                    <p>Si no les sale, ese es el trabajo de hoy.</p>
                     
-                    <h3 class="sub" id="lab-frentes">Los seis frentes</h3>
+                    <h3 class="sub" id="lab-frentes">Por dónde seguir</h3>
                     
-                    <ol class="steps">
-                      <li>
-                        <p class="steph">Afilar el problema y el usuario</p>
-                        <p><strong>Empiecen aquí si</strong> su usuario es "los estudiantes" en general, o si no saben cómo resuelve hoy el problema sin ustedes.</p>
-                        <p><strong>Qué pedir:</strong> que actúe como product researcher, que a partir de su descripción liste usuarios candidatos, hipótesis y riesgos, y que marque qué está asumiendo.</p>
-                        <p><strong>Quedó cuando</strong> pueden nombrar una persona concreta, con qué frecuencia le pasa el problema y qué usa hoy en su lugar. Y tienen escrita una hipótesis que podría resultar falsa.</p>
-                        <p>Un modelo genera hipótesis. Validarlas se hace hablando con usuarios.</p>
-                      </li>
-                      <li>
-                        <p class="steph">Recortar el MVP</p>
-                        <p><strong>Empiecen aquí si</strong> su lista de funcionalidades tiene más de cinco cosas, o si nada quedó fuera de alcance.</p>
-                        <p><strong>Qué pedir:</strong> que ordene las funcionalidades por valor contra esfuerzo, proponga el corte mínimo que ya resuelve el problema, y justifique cada exclusión.</p>
-                        <p><strong>Quedó cuando</strong> tienen la tabla de lo que entra y lo que queda fuera de v0. La segunda columna es la que demuestra que hubo decisión.</p>
-                        <div class="tw"><table class="tbl">
-                          <thead><tr><th>Entra en v0</th><th>Queda fuera</th><th>Por qué</th></tr></thead>
-                          <tbody>
-                            <tr><td>La capacidad que resuelve el dolor central</td><td>Todo lo que sea "y además…"</td><td>Sin esto el producto no existe</td></tr>
-                            <tr><td>El flujo mínimo de punta a punta</td><td>Perfiles, ajustes, personalización</td><td>No cambian si la hipótesis resulta cierta o falsa</td></tr>
-                          </tbody>
-                        </table></div>
-                      </li>
-                      <li>
-                        <p class="steph">User stories y criterios de aceptación</p>
-                        <p><strong>Empiecen aquí si</strong> van a programar. Sin criterios de aceptación no pueden evaluar lo que salga generado.</p>
-                        <p><strong>Qué pedir:</strong> que convierta cada capacidad del MVP en historias con criterios en formato Dado / Cuando / Entonces, y que agregue los casos borde que ustedes no pensaron.</p>
-                        <p><strong>Quedó cuando</strong> cada historia tiene al menos un criterio que puede fallar. "El sistema funciona correctamente" no sirve como criterio.</p>
-                        <div class="prompt"><p class="prompt-h">Plantilla de historia</p><pre><code>Como {{TIPO_DE_USUARIO}}
+                    <h4>Afinar el problema y el usuario</h4>
+                    
+                    <p>¿Su usuario sigue siendo "los estudiantes"? Toca afinarlo. Lo mismo si no saben qué hace esa persona hoy para resolver el problema sin ustedes.</p>
+                    
+                    <p>Pídanle al modelo que haga de investigador: que proponga usuarios posibles, que diga qué está asumiendo y qué podría salir mal.</p>
+                    
+                    <p>Ya está cuando pueden decir el nombre de una persona, cada cuánto le pasa esto y qué hace hoy en su lugar. Ojo con una cosa: el modelo propone hipótesis, no las comprueba. Eso toca hablando con gente.</p>
+                    
+                    <h4>Recortar el MVP</h4>
+                    
+                    <p>Si la lista pasa de cinco funcionalidades, o si no dejaron nada por fuera, falta recortar.</p>
+                    
+                    <p>Pídanle que ordene por valor contra esfuerzo y que proponga el corte más chiquito que ya resuelve el problema. Que justifique cada cosa que saca.</p>
+                    
+                    <p>Lo que dejaron por fuera es lo que muestra que decidieron:</p>
+                    
+                    <div class="tw"><table class="tbl">
+                      <thead><tr><th>Entra en v0</th><th>Queda fuera</th><th>Por qué</th></tr></thead>
+                      <tbody>
+                        <tr><td>La capacidad que resuelve el dolor central</td><td>Todo lo que sea "y además…"</td><td>Sin esto el producto no existe</td></tr>
+                        <tr><td>El flujo mínimo de punta a punta</td><td>Perfiles, ajustes, personalización</td><td>No cambian si la hipótesis resulta cierta o falsa</td></tr>
+                      </tbody>
+                    </table></div>
+                    
+                    <h4>User stories y criterios de aceptación</h4>
+                    
+                    <p>Esto va antes de programar. Sin criterios no tienen contra qué comparar lo que salga generado.</p>
+                    
+                    <p>Pidan que cada capacidad del MVP quede como historia con criterios en Dado / Cuando / Entonces, y que agregue los casos raros que ustedes no pensaron.</p>
+                    
+                    <p>Cada historia necesita al menos un criterio que pueda fallar. "El sistema funciona correctamente" no sirve.</p>
+                    
+                    <div class="prompt"><p class="prompt-h">Plantilla de historia</p><pre><code>Como {{TIPO_DE_USUARIO}}
                     quiero {{CAPACIDAD}}
                     para {{RESULTADO}}
                     
                     Criterios de aceptación
                     - Dado {{CONTEXTO}}, cuando {{ACCIÓN}}, entonces {{RESULTADO OBSERVABLE}}
                     - Caso borde: dado {{SITUACIÓN RARA}}, entonces {{COMPORTAMIENTO ESPERADO}}</code></pre></div>
-                      </li>
-                      <li>
-                        <p class="steph">Diseño técnico</p>
-                        <p><strong>Empiecen aquí si</strong> ya saben qué construir pero no cómo, o si cada integrante tiene un stack distinto en la cabeza.</p>
-                        <p><strong>Qué pedir:</strong> dos o tres arquitecturas alternativas con sus contras, no una sola. Ustedes eligen y escriben por qué.</p>
-                        <p><strong>Quedó cuando</strong> tienen el stack cerrado, las entidades principales y los endpoints o pantallas del MVP. Más una decisión que tomaron en contra de lo que propuso el modelo, con su razón.</p>
-                        <div class="box engineers">
-                          <p class="boxh">Para ingenieros</p>
-                          <p>Discutan en equipo y dejen escritas las decisiones que un modelo no debería cerrar solo: el modelo de datos que define el negocio, los límites de consistencia, qué se guarda de los usuarios y por cuánto tiempo, y cualquier cosa que cueste plata.</p>
-                        </div>
-                      </li>
-                      <li>
-                        <p class="steph">Construir con un agente de código</p>
-                        <p><strong>Empiecen aquí si</strong> ya tienen repositorio y algo que implementar.</p>
-                        <p><strong>El orden que funciona:</strong> escriban el archivo de instrucciones del repo antes del primer prompt, trabajen en rama, pidan cambios pequeños, lean el diff, corran los tests, hagan commit. Repitan.</p>
-                        <p>Ese archivo se llama <code>CLAUDE.md</code> en Claude Code y otros agentes leen su equivalente. El contenido es el mismo:</p>
-                        <div class="prompt"><p class="prompt-h">Archivo de instrucciones mínimo</p><pre><code># {{NOMBRE DEL PROYECTO}}
+                    
+                    <h4>Diseño técnico</h4>
+                    
+                    <p>Ya saben qué construir pero no cómo. O cada uno tiene un stack distinto en la cabeza.</p>
+                    
+                    <p>Pidan dos o tres arquitecturas con sus contras, no una. Con una sola no hay contra qué compararla. Ustedes escogen y escriben por qué.</p>
+                    
+                    <p>Ya está cuando tienen el stack cerrado, las entidades y los endpoints o pantallas del MVP. Guarden también una decisión donde le llevaron la contraria al modelo, con la razón.</p>
+                    
+                    <div class="box engineers">
+                      <p class="boxh">Para ingenieros</p>
+                      <p>Hay decisiones que no las cierra un modelo solo. El modelo de datos que define el negocio, los límites de consistencia, qué guardan de los usuarios y por cuánto tiempo, y cualquier cosa que cueste plata. Esas se hablan en equipo y quedan escritas.</p>
+                    </div>
+                    
+                    <h4>Construir con un agente de código</h4>
+                    
+                    <p>Ya tienen repositorio y algo que implementar. El orden que sirve es este: escriban el archivo de instrucciones del repo antes de pedir nada, trabajen en rama, pidan cambios chiquitos, lean el diff, corran los tests, hagan commit. Y otra vez.</p>
+                    
+                    <p>Ese archivo se llama <code>CLAUDE.md</code> en Claude Code. Otros agentes leen el suyo con otro nombre y el contenido es igual:</p>
+                    
+                    <div class="prompt"><p class="prompt-h">Archivo de instrucciones mínimo</p><pre><code># {{NOMBRE DEL PROYECTO}}
                     
                     Qué es: {{UNA FRASE}}
                     Stack: {{LENGUAJE, FRAMEWORK, BASE DE DATOS}}
@@ -240,23 +250,24 @@
                     Antes de dar algo por terminado
                     - Los tests pasan y hay al menos un caso borde cubierto.
                     - El diff se revisó línea por línea.</code></pre></div>
-                        <p><strong>Quedó cuando</strong> el código corre y cualquier integrante puede explicar la función que acaba de entrar.</p>
-                      </li>
-                      <li>
-                        <p class="steph">Verificar</p>
-                        <p>Es el frente que más se salta y el que más pesa en la evaluación.</p>
-                        <ul>
-                          <li><strong>Tests:</strong> pidan los casos borde explícitamente. El happy path lo escribe cualquiera.</li>
-                          <li><strong>Diff:</strong> revisen alcance inesperado, archivos que no debía tocar, dependencias nuevas, secretos, y tests que pasan porque bajaron la exigencia.</li>
-                          <li><strong>Seguridad:</strong> consultas parametrizadas, validación de entradas, cero llaves en el repositorio.</li>
-                        </ul>
-                        <blockquote class="punch">Nunca hagan merge de un diff que no entienden.</blockquote>
-                      </li>
-                    </ol>
+                    
+                    <p>Ya está cuando el código corre y cualquiera del equipo puede explicar la función que acaba de entrar.</p>
+                    
+                    <h4>Verificar</h4>
+                    
+                    <p>Es lo que todo el mundo se salta y lo que más pesa en la nota.</p>
+                    
+                    <p>Con los tests, pidan los casos raros de una vez. El happy path lo saca cualquiera.</p>
+                    
+                    <p>Con el diff, miren si tocó archivos que no tenía que tocar, si metió dependencias nuevas, si dejó alguna llave por ahí, y si los tests pasan porque les bajaron la exigencia.</p>
+                    
+                    <p>Y revisen lo de siempre en seguridad: consultas parametrizadas, validación de lo que entra, cero llaves en el repositorio.</p>
+                    
+                    <blockquote class="punch">Nunca hagan merge de un diff que no entienden.</blockquote>
                     
                     <h3 class="sub" id="lab-evidencia">Evidencia de uso de IA</h3>
                     
-                    <p>Guarden esto en una carpeta <code>ai-evidence/</code> mientras trabajan, no al final. Es la parte que más pesa en la evaluación.</p>
+                    <p>Vayan guardando esto en una carpeta <code>ai-evidence/</code> mientras trabajan. Dejarlo para el final nunca funciona, y es de lo que más pesa en la nota.</p>
                     
                     <div class="tw"><table class="tbl">
                       <thead><tr><th>Qué guardar</th><th>Mínimo</th><th>Qué demuestra</th></tr></thead>
@@ -268,13 +279,13 @@
                       </tbody>
                     </table></div>
                     
-                    <p>Al final, respondan en un párrafo:</p>
+                    <p>Y al final contesten en un párrafo:</p>
                     
                     <p class="ask">¿Qué hizo la IA y qué decisiones tomó el equipo?</p>
                     
                     <h3 class="sub" id="lab-sustentacion">La sustentación</h3>
                     
-                    <p>Se le pide a un integrante al azar que explique una función específica, que justifique una decisión de diseño, o que haga un cambio en vivo. Tres preguntas típicas:</p>
+                    <p>Se escoge a alguien del equipo al azar y se le pide que explique una función, que defienda una decisión de diseño o que haga un cambio ahí mismo. Las preguntas suelen ser de este estilo:</p>
                     
                     <ol>
                       <li>Expliquen esta función: qué recibe, qué devuelve, qué pasa si le llega vacío.</li>
@@ -304,7 +315,7 @@
                     
                     <h3 class="sub" id="lab-criterios">Criterios de evaluación</h3>
                     
-                    <p>Dónde poner el esfuerzo. Los pesos exactos los define el curso.</p>
+                    <p>Para que sepan dónde poner el esfuerzo. Los pesos exactos los pone el curso.</p>
                     
                     <div class="tw"><table class="tbl">
                       <thead><tr><th>Criterio</th><th>Insuficiente</th><th>Bueno</th><th>Excelente</th></tr></thead>
@@ -348,23 +359,23 @@
                       </tbody>
                     </table></div>
                     
-                    <h3 class="sub" id="lab-niveles">Tres niveles</h3>
+                    <h3 class="sub" id="lab-niveles">Si quieren ir más allá</h3>
                     
-                    <p>El nivel es un reto adicional sobre el proyecto base, no un reemplazo.</p>
+                    <p>Tres retos extra, según qué tan lejos quieran llevarlo. Van encima del proyecto, no en vez de.</p>
                     
                     <div class="cards">
                       <div class="card">
-                        <p class="cardh">Nivel 1 — Prompting</p>
+                        <p class="cardh">Prompting</p>
                         <p>Trabajan con un modelo en el chat.</p>
                         <p><strong>Reto:</strong> armen el espacio de trabajo de su producto con su propio contexto (brief, requisitos, decisiones técnicas) y muestren la misma pregunta respondida con y sin ese contexto.</p>
                       </div>
                       <div class="card">
-                        <p class="cardh">Nivel 2 — Engineer</p>
+                        <p class="cardh">Con un agente de código</p>
                         <p>Trabajan con un agente de código sobre su repositorio.</p>
                         <p><strong>Reto:</strong> archivo de instrucciones propio, una feature implementada en rama con su test de caso borde, y el diff revisado con comentarios antes del merge.</p>
                       </div>
                       <div class="card">
-                        <p class="cardh">Nivel 3 — AI Engineer</p>
+                        <p class="cardh">Con IA dentro del producto</p>
                         <p>La IA es parte del producto.</p>
                         <p><strong>Reto:</strong> un endpoint que responda preguntas sobre tres documentos propios citando la fuente y respondiendo "no está en los documentos" cuando no esté. O conecten un servidor MCP existente a su flujo y dejen evidencia.</p>
                       </div>
@@ -381,7 +392,7 @@
                       </tbody>
                     </table></div>
                     
-                    <p>La biblioteca de prompts tiene 26 plantillas por rol y funcionan con cualquier modelo. Busquen la del frente en el que están y reemplacen los marcadores con los datos de su producto.</p>
+                    <p>En la biblioteca hay 26 prompts por rol y sirven con cualquier modelo. Busquen el que corresponde a lo que están haciendo y cambien los marcadores por los datos de su producto.</p>
                 </div>
             </div>
         </section>

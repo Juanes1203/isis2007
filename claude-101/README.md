@@ -90,7 +90,3 @@ El repositorio incluye un `CLAUDE.md` en la raíz. Es lo que hace que Claude Cod
 10. The engineer is responsible for the result.
 
 > **Don't just use AI. Learn to engineer with AI.**
-
----
-
-Material verificado con documentación oficial a **agosto de 2026**. Lo que no se pudo confirmar en fuentes primarias está marcado como *no verificado*: las capacidades de estas herramientas cambian cada pocos meses, así que verifica antes de citar.
