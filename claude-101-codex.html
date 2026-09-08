@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codex en VS Code · Claude 101 · ISIS2007</title>
+    <meta name="description" content="Cómo instalar y usar Codex, el agente de código de OpenAI: la extensión de VS Code, la CLI en la terminal, permisos, AGENTS.md y el ejercicio del curso.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/theme.css">
+    <style>
+        .doc { max-width: 880px; }
+        .doc > *:last-child { margin-bottom: 0; }
+        .doc p, .doc li { max-width: 74ch; }
+        .doc ul, .doc ol { padding-left: 22px; margin: 0 0 14px; }
+        .doc li { margin-bottom: 6px; }
+        .doc li::marker { color: var(--muted-2); }
+
+        .sub {
+            font-size: clamp(1.25rem, 2.6vw, 1.6rem); font-weight: 800; letter-spacing: -.022em;
+            margin: 46px 0 16px; padding-top: 20px; border-top: 1px solid var(--line);
+            scroll-margin-top: 80px;
+        }
+        .doc .sub:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+        .doc h4 { font-size: 1rem; margin: 24px 0 8px; color: var(--ink-2); }
+
+        .eyebrow-in { display: block; font-size: 11.5px; font-weight: 640; letter-spacing: .14em;
+            text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+
+        blockquote.punch, .punch {
+            border: 0; border-left: 6px solid var(--uni-yellow); background: var(--uni-yellow-soft);
+            margin: 22px 0; padding: 16px 20px; border-radius: 0 var(--radius) var(--radius) 0;
+            font-size: clamp(1.05rem, 2vw, 1.3rem); font-weight: 700; letter-spacing: -.015em;
+            line-height: 1.3; max-width: 62ch;
+        }
+        .punch p { margin: 0; }
+        p.ask { font-weight: 700; font-size: 1.08rem; letter-spacing: -.012em; color: var(--ink); }
+
+        .tw { overflow-x: auto; margin: 0 0 20px; }
+        table.tbl { border-collapse: collapse; width: 100%; font-size: .9rem; min-width: 460px; }
+        table.tbl th {
+            text-align: left; font-size: 11px; font-weight: 640; letter-spacing: .1em;
+            text-transform: uppercase; color: var(--muted); padding: 9px 16px 9px 0;
+            border-bottom: 2px solid var(--uni-black); vertical-align: bottom;
+        }
+        table.tbl td { padding: 10px 16px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+        table.tbl tr:last-child td { border-bottom: 0; }
+        table.tbl td:first-child { font-weight: 600; }
+
+        .doc code {
+            font-family: var(--font-mono); font-size: .875em; background: var(--surface-2);
+            border: 1px solid var(--line); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere;
+        }
+        .codewrap { position: relative; margin: 0 0 18px; }
+        .doc pre.code, .prompt pre {
+            background: var(--uni-black); color: #e9e9ec; font-family: var(--font-mono);
+            font-size: 12.5px; line-height: 1.65; padding: 18px 20px; border-radius: var(--radius);
+            overflow-x: auto; margin: 0;
+        }
+        .doc pre code { background: none; border: 0; padding: 0; font-size: inherit; color: inherit; white-space: pre; }
+
+        .prompt { margin: 0 0 20px; border: 1px solid var(--line-strong); border-radius: var(--radius); overflow: hidden; }
+        .prompt-h {
+            margin: 0; padding: 10px 16px; background: var(--uni-yellow); color: var(--uni-black);
+            font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; max-width: none;
+        }
+        .prompt .codewrap { margin: 0; }
+        .prompt pre { border-radius: 0; }
+
+        .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 20px; padding: 0; }
+        .flow span {
+            font-family: var(--font-mono); font-size: 12.5px; background: var(--surface);
+            border: 1px solid var(--line-strong); padding: 8px 13px; border-radius: 6px;
+            position: relative; white-space: nowrap;
+        }
+        .flow span + span::before { content: "\2192"; color: var(--muted-2); font-family: var(--font-sans); margin-right: 9px; margin-left: -3px; }
+        .flow-v { flex-direction: column; align-items: flex-start; gap: 0; }
+        .flow-v span + span { margin-top: 22px; }
+        .flow-v span + span::before { content: "\2193"; position: absolute; left: 14px; top: -20px; margin: 0; }
+
+        .cols2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 0 0 20px; }
+        .col { background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; }
+        .col > *:last-child { margin-bottom: 0; }
+        .colh { font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase;
+            color: var(--uni-black); margin: 0 0 10px; padding-bottom: 8px; border-bottom: 2px solid var(--uni-yellow); }
+
+        .box { border: 1px solid var(--line); border-left: 6px solid var(--muted-2);
+            border-radius: 0 var(--radius) var(--radius) 0; padding: 14px 18px; margin: 0 0 20px; background: var(--surface-2); }
+        .box > *:last-child { margin-bottom: 0; }
+        .boxh { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 8px; color: var(--muted); }
+        .box.everyone { border-left-color: var(--info); background: var(--info-soft); }
+        .box.everyone .boxh { color: var(--info); }
+        .box.engineers { border-left-color: var(--uni-black); background: var(--surface-3); }
+        .box.engineers .boxh { color: var(--uni-black); }
+        .box.warn { border-left-color: var(--warn); background: var(--warn-soft); }
+        .box.warn .boxh { color: var(--warn); }
+        .box.wow { border-left-color: var(--uni-yellow); background: var(--uni-yellow-soft); }
+        .box.wow .boxh { color: var(--warn); }
+
+        ol.steps { list-style: none; padding: 0; margin: 0 0 20px; counter-reset: st; max-width: none; }
+        ol.steps > li { counter-increment: st; position: relative; padding: 0 0 16px 40px; margin: 0 0 16px; border-bottom: 1px solid var(--line); }
+        ol.steps > li:last-child { border-bottom: 0; margin-bottom: 0; }
+        ol.steps > li::before {
+            content: counter(st, decimal-leading-zero); position: absolute; left: 0; top: 0;
+            font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+            width: 26px; height: 26px; border-radius: 6px; background: var(--uni-yellow); color: var(--uni-black);
+            display: flex; align-items: center; justify-content: center;
+        }
+        ol.steps > li > *:last-child { margin-bottom: 0; }
+        .steph { font-weight: 700; font-size: 1.02rem; margin: 2px 0 6px; letter-spacing: -.012em; }
+
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 0 0 20px; }
+        .cards .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
+        .cards .card > *:last-child { margin-bottom: 0; }
+        .cardh { font-weight: 700; font-size: 1rem; margin: 0 0 8px; letter-spacing: -.012em; }
+        .sheet { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; margin: 0 0 24px; }
+        .sheet .card ol, .sheet .card ul { font-size: .92rem; }
+
+        details.fold { border: 1px solid var(--line); border-radius: var(--radius); margin: 0 0 14px; background: var(--surface); overflow: hidden; }
+        details.fold > summary {
+            cursor: pointer; list-style: none; padding: 12px 18px 12px 36px; position: relative;
+            font-family: var(--font-mono); font-size: 13px; background: var(--surface-2);
+        }
+        details.fold > summary::-webkit-details-marker { display: none; }
+        details.fold > summary::before { content: "\25B8"; position: absolute; left: 16px; color: var(--warn); display: inline-block; transition: transform .15s; }
+        details.fold[open] > summary::before { transform: rotate(90deg); }
+        details.fold[open] > summary { border-bottom: 1px solid var(--line); }
+        details.fold > *:not(summary) { margin: 16px 18px; }
+
+        .qa { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; margin: 0 0 16px; }
+        .qh { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--warn); margin: 0 0 8px; }
+        .q { font-weight: 700; font-size: 1.08rem; line-height: 1.35; margin: 0 0 14px; letter-spacing: -.014em; }
+        .qa details.fold { margin-bottom: 0; }
+
+        .unk { font-family: var(--font-mono); font-size: .82em; background: var(--warn-soft); color: var(--warn);
+            padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+
+        .copybtn {
+            position: absolute; top: 8px; right: 8px; font-family: var(--font-sans); font-size: 10.5px;
+            font-weight: 640; letter-spacing: .09em; text-transform: uppercase;
+            background: rgba(255,255,255,.1); color: #c9cad0; border: 1px solid rgba(255,255,255,.2);
+            border-radius: 5px; padding: 4px 9px; cursor: pointer; opacity: 0; transition: opacity .14s;
+        }
+        .codewrap:hover .copybtn, .copybtn:focus-visible { opacity: 1; }
+        .copybtn:hover { background: var(--uni-yellow); color: var(--uni-black); border-color: var(--uni-yellow); }
+        .copybtn.done { background: var(--uni-yellow); color: var(--uni-black); border-color: var(--uni-yellow); }
+        .backlink { margin-bottom: 26px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <section class="pagehead">
+            <div class="wrap">
+                <span class="eyebrow">Claude 101 · ISIS2007</span>
+                <h1>Codex en VS Code</h1>
+                <p>Cómo instalar y usar el agente de código de OpenAI: la extensión de VS Code, la misma herramienta en la terminal, y qué cambia respecto a lo que vimos en clase con Claude Code.</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="wrap">
+                <p><a class="backlink" href="claude-101.html">Volver a la clase</a></p>
+                <div class="doc">
+                    <p>En la sesión trabajamos con Claude Code, que vive en la terminal. Codex es la respuesta de OpenAI a lo mismo: un agente que lee tu repositorio, propone cambios en varios archivos, corre comandos y te muestra un diff para que apruebes. Lo interesante para ustedes es que trae extensión oficial de VS Code, así que no tienes que salir del editor.</p>
+
+                    <p>El flujo de trabajo es idéntico al de la clase: das contexto, pides un cambio concreto, lees el diff, apruebas o corriges. Si eso ya lo entendiste, cambiar de herramienta es cuestión de veinte minutos.</p>
+
+                    <blockquote class="punch"><p>Codex es la misma disciplina de la clase con otro modelo debajo. Lo que no cambia es que el diff lo revisas tú.</p></blockquote>
+
+                    <h3 class="sub" id="cx-que">Qué es y en qué formas viene</h3>
+
+                    <div class="tw"><table class="tbl">
+                      <thead><tr><th>Forma</th><th>Dónde vive</th><th>Para qué</th></tr></thead>
+                      <tbody>
+                        <tr>
+                          <td>Extensión de IDE</td>
+                          <td>VS Code, y la misma extensión sirve en Cursor y Windsurf. JetBrains y Xcode tienen integración propia.</td>
+                          <td>Panel al lado del código: chat, diffs y aplicar cambios sin cambiar de ventana. <strong>Es la que recomiendo para el proyecto.</strong></td>
+                        </tr>
+                        <tr>
+                          <td>CLI</td>
+                          <td>Terminal (macOS, Linux, Windows)</td>
+                          <td>Sesiones agénticas largas, ejecución no interactiva y scripts. Es el equivalente directo a Claude Code.</td>
+                        </tr>
+                        <tr>
+                          <td>Codex en la web</td>
+                          <td>Navegador, con tu cuenta de ChatGPT</td>
+                          <td>Delegar tareas grandes a la nube y volver por el resultado. Desde el IDE puedes escalar un chat a la web y seguir el mismo hilo.</td>
+                        </tr>
+                      </tbody>
+                    </table></div>
+
+                    <h3 class="sub" id="cx-requisitos">Qué necesitas antes de empezar</h3>
+
+                    <ul>
+                      <li><strong>Una cuenta de ChatGPT.</strong> El inicio de sesión es con esa cuenta, no con una API key, y el uso se descuenta de tu plan.</li>
+                      <li><strong>Un plan que incluya Codex.</strong> Está en Go, Plus, Pro, Business, Edu y Enterprise. El plan gratuito solo deja probar tareas cortas, y <strong>la extensión de VS Code pide plan pago</strong>: con cuenta Free no arranca.</li>
+                      <li><strong>O una API key,</strong> si prefieres pagar por token en lugar de por plan. Sirve en la CLI y no depende de la suscripción.</li>
+                      <li><strong>Git.</strong> No es obligatorio, pero sin control de versiones no tienes cómo devolver un cambio que salió mal. Eso aplica a cualquier agente.</li>
+                    </ul>
+
+                    <div class="box warn">
+                      <p class="boxh">Antes de pagar</p>
+                      <p>Si no tienes plan pago de ChatGPT, no compres uno para esta clase. Revisa primero <a href="claude-101-herramientas.html">Sin suscripción</a>: con GitHub Education, Copilot o un agente libre conectado a una capa gratuita haces el proyecto completo sin gastar nada.</p>
+                    </div>
+
+                    <h3 class="sub" id="cx-vscode">Instalarlo en VS Code</h3>
+
+                    <ol class="steps">
+                      <li>
+                        <p class="steph">Instala la extensión</p>
+                        <p>En VS Code abre el panel de extensiones (<code>Cmd/Ctrl + Shift + X</code>) y busca <strong>Codex</strong>. La oficial la publica OpenAI y su identificador es <code>openai.chatgpt</code>; confirma eso antes de instalar, porque hay clones con nombres parecidos.</p>
+                        <p>Si prefieres no buscar, abre Quick Open con <code>Cmd/Ctrl + P</code> y pega:</p>
+<div class="codewrap"><pre class="code" data-lang="text"><code>ext install openai.chatgpt</code></pre></div>
+                      </li>
+                      <li>
+                        <p class="steph">Abre el panel e inicia sesión</p>
+                        <p>Haz clic en el icono de Codex en la barra lateral. Si no aparece, abre la paleta de comandos (<code>Cmd/Ctrl + Shift + P</code>) y corre <code>Codex: Open Codex Sidebar</code>. Te va a pedir iniciar sesión con ChatGPT: se abre el navegador, autorizas y vuelves al editor.</p>
+                      </li>
+                      <li>
+                        <p class="steph">Abre la carpeta del proyecto, no un archivo suelto</p>
+                        <p>Codex razona sobre el repositorio completo. Si abres un solo archivo pierde la mitad del contexto y responde peor.</p>
+                      </li>
+                      <li>
+                        <p class="steph">Fija los permisos antes del primer prompt</p>
+                        <p>Decide desde el principio si puede editar archivos y correr comandos solo, o si te pregunta cada vez. Para explorar un repo que no conoces, arranca en modo de solo lectura.</p>
+                      </li>
+                      <li>
+                        <p class="steph">Escribe el archivo de instrucciones del repo</p>
+                        <p>Es el <code>AGENTS.md</code>, el equivalente del <code>CLAUDE.md</code> que leyeron en <code>campusflow-api</code>. Más abajo está qué poner.</p>
+                      </li>
+                    </ol>
+
+                    <h3 class="sub" id="cx-usar-vscode">Cómo se trabaja en el editor</h3>
+
+                    <div class="cards">
+                      <div class="card">
+                        <p class="cardh">Contexto desde el editor</p>
+                        <p>Puedes referenciar archivos abiertos y el código que tengas seleccionado directamente en el cuadro de texto, sin volver a pegarlo. También puedes adjuntar chats recientes para no repetir lo que ya explicaste.</p>
+                      </div>
+                      <div class="card">
+                        <p class="cardh">Revisión de cambios</p>
+                        <p>Los cambios llegan como diff al lado del archivo, con la explicación de por qué los hizo. Los aplicas o los rechazas ahí mismo, uno por uno.</p>
+                      </div>
+                      <div class="card">
+                        <p class="cardh">Delegar a la nube</p>
+                        <p>Si la tarea es grande, la escalas a Codex web sin perder el hilo de la conversación, y vuelves al editor cuando hay algo que revisar.</p>
+                      </div>
+                      <div class="card">
+                        <p class="cardh">Aprobaciones</p>
+                        <p>El nivel de permiso se cambia desde el panel. Es lo primero que hay que ajustar y lo último que hay que aflojar.</p>
+                      </div>
+                    </div>
+
+                    <p class="ask">Un primer prompt que sirve para arrancar en cualquier repo:</p>
+
+                    <div class="prompt"><p class="prompt-h">Prompt de entrada a un repositorio</p><pre><code>Antes de cambiar nada: lee el repositorio y explícame en máximo
+diez líneas qué hace, cómo se corre y dónde está la lógica de negocio.
+Dime también qué NO entendiste todavía.
+No edites ningún archivo en este turno.</code></pre></div>
+
+                    <p>Ese "no edites nada en este turno" es la costumbre que más les va a servir. Un agente con permiso de escritura y un prompt vago hace veinte cambios que después nadie quiere revisar.</p>
+
+                    <h3 class="sub" id="cx-cli">Instalarlo en la terminal</h3>
+
+                    <p>La CLI es la misma herramienta sin el editor alrededor. Si les gustó cómo se sentía Claude Code en la demo, esta es la comparación justa. Escoge una sola forma de instalar.</p>
+
+                    <div class="cols2">
+                      <div class="col">
+                        <p class="colh">macOS y Linux</p>
+<pre class="code" data-lang="bash"><code>curl -fsSL https://chatgpt.com/codex/install.sh | sh</code></pre>
+                        <p>Con Homebrew: <code>brew install --cask codex</code></p>
+                      </div>
+                      <div class="col">
+                        <p class="colh">Windows · PowerShell</p>
+<pre class="code" data-lang="powershell"><code>powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"</code></pre>
+                        <p>En Windows conviene trabajar dentro de WSL si el proyecto usa herramientas de Linux.</p>
+                      </div>
+                      <div class="col">
+                        <p class="colh">Con Node ya instalado</p>
+<pre class="code" data-lang="bash"><code>npm install -g @openai/codex</code></pre>
+                        <p>También hay binarios en las releases del repositorio <code>openai/codex</code> en GitHub.</p>
+                      </div>
+                    </div>
+
+                    <div class="prompt"><p class="prompt-h">Primera sesión</p><pre><code>cd tu-proyecto
+codex</code></pre></div>
+
+                    <p>Al arrancar te ofrece iniciar sesión con ChatGPT. Autorizas en el navegador y quedas listo. La configuración vive en <code>~/.codex/config.toml</code>.</p>
+
+                    <h3 class="sub" id="cx-comandos">Los comandos que vas a usar</h3>
+
+                    <div class="tw"><table class="tbl">
+                      <thead><tr><th>Comando</th><th>Qué hace</th><th>Cuándo</th></tr></thead>
+                      <tbody>
+                        <tr><td><code>codex</code></td><td>Abre una sesión interactiva en la carpeta actual</td><td>Siempre, para empezar</td></tr>
+                        <tr><td><code>/init</code></td><td>Genera un <code>AGENTS.md</code> a partir del repositorio</td><td>La primera vez que entras a un proyecto</td></tr>
+                        <tr><td><code>/permissions</code></td><td>Abre el selector de permisos: qué puede editar y correr sin preguntar</td><td>Antes de pedirle el primer cambio</td></tr>
+                        <tr><td><code>/model</code></td><td>Cambia el modelo y el nivel de razonamiento</td><td>Razonamiento alto para diseñar; bajo para tareas mecánicas</td></tr>
+                        <tr><td><code>/status</code></td><td>Muestra la configuración de la sesión</td><td>Cuando algo se comporta raro</td></tr>
+                        <tr><td><code>/review</code></td><td>Revisa los cambios y señala problemas</td><td>Antes de hacer commit</td></tr>
+                        <tr><td><code>codex exec "…"</code></td><td>Corre una tarea sin sesión interactiva</td><td>Scripts, CI, tareas repetitivas</td></tr>
+                        <tr><td><code>codex resume</code></td><td>Reabre una conversación reciente</td><td>Retomar el trabajo del día anterior</td></tr>
+                      </tbody>
+                    </table></div>
+
+                    <h3 class="sub" id="cx-permisos">Permisos: los tres perfiles</h3>
+
+                    <p>Codex separa dos cosas que conviene no confundir. El <strong>sandbox</strong> define qué puede hacer técnicamente cuando ejecuta un comando; la <strong>política de aprobación</strong> define cuándo tiene que preguntarte. Los perfiles que vienen de fábrica son tres.</p>
+
+                    <div class="tw"><table class="tbl">
+                      <thead><tr><th>Perfil</th><th>Qué permite</th><th>Cuándo usarlo</th></tr></thead>
+                      <tbody>
+                        <tr><td><code>:read-only</code></td><td>Ejecución local en modo solo lectura</td><td>Entender un repo, planear, revisar. Empieza aquí.</td></tr>
+                        <tr><td><code>:workspace</code></td><td>Escribe dentro del proyecto y en los temporales del sistema</td><td>El modo de trabajo normal</td></tr>
+                        <tr><td><code>:danger-full-access</code></td><td>Quita las restricciones del sandbox local</td><td>Casi nunca, y solo si entiendes exactamente por qué lo necesitas</td></tr>
+                      </tbody>
+                    </table></div>
+
+                    <p>En la sesión lo cambias con <code>/permissions</code>. Para dejarlo fijo, en <code>~/.codex/config.toml</code>:</p>
+
+<div class="codewrap"><pre class="code" data-lang="toml"><code>default_permissions = ":read-only"</code></pre></div>
+
+                    <div class="box warn">
+                      <p class="boxh">Cuidado</p>
+                      <p>Los perfiles de permisos y los ajustes viejos de sandbox no se combinan. Configura <code>default_permissions</code> con su bloque <code>[permissions]</code>, o los <code>sandbox_mode</code> antiguos, pero no los dos: si mezclas, no vas a saber qué está mandando.</p>
+                    </div>
+
+                    <h3 class="sub" id="cx-agents">AGENTS.md, el archivo que cambia todo</h3>
+
+                    <p>Es el mismo truco del <code>CLAUDE.md</code>: un archivo en la raíz del repositorio con las reglas de la casa, que el agente lee antes de responder. Con él, el primer prompt ya sale bien; sin él, pasas tres turnos corrigiendo cosas que ya sabías.</p>
+
+                    <p><code>/init</code> te escribe un borrador leyendo el proyecto. Revísalo y agrégale lo que un agente no puede adivinar:</p>
+
+                    <div class="prompt"><p class="prompt-h">Qué poner en AGENTS.md</p><pre><code># AGENTS.md
+
+## El proyecto
+Qué es, para quién, y qué NO es.
+
+## Cómo se corre
+Comandos exactos: instalar, migrar, sembrar datos, correr, probar.
+
+## Estructura
+Qué hay en cada carpeta y dónde vive la lógica de negocio.
+
+## Reglas del código
+Estilo, nombres, manejo de errores, qué librerías están permitidas
+y cuáles están prohibidas y por qué.
+
+## Antes de terminar
+Corre las pruebas. No toques migraciones sin avisar.
+Nada de credenciales en el código.</code></pre></div>
+
+                    <p>Escríbelo en el idioma en que trabaja el equipo y mantenlo corto. Un <code>AGENTS.md</code> de tres páginas que nadie actualiza es peor que media página que sí refleja el proyecto.</p>
+
+                    <h3 class="sub" id="cx-ejercicio">Pruébalo con el repo de la clase</h3>
+
+                    <p>El mismo ejercicio que hicimos con Claude Code sirve para comparar. En <code>claude-101/campusflow-api</code> hay un bug intencional y una feature sin implementar.</p>
+
+<div class="codewrap"><pre class="code" data-lang="bash"><code>cd claude-101/campusflow-api
+python3 -m venv .venv &amp;&amp; source .venv/bin/activate
+pip install -r requirements.txt
+python seed.py
+codex</code></pre></div>
+
+                    <div class="cols2">
+                      <div class="col">
+                        <p class="colh">1 · El bug</p>
+                        <p>En modo <code>:read-only</code>, pídele que revise el campo <code>status</code> que devuelve <code>GET /courses/1/agenda</code> para la entrega que vence hoy a las 23:59, y que te explique la causa antes de proponer el arreglo.</p>
+                      </div>
+                      <div class="col">
+                        <p class="colh">2 · La feature</p>
+                        <p><code>GET /courses/1/workload</code> responde 501. Pasa a <code>:workspace</code>, pídele la implementación con pruebas, y revisa el diff línea por línea antes de aplicarlo.</p>
+                      </div>
+                    </div>
+
+                    <p>Cuando termines, la pregunta interesante no es cuál de los dos agentes acertó, sino en qué se equivocaron distinto. Eso es lo que van a contar en la sustentación.</p>
+
+                    <h3 class="sub" id="cx-vs">Codex y Claude Code, lado a lado</h3>
+
+                    <div class="tw"><table class="tbl">
+                      <thead><tr><th></th><th>Codex</th><th>Claude Code</th></tr></thead>
+                      <tbody>
+                        <tr><td>Dónde corre</td><td>Terminal, extensión de VS Code, Cursor, Windsurf, JetBrains, Xcode y web</td><td>Terminal, app de escritorio, web y extensiones de IDE</td></tr>
+                        <tr><td>Archivo de instrucciones</td><td><code>AGENTS.md</code></td><td><code>CLAUDE.md</code></td></tr>
+                        <tr><td>Acceso</td><td>Cuenta de ChatGPT con plan pago, o API key. La extensión de VS Code no funciona con cuenta Free.</td><td>Plan pago de Claude, o API key. No está en el plan gratuito.</td></tr>
+                        <tr><td>Permisos</td><td>Tres perfiles: <code>:read-only</code>, <code>:workspace</code>, <code>:danger-full-access</code></td><td>Modos de permiso equivalentes, con aprobación por herramienta</td></tr>
+                        <tr><td>Contexto extra</td><td>MCP</td><td>MCP</td></tr>
+                      </tbody>
+                    </table></div>
+
+                    <p>La conclusión aburrida es la correcta: se parecen mucho más de lo que se diferencian. Los conceptos de la clase —contexto, especificación, revisión del diff, responsabilidad sobre el resultado— se transfieren enteros. Aprende uno bien y el otro te toma una tarde.</p>
+
+                    <h3 class="sub" id="cx-avisos">Antes de soltarlo en tu proyecto</h3>
+
+                    <ul>
+                      <li><strong>La cuota se mide en mensajes por ventanas de cinco horas</strong> y varía según el modelo. Un agente hace muchas llamadas por tarea, así que se acaba antes de lo que uno cree. Ten tu plan B configurado y no dejes la entrega para la última noche.</li>
+                      <li><strong>Revisa el diff completo.</strong> Que el código corra no significa que esté bien. Sigue aplicando el criterio de la sección de buenas prácticas: leer, entender, y solo entonces aprobar.</li>
+                      <li><strong>No le des acceso total por comodidad.</strong> <code>:danger-full-access</code> quita el sandbox: un comando mal generado ahí ya no tiene red de protección.</li>
+                      <li><strong>Cuida qué mandas.</strong> Datos de otras personas, credenciales y material confidencial no se le pasan a ningún agente, ni de OpenAI ni de nadie.</li>
+                      <li><strong>Deja rastro.</strong> Para la evidencia de uso de IA del proyecto, guarda los prompts y qué aceptaste o rechazaste de cada respuesta. Vale igual con Codex que con Claude.</li>
+                    </ul>
+
+                    <div class="box engineers">
+                      <p class="boxh">Para ingenieros</p>
+                      <p><code>codex exec</code> no abre sesión interactiva, así que se puede meter en un hook de git o en CI: por ejemplo, una revisión automática del diff antes de abrir el pull request. Es útil, pero decide primero qué pasa cuando el agente se equivoca en ese punto de la cadena.</p>
+                    </div>
+
+                    <blockquote class="punch"><p>La herramienta cambia cada seis meses. La responsabilidad sobre lo que entregas, no.</p></blockquote>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="assets/site.js"></script>
+    <script>
+    (function () {
+        document.querySelectorAll('.doc pre').forEach(function (pre) {
+            var code = pre.querySelector('code'); if (!code) return;
+            if (pre.parentNode.classList.contains('codewrap')) { var w = pre.parentNode; }
+            else {
+                var w = document.createElement('div'); w.className = 'codewrap';
+                pre.parentNode.insertBefore(w, pre); w.appendChild(pre);
+            }
+            var b = document.createElement('button');
+            b.type = 'button'; b.className = 'copybtn'; b.textContent = 'copiar';
+            b.addEventListener('click', function () {
+                var done = function () {
+                    b.textContent = 'copiado'; b.classList.add('done');
+                    setTimeout(function () { b.textContent = 'copiar'; b.classList.remove('done'); }, 1500);
+                };
+                if (navigator.clipboard) { navigator.clipboard.writeText(code.innerText).then(done, function () { b.textContent = 'fallo'; }); }
+                else {
+                    var t = document.createElement('textarea'); t.value = code.innerText;
+                    document.body.appendChild(t); t.select();
+                    try { document.execCommand('copy'); done(); } catch (e) { b.textContent = 'fallo'; }
+                    document.body.removeChild(t);
+                }
+            });
+            w.appendChild(b);
+        });
+    })();
+    </script>
+</body>
+</html>

@@ -39,6 +39,7 @@
     'claude-101-cheatsheet.html': 'claude-101.html',
     'claude-101-recursos.html': 'claude-101.html',
     'claude-101-herramientas.html': 'claude-101.html',
+    'claude-101-codex.html': 'claude-101.html',
     '': 'index.html'
   };
 
